@@ -20,14 +20,51 @@ class Subject {
         return db.query('INSERT INTO subject (name) VALUES(?)', [this.name], callback);
     }
 }
-// const newUsr = new User('This is a usernema', '123', 'new@email.com' ); 
-//     newUsr.insertInto((err, rows) => {
-//         if (err) console.log(err);
-//         if(rows) console.log(rows);
-//     });
-const newSubject = new Subject('Finnish');
-    newSubject.insertInto((err, rows) => {
+class Stats {
+    constructor(subject_id, user_id, points = 0) {
+        this.subject_id = subject_id;
+        this.user_id = user_id;
+        this.points = points;
+    }
+    insertInto(callback) {
+        return db.query('INSERT INTO stats (subject_id, user_id, points) VALUES(?,?,?)', [this.subject_id, this.user_id, this.points], callback);
+    }
+}
+class Quiz {
+    constructor(name, material_id, category_id) {
+        this.name = name;
+        this.material_id = material_id;
+        this.category_id = category_id;
+    }
+    insertInto(callback) {
+        return db.query('INSERT INTO quiz (name, material_id, category_id) VALUES(?,?,?)', [this.name, this.material_id, this.category_id], callback);
+    }
+}
+class Material {
+    constructor(category_id) {
+        this.category_id = category_id;
+    }
+    insertInto(callback) {
+        return db.query('INSERT INTO material (category_id) VALUES(?)', [this.category_id], callback);
+    }
+}
+
+
+const newUsr = new User('afggsasgas', '123', 'glhwoeatgwqt@email.com' ); 
+    newUsr.insertInto((err, rows) => {
         if (err) console.log(err);
         if(rows) console.log(rows);
     });
+// const newSubject = new Subject('Finnish');
+//     newSubject.insertInto((err, rows) => {
+//         if (err) console.log(err);
+//         if(rows) console.log(rows);
+//     });
+// const stat = new Stats(1, 1).insertInto((err, rows) => {
+//     if (err) console.log(err);
+//     if(rows) console.log(rows);
+// });
+
+//after adding fixtures, this exits node in the terminal so you don't have to press CTRL + C
+// process.exit();
     
