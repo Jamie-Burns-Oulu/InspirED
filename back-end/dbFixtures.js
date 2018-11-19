@@ -66,5 +66,5 @@ const newUsr = new User('afggsasgas', '123', 'glhwoeatgwqt@email.com' );
 // });
 
 //after adding fixtures, this exits node in the terminal so you don't have to press CTRL + C
-// process.exit();
+process.exit();
     
