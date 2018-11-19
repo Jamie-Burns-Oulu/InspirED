@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+var bcrypt = require("bcryptjs");
 
 class AddUser extends Component {
     constructor() {
@@ -7,11 +8,12 @@ class AddUser extends Component {
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
+            id: 0,
             username: "",
             password: "",
             confirmPassword: "",
             email: "",
-            admin:"",
+            admin: 0,
             picture: ""
         };
     }
@@ -24,26 +26,38 @@ class AddUser extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-
-        const { username, password, email, admin, picture, confirmPassword } = this.state;
-        if(password === confirmPassword){
-        axios
-            .post("http://localhost:4000/login_register/", {
-                username,
-                password,
-                email,
-                admin,
-                picture
-            })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-                // alert("Reg complete ");
-                // window.location.reload();
-            });
-        }
-        else{
-            alert("Passwords do not match")
+        const {
+            id,
+            username,
+            password,
+            email,
+            admin,
+            picture,
+            confirmPassword
+        } = this.state;      
+        var hash = bcrypt.hashSync(password);     
+        console.log(hash);
+        if (password === confirmPassword) {
+            axios
+                .post("http://localhost:4000/login_register/", {
+                    id,
+                    username,
+                    hash,
+                    email,
+                    admin,
+                    picture
+                })
+                .then(res => {
+                    console.log(res);
+                    console.log(res.data);
+                    if (res.data.code === "ER_DUP_ENTRY") {
+                        alert("Not unique");
+                    }
+                    // alert("Reg complete ");
+                    // window.location.reload();
+                });
+        } else {
+            alert("Passwords do not match");
         }
     };
 

@@ -1,14 +1,15 @@
 const db = require('./database');
 
 class User {
-    constructor(username, password, email, admin = 0) {
+    constructor(username, password, email, admin = 0, picture) {
         this.username = username;
         this.password = password;
         this.email = email;
         this.admin = admin;
+        this.picture = picture;
     }
     insertInto(callback) {
-        return db.query('INSERT INTO users (username, password, email, admin ) VALUES(?,?,?,?)', [this.username, this.password, this.email, this.admin], callback);
+        return db.query('INSERT INTO user (username, password, email, admin, picture ) VALUES(?,?,?,?,?)', [this.username, this.password, this.email, this.admin, this.picture], callback);
     }
 };
 
@@ -50,7 +51,7 @@ class Material {
 }
 
 
-const newUsr = new User('afggsasgas', '123', 'glhwoeatgwqt@email.com' ); 
+const newUsr = new User('Testing', '123', 'Testing@email.com', 0, 'picture' ); 
     newUsr.insertInto((err, rows) => {
         if (err) console.log(err);
         if(rows) console.log(rows);
@@ -65,6 +66,7 @@ const newUsr = new User('afggsasgas', '123', 'glhwoeatgwqt@email.com' );
 //     if(rows) console.log(rows);
 // });
 
+
 //after adding fixtures, this exits node in the terminal so you don't have to press CTRL + C
-process.exit();
+//process.exit();
     

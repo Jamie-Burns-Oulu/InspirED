@@ -1,10 +1,10 @@
 var express = require("express");
 var router = express.Router();
-var users = require("../model/user");
+var user = require("../model/user");
 
 router.get("/:user_id?", function(req, res, next) {
     if (req.params.user_id) {
-        users.getUserById(req.params.user_id, function(err, rows) {
+        user.getUserById(req.params.user_id, function(err, rows) {
             if (err) {
                 res.json(err);
             } else {
@@ -12,7 +12,7 @@ router.get("/:user_id?", function(req, res, next) {
             }
         });
     } else {
-        users.getAllUsers(function(err, rows) {
+        user.getAllUsers(function(err, rows) {
             if (err) {
                 res.json(err);
             } else {
@@ -23,7 +23,7 @@ router.get("/:user_id?", function(req, res, next) {
 });
 
 router.post("/", function(req, res, next) {
-    users.adduser(req.body, function(err, count) {
+    user.adduser(req.body, function(err, count) {
         if (err) {
             res.json(err);
         } else {
@@ -33,7 +33,7 @@ router.post("/", function(req, res, next) {
 });
 
 router.delete("/:users_id", function(req, res, next) {
-    users.deleteuser(req.params.users_id, function(err, count) {
+    user.deleteuser(req.params.users_id, function(err, count) {
         if (err) {
             res.json(err);
         } else {
@@ -43,7 +43,7 @@ router.delete("/:users_id", function(req, res, next) {
 });
 
 router.put("/:users_id", function(req, res, next) {
-    users.updateuser(req.params.users_id, req.body, function(err, rows) {
+    user.updateuser(req.params.users_id, req.body, function(err, rows) {
         if (err) {
             res.json(err);
         } else {
