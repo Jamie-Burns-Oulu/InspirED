@@ -1,4 +1,5 @@
 const db = require("../database");
+
 const login_register = {
 
     addUser(user, callback) {
@@ -21,6 +22,6 @@ const login_register = {
     }
 
 
-};
+};  
 
 module.exports = login_register;
