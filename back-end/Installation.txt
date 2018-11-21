@@ -1,3 +1,5 @@
 npm install
 npm i nodemon
+npm i bcyrpt
+npm i react-router-dom
 npm start
