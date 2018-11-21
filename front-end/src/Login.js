@@ -24,14 +24,13 @@ class Login extends Component {
         event.preventDefault();
         const { username, password } = this.state;
         axios 
-            .get("http://localhost:4000/login_register/" + username)
+            .post("http://localhost:4000/login_register/", {username: username, password: password})
             .then(res => {
                 this.setState({ userdata: res.data });
                 var test = bcrypt.compareSync(password, this.state.userdata[0].password);
                 console.log(this.state.userdata[0].password)
                 console.log("Password check = ", test);
             });
-            
     };
 
     render() {

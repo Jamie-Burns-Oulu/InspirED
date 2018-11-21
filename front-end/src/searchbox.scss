@@ -1,0 +1,26 @@
+.searchbox-container {
+    position: absolute;
+    top: 5px;
+    right: 20px;
+    input.searchbox {
+        margin-left: 5px;
+        width: 0px;
+        visibility: hidden;
+        border-radius: 15px;
+        border: 1px solid rgba(0,0,0,0.2);
+        transition: width 0.2s;
+        padding: 5px;
+        
+    }
+    input.open {
+        visibility: visible;
+        width: 200px;
+    }
+    // #search-icon:hover {
+    //     cursor: pointer;
+    //     & + input.searchbox {
+    //         visibility: visible;
+    //         width: 200px;
+    //     }
+    // }
+}

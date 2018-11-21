@@ -49,13 +49,18 @@ class Material {
         return db.query('INSERT INTO material (category_id) VALUES(?)', [this.category_id], callback);
     }
 }
+const newSubject = new Subject('Business');
+newSubject.insertInto((err, rows) => {
+    if (err) console.log(err);
+    if(rows) console.log(rows);
+});
 
 
-const newUsr = new User('Testing', '123', 'Testing@email.com', 0, 'picture' ); 
-    newUsr.insertInto((err, rows) => {
-        if (err) console.log(err);
-        if(rows) console.log(rows);
-    });
+// const newUsr = new User('user', '123', 'user@email.com', 0, 'picture' ); 
+//     newUsr.insertInto((err, rows) => {
+//         if (err) console.log(err);
+//         if(rows) console.log(rows);
+//     });
 // const newSubject = new Subject('Finnish');
 //     newSubject.insertInto((err, rows) => {
 //         if (err) console.log(err);
