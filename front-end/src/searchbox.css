@@ -1,0 +1,22 @@
+.searchbox-container {
+  position: absolute;
+  top: 5px;
+  right: 20px;
+}
+
+.searchbox-container input.searchbox {
+  margin-left: 5px;
+  width: 0px;
+  visibility: hidden;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  -webkit-transition: width 0.2s;
+  transition: width 0.2s;
+  padding: 5px;
+}
+
+.searchbox-container input.open {
+  visibility: visible;
+  width: 200px;
+}
+/*# sourceMappingURL=searchbox.css.map */
