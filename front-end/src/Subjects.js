@@ -13,7 +13,10 @@ export default class Subjects extends Component {
         this.get();
     }
     get() {
-        axios.get('http://localhost:4000/subjects').then( res => {
+        const token = localStorage.getItem('loggedUserToken');
+        
+        axios.get('http://localhost:4000/subjects', {headers: {'authorization' : token}}).then( res => {
+            
             this.setState({subjects: res.data});
         });
     }
