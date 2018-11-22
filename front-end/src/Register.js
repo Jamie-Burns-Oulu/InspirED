@@ -10,46 +10,54 @@ class Register extends Component {
         this.state = {
             id: 0,
             username: "",
-            password: "",
-            confirmPassword: "",
+            pass: "",
+            confirm: "",
             email: "",
             admin: 0,
-            picture: ""
+            picture: ""        
         };
     }
 
     onChange = e => {
         const state = this.state;
         state[e.target.name] = e.target.value;
-        if(this.state.confirmPassword != null && this.state.confirmPassword === this.state.id ){
-            alert("Passwords do not match")
-        }
-        this.state.password = bcrypt.hashSync(this.state.password, 2);
         this.setState(state);
     };
 
     handleSubmit = event => {
         event.preventDefault();
-        const { id, username, password, email, admin, picture } = this.state;
-        console.log(this.state.password);
-        axios
-            .post("http://localhost:4000/login_register/", {
-                id,
-                username,
-                password,
-                email,
-                admin,
-                picture
-            })
-            .then(res => {
-                console.log(res);
-                console.log(res.data);
-                if (res.data.code === "ER_DUP_ENTRY") {
-                    alert("Not unique");
-                }
-                // alert("Reg complete ");
-                //window.location = "/"
+        const { id, username, pass, confirm, email, admin, picture } = this.state;
+        if (confirm !== pass){
+            alert("Passwords do not match");
+        } else{
+        bcrypt.genSalt(10, function(err, salt) {
+            bcrypt.hash(pass, salt, function(err, hash) {
+                console.log(pass);
+                let password = hash;
+                console.log(password);
+                axios
+                    .post("http://localhost:4000/login_register/register", {
+                        id,
+                        username,
+                        password,
+                        email,
+                        admin,
+                        picture
+                    })
+                    .then(res => {
+                        console.log(res);
+                        console.log(res.data);
+                        if (res.data.code === "ER_DUP_ENTRY") {
+                            alert("Not unique");
+                        }
+                        // alert("Reg complete ");
+                        //window.location = "/"
+                    });
+               
             });
+        });
+    };
+       
     };
 
     render() {
@@ -87,7 +95,7 @@ class Register extends Component {
                     <label>
                         <input
                             type="password"
-                            name="password"
+                            name="pass"
                             placeholder="Password"
                             onChange={this.onChange}
                         />
@@ -96,7 +104,7 @@ class Register extends Component {
                     <label>
                         <input
                             type="password"
-                            name="confirmPassword"
+                            name="confirm"
                             placeholder="Confirm Password"
                             onChange={this.onChange}
                         />
@@ -111,10 +119,15 @@ class Register extends Component {
                         Register Now
                     </button>
                 </form>
-                <img src={this.state.picture} alt="profile" width="200" height="200"></img>
+                <img
+                    src={this.state.picture}
+                    alt="profile"
+                    width="200"
+                    height="200"
+                />
             </div>
         );
     }
 }
 
-export default Register ;
+export default Register;

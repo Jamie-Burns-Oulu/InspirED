@@ -17,10 +17,9 @@ const login_register = {
         );
     },
 
-    getUserByUsername(name, callback) {
-        return db.query("select * from user where username=?", [name], callback);
-    }
-
+    getUserByUsername(user, callback) {
+          return db.query('select * from user where username=?', [user], callback);
+      }
 
 };  
 

@@ -9,8 +9,7 @@ class Login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             username: "",
-            password: "",
-            userdata: []
+            password: ""
         };
     }
 
@@ -23,13 +22,15 @@ class Login extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const { username, password } = this.state;
-        axios 
-            .post("http://localhost:4000/login_register/", {username: username, password: password})
+        axios
+            .get("http://localhost:4000/login_register/login/" + username)
             .then(res => {
-                this.setState({ userdata: res.data });
-                var test = bcrypt.compareSync(password, this.state.userdata[0].password);
-                console.log(this.state.userdata[0].password)
-                console.log("Password check = ", test);
+                bcrypt.compare(password, res.data[0].password, function(err, res) {
+                    console.log("Password check = ", res);
+                    if (res) {
+                        alert("Password is good");
+                    }
+                });
             });
     };
 
