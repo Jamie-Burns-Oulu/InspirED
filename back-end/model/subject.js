@@ -7,7 +7,13 @@ const subject = {
         db.query('SELECT * FROM subject WHERE id = ?', [id], callback);
     },
     addSubject(name, callback) {
-        db.query('INSERT INTO subject(name) VALUES(?)', [name], callback);
+        return db.query(
+            "insert into subject (name) values(?)",
+            [
+                name.name
+            ],
+            callback
+        );
     }
 };
 module.exports = subject;

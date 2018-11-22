@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const userAuth = require('../midware/userAuth');
-const user = require('../model/user');
 const subject = require('../model/subject');
 const jwt = require('jsonwebtoken');
 
@@ -41,9 +40,20 @@ router.post('/', userAuth, function(req, res, next) {
                 res.json(rows);
             });
         }
-        else {
-            console.log(err);
+    });   
+});
+
+router.post("/", userAuth, function(req, res, next) {
+    jwt.verify(req.token, 'group1', (err, authData) => {
+        if(authData){   
+        subject.addSubject(req.body, function(err, count) {
+        if (err) {
+            res.json(err);
+        } else {
+            res.json(req.body); //or return count for 1 & 0
         }
+    }); 
+    }
     });
 });
 

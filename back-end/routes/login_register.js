@@ -18,7 +18,6 @@ router.post("/login", function(req, res, next) {
     login_register.getUserByUsername(req.body.username, function(err, count) {
         if (err) {
             res.json(err);
-            console.log(err);
         } else {
             const loggedUser = {
                 username: count[0].username,
@@ -29,8 +28,6 @@ router.post("/login", function(req, res, next) {
                     count,
                     token
                 });
-                // res.json(count); //or return count for 1 & 0
-                console.log(count)
             });
             
         }

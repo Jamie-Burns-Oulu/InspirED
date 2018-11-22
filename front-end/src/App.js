@@ -9,6 +9,8 @@ import Subjects from "./Subjects";
 import Category from "./Category";
 import SearchBox from "./SearchBox";
 import Profile from "./Profile";
+import NewCategory from "./NewCategory";
+import NewSubject from "./NewSubject";
 
 class App extends Component {
     componentDidMount() {
@@ -35,7 +37,7 @@ class App extends Component {
                         Subjects
                     </NavLink>
                     <NavLink to="/Category" exact>
-                        Category
+                        Categories
                     </NavLink>
                 </div>
                 <Route path="/" exact component={Profile} className="navbar"/>
@@ -43,6 +45,8 @@ class App extends Component {
                 <Route path="/Login" exact component={Login} className="navbar"/>
                 <Route path="/Subjects" exact component={Subjects} className="navbar"/>
                 <Route path="/Category" exact component={Category} className="navbar" />
+                <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
+                <Route path="/NewSubject" exact component={NewSubject} className="navbar" />
                 <SearchBox />
             </div>
         );
