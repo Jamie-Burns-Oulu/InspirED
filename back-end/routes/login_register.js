@@ -18,19 +18,16 @@ router.post("/login", function(req, res, next) {
     login_register.getUserByUsername(req.body.username, function(err, count) {
         if (err) {
             res.json(err);
-            console.log(err);
         } else {
             const loggedUser = {
                 username: count[0].username,
                 id: count[0].id
             };
-            jwt.sign({user: loggedUser }, 'group1', { expiresIn: '30s' },(err, token) => {
+            jwt.sign({user: loggedUser }, 'group1', (err, token) => {
                 res.json({
                     count,
                     token
                 });
-                // res.json(count); //or return count for 1 & 0
-                console.log(count)
             });
             
         }

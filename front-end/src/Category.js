@@ -15,7 +15,8 @@ export default class Category extends Component {
         this.get();
     }
     get() {
-        axios.get("http://localhost:4000/category").then(res => {
+        const token = localStorage.getItem("loggedUserToken");
+        axios.get("http://localhost:4000/category",{  headers: { authorization: token }}).then(res => {
             this.setState({ category: res.data });
         });
     }

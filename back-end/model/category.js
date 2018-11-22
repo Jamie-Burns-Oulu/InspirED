@@ -15,6 +15,6 @@ const category = {
             ],
             callback
         );
-    },
+    }
 };
 module.exports = category;

@@ -9,6 +9,7 @@ import Subjects from "./Subjects";
 import Category from "./Category";
 import SearchBox from "./SearchBox";
 import NewCategory from "./NewCategory";
+import NewSubject from "./NewSubject";
 
 class App extends Component {
     render() {
@@ -31,15 +32,13 @@ class App extends Component {
                     <NavLink to="/Category" exact>
                         Categories
                     </NavLink>
-                    {/* <NavLink to="/NewCategory" exact>
-                        NewCategory
-                    </NavLink> */}
                 </div>
                 <Route path="/Register" exact component={Register} className="navbar"/>
                 <Route path="/Login" exact component={Login} className="navbar"/>
                 <Route path="/Subjects" exact component={Subjects} className="navbar"/>
                 <Route path="/Category" exact component={Category} className="navbar" />
                 <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
+                <Route path="/NewSubject" exact component={NewSubject} className="navbar" />
                 <SearchBox />
             </div>
         );

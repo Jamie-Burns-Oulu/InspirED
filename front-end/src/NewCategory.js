@@ -10,33 +10,38 @@ class NewCategory extends Component {
         this.state = {
             subject_id: "",
             name: "",
-            subject:[]
+            subject: [],
+            token: localStorage.getItem("loggedUserToken")
         };
     }
     componentDidMount() {
-       this.getSubjects();
+        this.getSubjects();
     }
 
-    getSubjects(){
-      axios.get("http://localhost:4000/subjects").then(res => {
-         this.setState({ subject: res.data });     
-     });
+    getSubjects() {
+      const { token } = this.state;
+        axios
+            .get("http://localhost:4000/subjects", {
+                headers: { authorization: token }
+            })
+            .then(res => {
+                this.setState({ subject: res.data });
+            });
     }
 
     onChange = e => {
         const state = this.state;
         state[e.target.name] = e.target.value;
-        console.log(e.target.value);
         this.setState(state);
     };
 
     handleSubmit = event => {
+       
         event.preventDefault();
-        const { subject_id, name } = this.state;
+        const { subject_id, name, token } = this.state;
         axios
-            .post("http://localhost:4000/category", { subject_id, name })
-            .then(res => {
-                console.log(res);
+            .post("http://localhost:4000/category",{  headers: { authorization: token }, subject_id, name}).then(res => {
+                console.log(res);                
             });
     };
 
@@ -56,12 +61,18 @@ class NewCategory extends Component {
                     <br />
                     <label>
                         <select name="subject_id" onChange={this.onChange}>
-                        <option value="0" defaultChecked>Select subject</option>
-                        {this.state.subject.map(subject => (
-                            <option key={subject.id} value={subject.id} name="subject_id">
-                                {subject.name}
+                            <option value="0" defaultChecked>
+                                Select subject
                             </option>
-                        ))}
+                            {this.state.subject.map(subject => (
+                                <option
+                                    key={subject.id}
+                                    value={subject.id}
+                                    name="subject_id"
+                                >
+                                    {subject.name}
+                                </option>
+                            ))}
                         </select>
                     </label>
                     <br />
