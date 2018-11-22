@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Token from './token';
+import Token from '../Auth/token';
 
 export default class Profile extends Component {
     constructor() {

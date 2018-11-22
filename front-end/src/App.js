@@ -1,16 +1,15 @@
 import React, { Component } from "react";
-import "./App.css";
-import "./subjects.scss";
-import "./navbar.scss";
+import "./Styles/subjects.scss";
+import "./NavBar/navbar.scss";
 import { NavLink, Route } from "react-router-dom";
-import Register from "./Register";
-import Login from "./Login";
-import Subjects from "./Subjects";
-import Category from "./Category";
-import SearchBox from "./SearchBox";
-import Profile from "./Profile";
-import NewCategory from "./NewCategory";
-import NewSubject from "./NewSubject";
+import Register from "./User/Register";
+import Login from "./User/Login";
+import Subjects from "./Subject/Subjects";
+import Category from "./Category/Category";
+import SearchBox from "./Search/SearchBox";
+import Profile from "./User/Profile";
+import NewCategory from "./Category/NewCategory";
+import NewSubject from "./Subject/NewSubject";
 
 class App extends Component {
     componentDidMount() {

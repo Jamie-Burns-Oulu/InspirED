@@ -33,27 +33,19 @@ router.get('/:id?', userAuth, function(req, res, next) {
         }
     }); 
 });
-router.post('/', userAuth, function(req, res, next) {
-    jwt.verify(req.token, 'group1', (err, data) => {
-        if(data) {
-            subject.addSubject(req.body.name, (error, rows) => {
-                res.json(rows);
-            });
-        }
-    });   
-});
+
 
 router.post("/", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){   
-        subject.addSubject(req.body, function(err, count) {
-        if (err) {
-            res.json(err);
-        } else {
-            res.json(req.body); //or return count for 1 & 0
+            subject.addSubject(req.body, function(err, count) {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(req.body); //or return count for 1 & 0
+                }
+            }); 
         }
-    }); 
-    }
     });
 });
 

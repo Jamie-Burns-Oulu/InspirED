@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import { NavLink, Route } from "react-router-dom";
 import NewSubject from "./NewSubject";
-import Token from './token';
+import Token from '../Auth/token';
 
 export default class Subjects extends Component {
     constructor() {
