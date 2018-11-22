@@ -1,6 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var login_register = require("../model/login_register");
+const jwt = require('jsonwebtoken');
 
 
 router.post("/register", function(req, res, next) {
@@ -13,14 +14,25 @@ router.post("/register", function(req, res, next) {
     });
 });
 
-router.get("/login/:user?", function(req, res, next) {
-    login_register.getUserByUsername(req.params.user, function(err, count) {
+router.post("/login", function(req, res, next) {
+    login_register.getUserByUsername(req.body.username, function(err, count) {
         if (err) {
             res.json(err);
-            console.log(err)
+            console.log(err);
         } else {
-            res.json(count); //or return count for 1 & 0
-            console.log(count)
+            const loggedUser = {
+                username: count[0].username,
+                id: count[0].id
+            };
+            jwt.sign({user: loggedUser }, 'group1', { expiresIn: '30s' },(err, token) => {
+                res.json({
+                    count,
+                    token
+                });
+                // res.json(count); //or return count for 1 & 0
+                console.log(count)
+            });
+            
         }
     });
 });

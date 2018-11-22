@@ -23,13 +23,15 @@ class Login extends Component {
         event.preventDefault();
         const { username, password } = this.state;
         axios
-            .get("http://localhost:4000/login_register/login/" + username)
-            .then(res => {
-                bcrypt.compare(password, res.data[0].password, function(err, res) {
+            .post("http://localhost:4000/login_register/login/", {username: username})
+            .then(response => {
+    
+                bcrypt.compare(password, response.data.count[0].password, function(err, res) {
                     console.log("Password check = ", res);
-                    if (res) {
-                        alert("Password is good");
+                    if (res) {   
+                        localStorage.setItem('loggedUserToken', response.data.token);
                     }
+                    
                 });
             });
     };
