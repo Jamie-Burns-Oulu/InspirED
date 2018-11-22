@@ -34,6 +34,6 @@ export default class Subjects extends Component {
             <span className="glyphicon glyphicon-menu-right" id="next-icon"></span>
             </div>
         </div>
-        )
+        )   
     }
 }
