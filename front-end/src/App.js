@@ -8,20 +8,27 @@ import Login from "./Login";
 import Subjects from "./Subjects";
 import Category from "./Category";
 import SearchBox from "./SearchBox";
+import Profile from "./Profile";
 
 class App extends Component {
+    componentDidMount() {
+        const isSession = localStorage.getItem('loggedUserToken');
+        if(isSession) {
+            document.getElementById('login').style.display = 'none';
+            document.getElementById('register').style.display = 'none';
+        }
+    }
     render() {
         return (
             <div className="App">
                 <div className="navigationbar">
-                    
                     <NavLink to="/" exact>
                         Home
                     </NavLink>                    
-                    <NavLink to="/Login" exact >
+                    <NavLink to="/Login" exact id="login">
                         Login
                     </NavLink>
-                    <NavLink to="/Register" exact>
+                    <NavLink to="/Register" exact id="register">
                         Register
                     </NavLink>
                     <NavLink to="/Subjects" exact>
@@ -31,6 +38,7 @@ class App extends Component {
                         Category
                     </NavLink>
                 </div>
+                <Route path="/" exact component={Profile} className="navbar"/>
                 <Route path="/Register" exact component={Register} className="navbar"/>
                 <Route path="/Login" exact component={Login} className="navbar"/>
                 <Route path="/Subjects" exact component={Subjects} className="navbar"/>

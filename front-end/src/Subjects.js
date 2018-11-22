@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import Token from './token';
 
 export default class Subjects extends Component {
     constructor() {
@@ -15,8 +16,10 @@ export default class Subjects extends Component {
     get() {
         const token = localStorage.getItem('loggedUserToken');
         
-        axios.get('http://localhost:4000/subjects', {headers: {'authorization' : token}}).then( res => {
-            
+        axios.get('http://localhost:4000/subjects', {headers: {'authorization' : Token}}).then( res => {
+                if(res.data === 'NO' ) {
+                    window.location = "/Login";
+                }
             this.setState({subjects: res.data});
         });
     }

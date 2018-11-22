@@ -7,29 +7,44 @@ const jwt = require('jsonwebtoken');
 
 router.get('/:id?', userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
-        if(req.params.id) {
-            subject.getSubjectById(req.params.id, (err, rows) => {
-                if(err) {
-                    res.json(err);
-                }
-                else {
-                    res.json(rows);
-                }
+        if(authData) {
+            if(req.params.id) {
+                subject.getSubjectById(req.params.id, (err, rows) => {
+                    if(err) {
+                        res.json(err);
+                    }
+                    else {
+                        res.json(rows);
+                    }
+                });
+            }
+            else {
+                subject.getAllSubjects( (err, rows) => {
+                    if(err) {
+                        res.json(err);
+                    }
+                    else {
+                        res.json(rows);
+                    }
+                });
+            }
+        }
+        else {
+            res.json('NO');
+        }
+    }); 
+});
+router.post('/', userAuth, function(req, res, next) {
+    jwt.verify(req.token, 'group1', (err, data) => {
+        if(data) {
+            subject.addSubject(req.body.name, (error, rows) => {
+                res.json(rows);
             });
         }
         else {
-            subject.getAllSubjects( (err, rows) => {
-                if(err) {
-                    res.json(err);
-                }
-                else {
-                    res.json(rows);
-                }
-            });
+            console.log(err);
         }
     });
-
-    
 });
 
 module.exports = router;

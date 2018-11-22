@@ -24,7 +24,7 @@ router.post("/login", function(req, res, next) {
                 username: count[0].username,
                 id: count[0].id
             };
-            jwt.sign({user: loggedUser }, 'group1', { expiresIn: '30s' },(err, token) => {
+            jwt.sign({user: loggedUser }, 'group1', (err, token) => {
                 res.json({
                     count,
                     token
