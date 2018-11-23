@@ -50,7 +50,7 @@ class App extends Component {
                     <NavLink to="/subjects" exact>
                         Subjects
                     </NavLink>
-                    <NavLink to="/categories" exact>
+                    <NavLink to="/category" exact>
                         Categories
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
@@ -62,8 +62,8 @@ class App extends Component {
                 <Route path="/login" exact component={Login} className="navbar"/>
                 <Route path="/subjects" exact component={Subjects} className="navbar"/>
                 <Route path="/category" exact component={Category} className="navbar" />
-                {/* <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
-                <Route path="/NewSubject" exact component={NewSubject} className="navbar" /> */}
+                <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
+                <Route path="/NewSubject" exact component={NewSubject} className="navbar" />
                 <SearchBox />
             </div>
         );

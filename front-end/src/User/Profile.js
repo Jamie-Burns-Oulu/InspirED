@@ -5,6 +5,9 @@ import Token from '../Auth/token';
 export default class Profile extends Component {
     constructor() {
         super();
+        if(!Token) {
+          window.location = '/login';
+        }
         this.get = this.get.bind(this);
         this.state = {
             username: "",
