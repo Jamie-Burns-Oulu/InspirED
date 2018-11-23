@@ -12,40 +12,58 @@ import NewCategory from "./Category/NewCategory";
 import NewSubject from "./Subject/NewSubject";
 
 class App extends Component {
+    constructor() {
+        super();
+        this.logout = this.logout.bind(this);
+    }
     componentDidMount() {
-        const isSession = localStorage.getItem('loggedUserToken');
+        const isSession = localStorage.getItem('loggedUserToken'),
+            logout = document.getElementById('logout')
+            logout.style.display = 'none';
         if(isSession) {
             document.getElementById('login').style.display = 'none';
             document.getElementById('register').style.display = 'none';
+            logout.style.display = 'initial';
         }
+        else {
+            this.refs.navBar.style.display = 'none';
+        }
+
+    }
+    logout() {
+        localStorage.removeItem('loggedUserToken');
+        window.location = '/login';
     }
     render() {
         return (
             <div className="App">
-                <div className="navigationbar">
+                <div className="navigationbar" ref="navBar">
                     <NavLink to="/" exact>
                         Home
                     </NavLink>                    
-                    <NavLink to="/Login" exact id="login">
+                    <NavLink to="/login" exact id="login">
                         Login
                     </NavLink>
-                    <NavLink to="/Register" exact id="register">
+                    <NavLink to="/register" exact id="register">
                         Register
                     </NavLink>
-                    <NavLink to="/Subjects" exact>
+                    <NavLink to="/subjects" exact>
                         Subjects
                     </NavLink>
-                    <NavLink to="/Category" exact>
+                    <NavLink to="/categories" exact>
                         Categories
+                    </NavLink>
+                    <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
+                        Logout
                     </NavLink>
                 </div>
                 <Route path="/" exact component={Profile} className="navbar"/>
-                <Route path="/Register" exact component={Register} className="navbar"/>
-                <Route path="/Login" exact component={Login} className="navbar"/>
-                <Route path="/Subjects" exact component={Subjects} className="navbar"/>
-                <Route path="/Category" exact component={Category} className="navbar" />
-                <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
-                <Route path="/NewSubject" exact component={NewSubject} className="navbar" />
+                <Route path="/register" exact component={Register} className="navbar"/>
+                <Route path="/login" exact component={Login} className="navbar"/>
+                <Route path="/subjects" exact component={Subjects} className="navbar"/>
+                <Route path="/category" exact component={Category} className="navbar" />
+                {/* <Route path="/NewCategory" exact component={NewCategory} className="navbar" />
+                <Route path="/NewSubject" exact component={NewSubject} className="navbar" /> */}
                 <SearchBox />
             </div>
         );

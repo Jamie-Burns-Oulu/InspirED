@@ -6,6 +6,9 @@ import Token from '../Auth/token';
 
 export default class Subjects extends Component {
     constructor() {
+        if(!Token) {
+            window.location = '/login';
+        }
         super();
         this.get = this.get.bind(this);
         this.state = {

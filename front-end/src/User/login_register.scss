@@ -1,0 +1,82 @@
+$border-radius: 45px;
+$border: 1px solid;
+$border-color-dark: rgba(0,0,0,0.4);
+$border-color-light: rgba(0,0,0,0.1);
+$width: 500px;
+$height: 500px;
+
+.container {
+    width: 100%;
+    height: 100%;
+
+    .login-register-container {
+        .login-register-header {
+            text-align: center;
+            margin-top: 15%;
+            h1 {
+                font-weight: 100;
+            }
+        }
+        width: $width;
+        height: $height;
+        margin: 100px auto;
+        border-radius: $border-radius;
+        border: $border $border-color-dark;
+
+        .content {
+            ::-webkit-input-placeholder
+             {
+                opacity: 0.5;
+            }
+            ::-moz-placeholder {
+                opacity: 0.5;
+            }
+            width: 60%;
+            text-align: center;
+            margin: 15% auto;
+            input[type=text],
+            input[type=password] {
+                outline: none;
+                padding: 15px;
+                margin-bottom: 15px;
+                width: 100%;
+                border: $border $border-color-light;
+                border-radius: $border-radius;
+            }
+            input.submit-btn {
+                border-radius: $border-radius;
+                width: 33%;
+            }
+            .switch {
+                font-weight: 200;
+                a {
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                margin-top: 60px;
+            }
+        }
+        &.register {
+            animation: register 0.8s forwards;
+        }
+        @keyframes register {
+            0% {
+                width: $width; 
+                height: $height;
+                border-radius: $border-radius;
+            }
+            50% {
+                width: $width + 200px;
+                height: $height + 200px;
+                border-radius: 15px;
+            }
+            100% {
+                width: $width;
+                height: $height;
+                border-radius: $border-radius;
+            }
+
+        }
+    }
+} 

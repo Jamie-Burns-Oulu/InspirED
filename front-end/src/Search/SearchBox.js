@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import './searchbox.scss';
+import Token from '../Auth/token';
 
 export default class SearchBox extends Component {
     constructor() {
@@ -13,15 +14,10 @@ export default class SearchBox extends Component {
                 searchBox.classList.add('open');
             }
         });
-        // window.addEventListener('mouseup', e => {
-        //     if(e.target.className === 'searchbox') {
-        //         searchBox.classList.remove('open');
-        //     }
-        // });
     }
   render() {
     return (
-      <div className="searchbox-container">
+      <div className="searchbox-container" >
         <span className="glyphicon glyphicon-search" id="search-icon" ref="icon"></span>
         <input type="text" className="searchbox" ref="searchbox" />
       </div>
