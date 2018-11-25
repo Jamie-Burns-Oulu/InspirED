@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Token from '../Auth/token';
+import Activity from './Activity';
 
 export default class Profile extends Component {
     constructor() {
@@ -8,26 +9,29 @@ export default class Profile extends Component {
         if(!Token) {
           window.location = '/login';
         }
-        this.get = this.get.bind(this);
-        this.state = {
-            username: "",
-            id: "",
-            profile: "",
-            admin: 0,
-        }
-    }
-    componentDidMount() {
-        this.get();
-    }
-    get() {
-      axios.get('http://localhost:4000/user_profile', {headers: {'authorization' : Token}}).then(res => {
-        this.setState(res.data[0]);
-      });
     }
   render() {
     return (
-      <div>
-        <h1>This is {this.state.username}'s profile</h1>
+      <div className="profile container">
+        <div className="info">
+          <img className="profilePicture pro" src=""></img>
+          <ul className="userinfo">
+            <li className="username"></li>
+            <li></li>
+          </ul>
+        </div>
+        <div className="container-settings">
+          <div className="stats box" id="stats">
+          Stats
+          </div>
+          <div className="leaderboard box" id="leaderboard">
+          Leaders
+          </div>
+          <div className="settings box" id="settings">
+            <span className="glyphicon glyphicon-cog"></span>
+          </div>
+        </div>
+        <Activity /> 
       </div>
     )
   }

@@ -11,11 +11,16 @@
         transition: width 0.2s;
         padding: 5px;
         
-    }
-    input.open {
+       &.open {
         visibility: visible;
-        width: 200px;
+        width: 350px;
+        &:focus {
+            outline: none;
+        }
+       }
+        
     }
+    
     // #search-icon:hover {
     //     cursor: pointer;
     //     & + input.searchbox {

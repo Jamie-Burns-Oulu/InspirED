@@ -1,7 +1,7 @@
-$border-radius: 15px;
+@import 'variables';
+
 $subject-box-width: 150px;
 $subject-box-height: 150px;
-$border: 1px solid rgba(0,0,0,0.4);
 .subject-container {
     width: 70%;
     margin: auto;
@@ -18,8 +18,8 @@ $border: 1px solid rgba(0,0,0,0.4);
                 padding-top: 50px;
                 height: $subject-box-height + 40px;
                 width: $subject-box-width;
-                border-radius: $border-radius;
-                border: $border;
+                border-radius: $border-radius-normal;
+                border: $border-normal;
                 z-index: 0;
                 transition: width 0.2s, height 0.2s;
             }

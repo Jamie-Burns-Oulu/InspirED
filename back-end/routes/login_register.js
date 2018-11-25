@@ -21,7 +21,10 @@ router.post("/login", function(req, res, next) {
         } else {
             const loggedUser = {
                 username: count[0].username,
-                id: count[0].id
+                id: count[0].id,
+                email: count[0].email,
+                picture: count[0].picture,
+                admin: count[0].admin
             };
             jwt.sign({user: loggedUser }, 'group1', (err, token) => {
                 res.json({
@@ -33,25 +36,5 @@ router.post("/login", function(req, res, next) {
         }
     });
 });
-
-// router.post("/", function(req, res, next) {
-//    login_register.getUserByUsername(req.body.username, function(err, rows) {
-//         if (err) {
-//             res.json(err);
-//         } else {
-//             if(req.body.password === rows[0].password) {
-//                 req.user = {
-//                     username: rows[0].username,
-//                     id: rows[0].id
-//                 };
-//                 console.log(req.user);
-//                 res.json(rows);
-//             }
-//             else {
-//                 console.log('wrong password');
-//             }
-//         }
-//     });
-// });
 
 module.exports = router;

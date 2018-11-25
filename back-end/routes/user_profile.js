@@ -5,22 +5,18 @@ const userAuth = require('../midware/userAuth');
 const jwt = require('jsonwebtoken');
 
 router.get("/",  userAuth ,function(req, res, next) {
+    
     jwt.verify(req.token, 'group1', (err, data) => {
         if(data) {
-            user_profile.getUserByUsername(data.user.username, function(err, rows) {
-                if (err) {
-                    res.json(err);
-                } else {
-                    res.json(rows);
+            user_profile.getInstanceAndQuizByUserId(data.user.id, (err, rows) => {
+                if(err) res.json(rows);
+                if(rows) {
+                    res.json({
+                        user: data.user,
+                        instances: rows
+                    });
                 }
             });
-        //     user_profile.getInstancesByUserId(8, function(err, rows) {
-        //        if (err) {
-        //            res.json(err);
-        //        } else {
-        //            res.json(rows);
-        //        }
-        //    });
         }
     });
  });

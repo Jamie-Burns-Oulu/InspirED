@@ -1,6 +1,9 @@
 import React, { Component } from "react";
+import './main.scss';
 import "./Styles/subjects.scss";
 import "./NavBar/navbar.scss";
+import './User/profile.scss';
+import './User/activity.scss';
 import { NavLink, Route } from "react-router-dom";
 import Register from "./User/Register";
 import Login from "./User/Login";
@@ -28,7 +31,6 @@ class App extends Component {
         else {
             this.refs.navBar.style.display = 'none';
         }
-
     }
     logout() {
         localStorage.removeItem('loggedUserToken');

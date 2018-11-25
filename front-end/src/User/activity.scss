@@ -1,0 +1,9 @@
+@import '../Styles/variables';
+
+.container.activity {
+    width: 70%;
+    min-height: 100px;
+    margin: auto;
+    border: $border-normal;
+    border-radius: $border-radius-normal;
+}
