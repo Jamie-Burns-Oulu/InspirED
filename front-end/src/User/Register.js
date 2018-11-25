@@ -32,9 +32,7 @@ class Register extends Component {
         } else{
         bcrypt.genSalt(10, function(err, salt) {
             bcrypt.hash(pass, salt, function(err, hash) {
-                console.log(pass);
-                let password = hash;
-                console.log(password);
+                let password = hash;        
                 axios
                     .post("http://localhost:4000/login_register/register", {
                         id,
@@ -44,14 +42,11 @@ class Register extends Component {
                         admin,
                         picture
                     })
-                    .then(res => {
-                        console.log(res);
-                        console.log(res.data);
+                    .then(res => {                    
                         if (res.data.code === "ER_DUP_ENTRY") {
                             alert("Not unique");
                         }
-                        // alert("Reg complete ");
-                        //window.location = "/"
+                       window.location = "/Login"
                     });
                
             });

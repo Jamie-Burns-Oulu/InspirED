@@ -2,9 +2,13 @@ import React, { Component } from "react";
 import axios from "axios";
 import { NavLink, Route } from "react-router-dom";
 import NewCategory from "./NewCategory";
+import Token from '../Auth/token';
 
 export default class Category extends Component {
     constructor() {
+        if(!Token){
+            window.location = "/Login"
+        }
         super();
         this.get = this.get.bind(this);
         this.state = {
@@ -15,8 +19,7 @@ export default class Category extends Component {
         this.get();
     }
     get() {
-        const token = localStorage.getItem("loggedUserToken");
-        axios.get("http://localhost:4000/category",{  headers: { authorization: token }}).then(res => {
+        axios.get("http://localhost:4000/category",{  headers: { authorization: Token }}).then(res => {
             this.setState({ category: res.data });
         });
     }

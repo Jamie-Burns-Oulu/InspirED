@@ -37,6 +37,7 @@ router.get('/:id?', userAuth, function(req, res, next) {
 
 router.post("/", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
+        console.log(req);
         if(authData){   
             subject.addSubject(req.body, function(err, count) {
                 if (err) {

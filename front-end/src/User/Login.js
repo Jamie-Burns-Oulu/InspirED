@@ -33,6 +33,7 @@ class Login extends Component {
                     }
                     
                 });
+                window.location = "/";
             });
     };
 
