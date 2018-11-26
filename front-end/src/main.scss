@@ -1,0 +1,17 @@
+* {
+    font-weight: 340;
+    a {
+        color: black;
+        &:hover {
+            text-decoration: none;
+            cursor: pointer;
+            color:  rgb(228, 0, 0);
+        }
+    }
+    h1 {
+        font-weight: 140;
+    }
+    p {
+        font-size: 18px;
+    }
+}

@@ -1,0 +1,71 @@
+@import '../Styles/variables';
+
+$box-width: 100px;
+$box-height: 100px;
+$box-border-radius: 15px;
+$pic-pro-border: 5px solid rgb(255, 209, 5);
+$pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
+.container.profile {
+    padding: 20px;
+    width: 90%;
+    margin: auto;
+    margin-top: 30px;
+    .info {
+        width: 150px;
+        height: 200px;
+        border: $border-normal;
+        border-radius: $border-radius-normal;
+        padding: 10px;
+        .profilePicture {
+            max-width: 80%;
+            margin: auto;
+            border-radius: 50%;
+            border: $pic-noob-border;
+            // object-fit: none;
+            width: 80px;
+            height: 80px;
+            &.pro {
+                border: $pic-pro-border !important;
+            }
+        }
+        ul {
+            margin-top: 10px;
+            list-style-type: none;
+            padding-inline-start: 0px;
+            li {
+                &.username {
+                    font-size: 25px;
+                }
+            }
+        }
+    }
+    
+    .container-settings {
+        position: absolute;
+        left: 20%;
+        top: 100px;
+        
+        .box {
+            text-align: center;
+            padding-top: 30px;
+            display: inline-block;
+            margin-right: 80px;
+            width: $box-width;
+            height: $box-height;
+            border-radius: $box-border-radius;
+            border: $border-normal;
+            font-size: 25px;
+            font-weight: 200;
+            transition: border 0.3s;
+            #settings {
+                padding-top: 11px;
+            }
+            @each $item in '#stats' '#leaderboard' '#settings' {
+                &#{$item}:hover {
+                    border: 1px solid rgb(228, 0, 0);
+                    cursor: pointer;
+                }
+            } 
+        }
+    }
+}

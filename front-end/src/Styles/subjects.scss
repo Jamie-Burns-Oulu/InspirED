@@ -1,0 +1,37 @@
+@import 'variables';
+
+$subject-box-width: 150px;
+$subject-box-height: 150px;
+.subject-container {
+    width: 70%;
+    margin: auto;
+    .list-container {
+        margin-top: 50px;
+        div.list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            div.box {
+                flex: 1 0 21%;
+                margin: 20px;
+                text-align: center;
+                padding-top: 50px;
+                height: $subject-box-height + 40px;
+                width: $subject-box-width;
+                border-radius: $border-radius-normal;
+                border: $border-normal;
+                z-index: 0;
+                transition: width 0.2s, height 0.2s;
+            }
+        }
+    }
+    .arrow-container {
+        position: absolute;
+        right: 50px;
+        top: 45%;
+        & > #next-icon {
+            font-size: 60px;
+            font-weight: 100;
+        }
+    }
+}

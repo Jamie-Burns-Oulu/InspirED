@@ -1,9 +1,13 @@
 module.exports = (req, res, next) => {
+    
+    const bearerheader = req.headers['authorization'] ? req.headers['authorization'] : req.body.headers['authorization'];
 
-    if(req.user !== null && req.user !== undefined) {
+    if(typeof bearerheader !== 'undefined'  ) {
+        
+        req.token = bearerheader;
         next();
     }
     else {
-        res.redirect('/login');
+        res.sendStatus(403);
     }
-};
+}
