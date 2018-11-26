@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Token from '../Auth/token';
 import Activity from './Activity';
 import { NavLink, Route } from "react-router-dom";
+import Settings from './Settings';
 
 export default class Profile extends Component {
     constructor(props) {
