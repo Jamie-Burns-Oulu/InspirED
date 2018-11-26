@@ -66,7 +66,7 @@ class Login extends Component {
                     console.log("Password check = ", res);
                     if (res) {   
                         localStorage.setItem('loggedUserToken', response.data.token);
-                        window.location = '/';
+                        window.location = '/profile';
                     }
                     
                 });

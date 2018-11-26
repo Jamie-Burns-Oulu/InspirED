@@ -10,8 +10,9 @@ export default class Category extends Component {
         super();
         this.get = this.get.bind(this);
         this.state = {
-            attempted: '',
-            completed: ''
+            new:"",
+            attempted: "",
+            completed: ""
         };
     }
     componentDidMount() {
@@ -26,25 +27,55 @@ export default class Category extends Component {
             })
             .then(
                 res => {
-                    this.setState({ attempted: res.data[0]['COUNT (*)'] });                    
+                    this.setState({ attempted: res.data[0]["COUNT (*)"] });
                 },
                 axios
                     .post("http://localhost:4000/quiz_landing/completed", {
                         headers: { authorization: Token },
                         user_id
                     })
-                    .then(res => {
-                        this.setState({ completed: res.data[0]['COUNT (*)'] });
-                    })
+                    .then(
+                        res => {
+                            this.setState({
+                                completed: res.data[0]["COUNT (*)"]
+                            });
+                        },
+                        axios
+                            .post(
+                                "http://localhost:4000/quiz_landing/new",
+                                {
+                                    headers: { authorization: Token },
+                                    user_id
+                                }
+                            )
+                            .then(res => {
+                                this.setState({
+                                    new: res.data[0]["COUNT (*)"]
+                                });
+                            })
+                    )
             );
     }
     render() {
         return (
             <div className="subject-container">
-                <h1>Attempted</h1>
-                <p>{this.state.attempted}</p>
-                <h1>Completed</h1>
-                <p>{this.state.completed}</p>
+              <h1>{this.props.userData.username}'s Quiz Home</h1>
+                <div className="list-container">
+                    <div className="list">
+                        <div className="box">
+                        <h4>Try something new!</h4>
+                            <p>New : {this.state.new}</p>
+                        </div>
+                        <div className="box">
+                        <h4>You can do better!</h4>
+                            <p>Attempted : {this.state.attempted}</p>
+                        </div>
+                        <div className="box">
+                        <h4>Nailed it!</h4>
+                            <p>Completed : {this.state.completed}</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

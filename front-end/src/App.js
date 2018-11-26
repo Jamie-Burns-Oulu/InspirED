@@ -12,7 +12,8 @@ import Profile from "./User/Profile";
 import NewCategory from "./Category/NewCategory";
 import NewSubject from "./Subject/NewSubject";
 import Quiz_landing from "./Quiz_Landing/Quiz_landing";
-import Token from "./Auth/token"
+import Settings from "./User/Settings";
+import Token from "./Auth/token";
 
 class App extends Component {
     constructor() {
@@ -52,7 +53,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="navigationbar" ref="navBar">
-                    <NavLink to="/" exact>
+                    <NavLink to="/profile" exact>
                         Home
                     </NavLink>                    
                     <NavLink to="/login" exact id="login">
@@ -61,28 +62,28 @@ class App extends Component {
                     <NavLink to="/register" exact id="register">
                         Register
                     </NavLink>
-                    <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
-                        Logout
-                    </NavLink>
                     <NavLink to="/subjects" exact>
                         Subjects
                     </NavLink>
                     <NavLink to="/category" exact>
                         Categories
-                    </NavLink>
-                    
+                    </NavLink>                    
                     <NavLink to="/quiz_landing" exact>
                         Quiz Home
                     </NavLink>
+                    <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
+                        Logout
+                    </NavLink>
                 </div>
-                { this.state && this.state.loaded &&
+                {this.state && this.state.loaded &&
                 <div>
-                <Route path="/" render={(props) => <Profile {...props} userData={this.state.user} />} className="navbar" />
+                <Route path="/profile" render={(props) => <Profile {...props} userData={this.state.user} />} className="navbar" />
                 <Route path="/subjects" render={(props) => <Subjects {...props} userData={this.state.user} /> } className="navbar"/>
                 <Route path="/category" render={(props) => <Category {...props} userData={this.state.user} />} className="navbar" />
                 <Route path="/newcategory" render={(props) => <NewCategory {...props} userData={this.state.user} />} className="navbar" />
                 <Route path="/newsubject" render={(props) => <NewSubject {...props} userData={this.state.user} />} className="navbar" />
                 <Route path="/quiz_landing" render={(props) => <Quiz_landing {...props} userData={this.state.user} />} className="navbar" />
+                <Route path="/settings" render={(props) => <Settings {...props} userData={this.state.user} />} className="navbar" />
                 </div>
                 }
                 <Route path="/register" exact component={Register} className="navbar"/>

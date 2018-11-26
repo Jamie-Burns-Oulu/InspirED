@@ -39,7 +39,7 @@ export default class Subjects extends Component {
                     <div className="list">
                         {this.state.subjects.map(subject => (
                             <div key={subject.id} className="box">
-                                {subject.name}
+                              {subject.name}
                             </div>
                         ))}
                     </div>
