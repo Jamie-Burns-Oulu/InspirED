@@ -15,7 +15,7 @@ export default class Subjects extends Component {
             subjects: []
         };
     }
-    componentDidMount() {
+    componentDidMount() {      
         this.get();
     }
     get() {

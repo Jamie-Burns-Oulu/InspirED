@@ -1,16 +1,19 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Token from '../Auth/token';
 
 class NewSubject extends Component {
     constructor() {
+        if(!Token){
+            window.location = "/Login"
+        }
         super();
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             subject_id: "",
             name: "",
-            subject: [],
-            token: localStorage.getItem("loggedUserToken")
+            subject: []
         };
     }
    
@@ -22,9 +25,9 @@ class NewSubject extends Component {
 
     handleSubmit = event => {       
         event.preventDefault();
-        const { name, token } = this.state; 
+        const { name } = this.state; 
         axios
-            .post("http://localhost:4000/subjects",{  headers: { authorization: token }, name}).then(res => {
+            .post("http://localhost:4000/subjects",{  headers: { authorization: Token }, name}).then(res => {
                 console.log(res);                
             });
     };

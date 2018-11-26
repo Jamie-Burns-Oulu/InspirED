@@ -11,6 +11,8 @@ var user_settings = require('./routes/user_settings');
 var user_profile = require('./routes/user_profile');
 var subject = require('./routes/subjects');
 var category = require('./routes/category');
+var quiz_landing = require('./routes/quiz_landing');
+
 var app = express();
 
 app.set('views', path.join(__dirname, 'views'));
@@ -33,6 +35,8 @@ app.use('/login_register', login_register);
 app.use('/user_settings', user_settings);
 app.use('/user_profile', user_profile);
 app.use('/category',category);
+app.use('/quiz_landing',quiz_landing);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

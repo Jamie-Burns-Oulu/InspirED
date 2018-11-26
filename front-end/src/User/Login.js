@@ -44,9 +44,11 @@ class Login extends Component {
                         localStorage.setItem('loggedUserToken', response.data.token);
                         const user = response.data.count[0];
                         
-                        window.location = '/';
+                        window.location = '/profile';
                     }
+                    
                 });
+                
             });
     };
 

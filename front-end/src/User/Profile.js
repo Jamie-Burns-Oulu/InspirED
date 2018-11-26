@@ -4,8 +4,8 @@ import Token from '../Auth/token';
 import Activity from './Activity';
 
 export default class Profile extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         if(!Token) {
           window.location = '/login';
         }
@@ -14,10 +14,10 @@ export default class Profile extends Component {
     return (
       <div className="profile container">
         <div className="info">
-          <img className="profilePicture pro" src=""></img>
+          <img className="profilePicture pro" src={this.props.userData.picture}></img>
           <ul className="userinfo">
-            <li className="username"></li>
-            <li></li>
+            <li className="username">{this.props.userData.username}</li>
+            <li>{this.props.userData.email}</li>
           </ul>
         </div>
         <div className="container-settings">

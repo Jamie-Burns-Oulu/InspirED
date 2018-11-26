@@ -1,8 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import Token from '../Auth/token';
 
 class NewCategory extends Component {
     constructor() {
+        if(!Token){
+            window.location = "/Login"
+        }
         super();
         this.onChange = this.onChange.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
@@ -10,8 +14,7 @@ class NewCategory extends Component {
         this.state = {
             subject_id: "",
             name: "",
-            subject: [],
-            token: localStorage.getItem("loggedUserToken")
+            subject: []
         };
     }
     componentDidMount() {
@@ -19,10 +22,9 @@ class NewCategory extends Component {
     }
 
     getSubjects() {
-      const { token } = this.state;
         axios
             .get("http://localhost:4000/subjects", {
-                headers: { authorization: token }
+                headers: { authorization: Token }
             })
             .then(res => {
                 this.setState({ subject: res.data });
@@ -35,12 +37,11 @@ class NewCategory extends Component {
         this.setState(state);
     };
 
-    handleSubmit = event => {
-       
+    handleSubmit = event => {       
         event.preventDefault();
-        const { subject_id, name, token } = this.state;
+        const { subject_id, name } = this.state;
         axios
-            .post("http://localhost:4000/category",{  headers: { authorization: token }, subject_id, name}).then(res => {
+            .post("http://localhost:4000/category",{  headers: { authorization: Token }, subject_id, name}).then(res => {
                 console.log(res);                
             });
     };

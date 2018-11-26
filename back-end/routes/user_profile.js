@@ -11,10 +11,19 @@ router.get("/",  userAuth ,function(req, res, next) {
             user_profile.getInstanceAndQuizByUserId(data.user.id, (err, rows) => {
                 if(err) res.json(rows);
                 if(rows) {
-                    res.json({
-                        user: data.user,
-                        instances: rows
-                    });
+                    res.json(rows);
+                }
+            });
+        }
+    });
+ });
+ router.get('/data', userAuth, function(req, res, next) {
+    jwt.verify(req.token, 'group1', (err, data) => {
+        if(data) {
+            user_profile.getUserbyUsername(data.user.username, (err, rows) => {
+                if(err) res.json(rows);
+                if(rows) {
+                    res.json(rows);
                 }
             });
         }
