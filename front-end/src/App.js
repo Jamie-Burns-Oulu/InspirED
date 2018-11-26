@@ -4,6 +4,7 @@ import "./Styles/subjects.scss";
 import "./NavBar/navbar.scss";
 import './User/profile.scss';
 import './User/activity.scss';
+import './Styles/loading.scss';
 import { NavLink, Route } from "react-router-dom";
 import axios from "axios";
 import Register from "./User/Register";
@@ -17,6 +18,7 @@ import NewSubject from "./Subject/NewSubject";
 import Quiz_landing from "./Quiz_Landing/Quiz_landing";
 import Settings from "./User/Settings";
 import Token from "./Auth/token";
+import Material from "./Materials/Material";
 
 class App extends Component {
     constructor() {
@@ -91,7 +93,8 @@ class App extends Component {
                 </div>
                 }
                 <Route path="/register" exact component={Register} className="navbar"/>
-                <Route path="/login" exact component={Login} className="navbar"/>           
+                <Route path="/login" exact component={Login} className="navbar"/>   
+                <Route path="/material" exact component={Material} />        
                 <SearchBox />
           
             </div>

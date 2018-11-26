@@ -11,6 +11,7 @@ var user_settings = require('./routes/user_settings');
 var user_profile = require('./routes/user_profile');
 var subject = require('./routes/subjects');
 var category = require('./routes/category');
+var material = require('./routes/material');
 var quiz_landing = require('./routes/quiz_landing');
 
 var app = express();
@@ -35,6 +36,7 @@ app.use('/login_register', login_register);
 app.use('/user_settings', user_settings);
 app.use('/user_profile', user_profile);
 app.use('/category',category);
+app.use('/materials', material);
 app.use('/quiz_landing',quiz_landing);
 
 
