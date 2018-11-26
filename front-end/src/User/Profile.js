@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import axios from 'axios';
 import Token from '../Auth/token';
 import Activity from './Activity';
+import { NavLink, Route } from "react-router-dom";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -28,7 +28,15 @@ export default class Profile extends Component {
           Leaders
           </div>
           <div className="settings box" id="settings">
-            <span className="glyphicon glyphicon-cog"></span>
+            <NavLink to="/settings" exact>
+              <span className="glyphicon glyphicon-cog"></span>
+            </NavLink>
+            <Route
+                path="/settings"
+                render={props => (
+                    <Settings {...props} userData={this.state.user} />
+                )}
+            />
           </div>
         </div>
         <Activity /> 

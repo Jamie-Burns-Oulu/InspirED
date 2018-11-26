@@ -7,8 +7,9 @@ const jwt = require('jsonwebtoken');
 router.post("/Attempted", userAuth, function(req, res, next) {
    jwt.verify(req.token, 'group1', (err, authData) => {
        if(authData){
+           console.log(authData.user.id);
        if (req.body) {
-         quiz_landing.getAttemptedQuizInstances(req.body.user_id, (err, rows) => {
+         quiz_landing.getAttemptedQuizInstances(authData.user.id, (err, rows) => {
                if (err) {
                    res.json(err);
                } else {
@@ -20,6 +21,7 @@ router.post("/Attempted", userAuth, function(req, res, next) {
    
 });
 });
+
 router.post("/Completed", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){
@@ -36,5 +38,24 @@ router.post("/Completed", userAuth, function(req, res, next) {
     
  });
  });
+
+ router.post("/New", userAuth, function(req, res, next) {
+    jwt.verify(req.token, 'group1', (err, authData) => {
+        if(authData){
+        if (req.body) {
+          quiz_landing.getNewQuizzes(req.body.user_id, (err, rows) => {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(rows);
+                }
+            });
+        } 
+    }
+    
+ });
+ });
+
+
 
 module.exports = router;

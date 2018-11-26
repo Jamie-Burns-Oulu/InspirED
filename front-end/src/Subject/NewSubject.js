@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Token from '../Auth/token';
 
-class NewSubject extends Component {
+class Settings extends Component {
     constructor() {
         if(!Token){
             window.location = "/Login"
@@ -56,4 +56,4 @@ class NewSubject extends Component {
     }
 }
 
-export default NewSubject;
+export default Settings;

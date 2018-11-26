@@ -1,8 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var user_profile = require("../model/user_profile");
-const userAuth = require('../midware/userAuth');
-const jwt = require('jsonwebtoken');
+const userAuth = require("../midware/userAuth");
+const jwt = require("jsonwebtoken");
 
 router.get("/",  userAuth ,function(req, res, next) {
     
@@ -28,6 +28,6 @@ router.get("/",  userAuth ,function(req, res, next) {
             });
         }
     });
- });
+});
 
 module.exports = router;

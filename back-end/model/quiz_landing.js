@@ -7,6 +7,9 @@ const quiz_landing = {
 
     getCompletedQuizInstances(user_id, callback) {
         db.query('SELECT COUNT (*) FROM quiz_instance where result = 100 AND user_id = ?', user_id, callback);
+    },
+    getNewQuizzes(user_id, callback) {
+        db.query('SELECT COUNT (*) FROM quiz', user_id, callback);
     }
 
 };
