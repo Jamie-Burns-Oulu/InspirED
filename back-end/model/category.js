@@ -3,8 +3,8 @@ const category = {
     getAllCategories(callback) {
         db.query("SELECT * FROM category", callback);
     },
-    getCategoryById(id, callback) {
-        db.query("SELECT * FROM category WHERE id = ?", [id], callback);
+    getCategoryBySubjectId(id, callback) {
+        db.query("SELECT * FROM category WHERE subject_id = ?", [id], callback);
     },
     addCategory(category, callback) {
         return db.query(

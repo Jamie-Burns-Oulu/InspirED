@@ -19,7 +19,7 @@ export default class Category extends Component {
         this.get();
     }
     get() {
-        const user_id = this.props.userData.id;
+        const user_id =  localStorage.getItem('user_id');
         axios
             .post("http://localhost:4000/quiz_landing/attempted", {
                 headers: { authorization: Token },
@@ -59,7 +59,7 @@ export default class Category extends Component {
     render() {
         return (
             <div className="subject-container">
-              <h1>{this.props.userData.username}'s Quiz Home</h1>
+              <h1>{localStorage.getItem('user_name')}'s Quiz Home</h1>
                 <div className="list-container">
                     <div className="list">
                         <div className="box">

@@ -17,8 +17,16 @@ export default class Category extends Component {
     }
     componentDidMount() {
         this.get();
+        
     }
     get() {
+        const currentSubject = localStorage.getItem('currentSubject');
+        (currentSubject) ? 
+        axios.get("http://localhost:4000/category/"+currentSubject,{  headers: { authorization: Token }}).then(res => {
+            this.setState({ category: res.data });
+            localStorage.removeItem('currentSubject');
+        })
+        :
         axios.get("http://localhost:4000/category",{  headers: { authorization: Token }}).then(res => {
             this.setState({ category: res.data });
         });
@@ -31,7 +39,6 @@ export default class Category extends Component {
                 <NavLink to="/NewCategory" exact>
                     <span className="glyphicon glyphicon-plus" />
                 </NavLink>
-
                 <div className="list-container">
                     <div className="list">
                         {this.state.category.map(category => (

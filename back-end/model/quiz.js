@@ -1,7 +1,7 @@
 const db = require('../database');
 
 const quiz = {
-    getAllQuizes(callback) {
+    getAllQuizzes(callback) {
         db.query('SELECT * FROM quiz', callback);
     },
     getQuizById(id, callback) {

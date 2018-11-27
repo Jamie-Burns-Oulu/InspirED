@@ -5,20 +5,20 @@ import { NavLink, Route } from "react-router-dom";
 import Settings from './Settings';
 
 export default class Profile extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         if(!Token) {
           window.location = '/login';
         }
-    }
+    }           
   render() {
     return (
       <div className="profile container">
         <div className="info">
-          <img className="profilePicture pro" src={this.props.userData.picture}></img>
+          <img className="profilePicture pro" src={ localStorage.getItem('user_pic')} alt="profile"></img>
           <ul className="userinfo">
-            <li className="username">{this.props.userData.username}</li>
-            <li>{this.props.userData.email}</li>
+            <li className="username">{localStorage.getItem('user_name')}</li>
+            <li className="email">{localStorage.getItem('user_email')}</li>
           </ul>
         </div>
         <div className="container-settings">
@@ -34,9 +34,7 @@ export default class Profile extends Component {
             </NavLink>
             <Route
                 path="/settings"
-                render={props => (
-                    <Settings {...props} userData={this.state.user} />
-                )}
+                exact component={Settings}
             />
           </div>
         </div>
