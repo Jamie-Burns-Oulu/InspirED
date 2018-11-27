@@ -37,8 +37,7 @@ class Login extends Component {
         axios
             .post("http://localhost:4000/login_register/login/", {username: username})
             .then(response => {
-    
-                bcrypt.compare(password, response.data.count[0].password, function(err, res) {
+                    bcrypt.compare(password, response.data.count[0].password, function(err, res) {
                     console.log("Password check = ", res);
                     if (res) {   
                         localStorage.setItem('loggedUserToken', response.data.token);

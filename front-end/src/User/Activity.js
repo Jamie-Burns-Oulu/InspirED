@@ -3,8 +3,8 @@ import axios from 'axios';
 import Token from '../Auth/token';
 
 export default class Activity extends Component {
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.get = this.get.bind(this);
         this.state = {
             instance: []

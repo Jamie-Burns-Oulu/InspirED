@@ -26,7 +26,7 @@ class Settings extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const username = this.props.userData.username;
+        const username = localStorage.getItem('user_name');
         const { picture, email, pass } = this.state;
         if (picture) {
             axios
@@ -36,7 +36,8 @@ class Settings extends Component {
                     picture
                 })
                 .then(res => {
-                    //What to do
+                    //What to do, route back to profile?
+                    localStorage.setItem('user_picture', picture);
                     console.log("Picture updated");
                 });
         } else if (email) {
@@ -47,8 +48,10 @@ class Settings extends Component {
                     email
                 })
                 .then(res => {
-                    //What to do
+                    //What to do, route back to profile?
+                    localStorage.setItem('user_email', email);
                     console.log("Email updated");
+                    
                 });
         } else if (pass) {
             bcrypt.genSalt(10, function(err, salt) {
@@ -62,8 +65,9 @@ class Settings extends Component {
                             password
                         })
                         .then(res => {
-                            //What to do
+                            //What to do, route back to profile?
                             console.log("Password updated");
+
                         });
                 });
             });
@@ -73,7 +77,7 @@ class Settings extends Component {
     render() {
         return (
             <div className="subject-container">
-                <h1>{this.props.userData.username}'s Settings</h1>
+                <h1>{localStorage.getItem('user_name')}'s Settings</h1>
                 <div className="list-container">
                     <div className="list">
                         <div className="box">

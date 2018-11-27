@@ -9,7 +9,7 @@ router.get("/:id?", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){
         if (req.params.id) {
-            category.getCategoryById(req.params.id, (err, rows) => {
+            category.getCategoryBySubjectId(req.params.id, (err, rows) => {
                 if (err) {
                     res.json(err);
                 } else {

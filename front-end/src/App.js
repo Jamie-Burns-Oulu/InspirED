@@ -14,7 +14,9 @@ import SearchBox from "./Search/SearchBox";
 import Profile from "./User/Profile";
 import NewCategory from "./Category/NewCategory";
 import NewSubject from "./Subject/NewSubject";
-import Quiz_landing from "./Quiz_Landing/Quiz_landing";
+import QuizLanding from "./Quiz/QuizLanding";
+import QuizCreate from "./Quiz/QuizCreate";
+import QuestionCreate from "./Question/QuestionCreate"
 import Settings from "./User/Settings";
 import Token from "./Auth/token";
 
@@ -22,16 +24,6 @@ class App extends Component {
     constructor() {
         super();
         this.logout = this.logout.bind(this);
-
-        this.state = {
-          user: {
-            username: "",
-            id: "",
-            picture: "",
-            admin: 0
-        },
-        loaded:0
-      }    
     }
     componentDidMount() {
        const logout = document.getElementById('logout')
@@ -41,8 +33,11 @@ class App extends Component {
             document.getElementById('login').style.display = 'none';
             document.getElementById('register').style.display = 'none';
             axios.get('http://localhost:4000/user_profile/data', {headers: {'authorization' : Token}}).then(res => {
-                this.setState({user:res.data[0], loaded:1});
-              });
+            localStorage.setItem('user_id', res.data[0].id);   
+            localStorage.setItem('user_name', res.data[0].username);
+            localStorage.setItem('user_pic', res.data[0].picture);
+            localStorage.setItem('user_email', res.data[0].email);
+            });
             }            
         else {
             this.refs.navBar.style.display = 'none';
@@ -57,7 +52,7 @@ class App extends Component {
         return (
             <div className="App">
                 <div className="navigationbar" ref="navBar">
-                    <NavLink to="/profile" exact>
+                    <NavLink to="/" exact>
                         Home
                     </NavLink>                    
                     <NavLink to="/login" exact id="login">
@@ -72,28 +67,28 @@ class App extends Component {
                     <NavLink to="/category" exact>
                         Categories
                     </NavLink>                    
-                    <NavLink to="/quiz_landing" exact>
+                    <NavLink to="/quizlanding" exact>
                         Quiz Home
+                    </NavLink>
+                    <NavLink to="/quizcreate" exact>
+                        Quiz Create
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
                         Logout
-                    </NavLink>
-                </div>
-                {this.state && this.state.loaded &&
-                <div>
-                <Route path="/profile" render={(props) => <Profile {...props} userData={this.state.user} />} className="navbar" />
-                <Route path="/subjects" render={(props) => <Subjects {...props} userData={this.state.user} /> } className="navbar"/>
-                <Route path="/category" render={(props) => <Category {...props} userData={this.state.user} />} className="navbar" />
-                <Route path="/newcategory" render={(props) => <NewCategory {...props} userData={this.state.user} />} className="navbar" />
-                <Route path="/newsubject" render={(props) => <NewSubject {...props} userData={this.state.user} />} className="navbar" />
-                <Route path="/quiz_landing" render={(props) => <Quiz_landing {...props} userData={this.state.user} />} className="navbar" />
-                <Route path="/settings" render={(props) => <Settings {...props} userData={this.state.user} />} className="navbar" />
-                </div>
-                }
-                <Route path="/register" exact component={Register} className="navbar"/>
-                <Route path="/login" exact component={Login} className="navbar"/>           
-                <SearchBox />
-          
+                    </NavLink>                           
+                    <Route path="/" exact component={Profile} className="navbar" />
+                    <Route path="/subjects" exact component={Subjects} className="navbar"/>
+                    <Route path="/category" exact component={Category} className="navbar" />
+                    <Route path="/newcategory" exact component={NewCategory} className="navbar" />
+                    <Route path="/newsubject" exact component={NewSubject} className="navbar" />
+                    <Route path="/quizLanding" exact component={QuizLanding} className="navbar" />
+                    <Route path="/quizcreate" exact component={QuizCreate}  className="navbar" />
+                    <Route path="/questioncreate" exact component={QuestionCreate} className="navbar" />
+                    <Route path="/settings" exact component={Settings} className="navbar" /> 
+                    <Route path="/register" exact component={Register} className="navbar"/>
+                    <Route path="/login" exact component={Login} className="navbar"/>           
+                    <SearchBox />
+                  </div>
             </div>
         );
     }
