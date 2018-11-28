@@ -38,11 +38,10 @@ class Login extends Component {
             .post("http://localhost:4000/login_register/login/", {username: username})
             .then(response => {
                     bcrypt.compare(password, response.data.count[0].password, function(err, res) {
-                    console.log("Password check = ", res);
                     if (res) {   
                         localStorage.setItem('loggedUserToken', response.data.token);
                         const user = response.data.count[0];
-                        window.location = '/profile';
+                        window.location = '/';
                     }
                     
                 });

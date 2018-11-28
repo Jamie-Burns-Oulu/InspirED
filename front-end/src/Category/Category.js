@@ -17,7 +17,6 @@ export default class Category extends Component {
     }
     componentDidMount() {
         this.get();
-        
     }
     get() {
         const currentSubject = localStorage.getItem('currentSubject');

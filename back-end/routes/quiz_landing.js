@@ -7,7 +7,6 @@ const jwt = require('jsonwebtoken');
 router.post("/Attempted", userAuth, function(req, res, next) {
    jwt.verify(req.token, 'group1', (err, authData) => {
        if(authData){
-           console.log(authData.user.id);
        if (req.body) {
          quiz_landing.getAttemptedQuizInstances(authData.user.id, (err, rows) => {
                if (err) {

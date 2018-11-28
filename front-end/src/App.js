@@ -75,7 +75,9 @@ class App extends Component {
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
                         Logout
-                    </NavLink>                           
+                    </NavLink>      
+                    </div>  
+                    <div>                   
                     <Route path="/" exact component={Profile} className="navbar" />
                     <Route path="/subjects" exact component={Subjects} className="navbar"/>
                     <Route path="/category" exact component={Category} className="navbar" />

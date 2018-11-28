@@ -42,7 +42,7 @@ class NewCategory extends Component {
         const { subject_id, name } = this.state;
         axios
             .post("http://localhost:4000/category",{  headers: { authorization: Token }, subject_id, name}).then(res => {
-                console.log(res);                
+             //What to do here?       
             });
     };
 

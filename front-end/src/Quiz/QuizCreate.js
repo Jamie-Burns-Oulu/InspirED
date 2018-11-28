@@ -37,8 +37,9 @@ export default class Quiz_create extends Component {
     }
     handleSubmit = event => {
         event.preventDefault();
-        const user_id = localStorage.getItem('user_id');
+        const user_id = localStorage.getItem("user_id");
         const { category_id, name, difficulty } = this.state;
+
         axios
             .post("http://localhost:4000/quiz_create", {
                 headers: { authorization: Token },
@@ -48,9 +49,13 @@ export default class Quiz_create extends Component {
                 difficulty
             })
             .then(res => {
-                //localStorage.setItem('quizCreated', 'the quiz id');
-                console.log("create quiz",res.data)
-                //window.location = "/questioncreate";
+                axios.get("http://localhost:4000/quiz_create", {
+                    headers: { authorization: Token }   
+                }).then(res => {
+                    localStorage.setItem('quizCreatedId',  res.data[0].id);
+                    localStorage.setItem('quizCreatedName',  res.data[0].name);
+                    window.location = "/questioncreate";
+                });
             });
     };
 
@@ -63,7 +68,7 @@ export default class Quiz_create extends Component {
                         <div className="box">
                             <form onSubmit={this.handleSubmit}>
                                 <label>
-                                    Quiz name 
+                                    Quiz name
                                     <input
                                         type="text"
                                         name="name"
@@ -73,7 +78,7 @@ export default class Quiz_create extends Component {
                                 </label>
                                 <br />
                                 <label>
-                                    Category 
+                                    Category
                                     <select
                                         name="category_id"
                                         onChange={this.onChange}
@@ -94,8 +99,11 @@ export default class Quiz_create extends Component {
                                 </label>
                                 <br />
                                 <label>
-                                    Difficulty 
-                                    <select name="difficulty">
+                                    Difficulty
+                                    <select
+                                        name="difficulty"
+                                        onChange={this.onChange}
+                                    >
                                         <option selected value="0">
                                             Select difficulty
                                         </option>

@@ -14,6 +14,8 @@ var subject = require('./routes/subjects');
 var category = require('./routes/category');
 var quiz_landing = require('./routes/quiz_landing');
 var quiz_create = require('./routes/quiz_create');
+var question_create = require('./routes/question_create');
+var answer_create = require('./routes/answer_create');
 
 var app = express();
 
@@ -39,6 +41,8 @@ app.use('/user_profile', user_profile);
 app.use('/category',category);
 app.use('/quiz_landing',quiz_landing);
 app.use('/quiz_create', quiz_create);
+app.use('/question_create', question_create);
+app.use('/answer_create', answer_create);
 app.use('/quiz', quiz);  
 
 // catch 404 and forward to error handler

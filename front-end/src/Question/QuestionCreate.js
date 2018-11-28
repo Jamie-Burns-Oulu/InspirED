@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
 
-//question - quiz_id(int), question (text of question), difficulty (int), (optional - material_item_id)
+//question - quiz_id(int), question (text of question), (optional - material_item_id)
 //answer - question_id(int), answer (text of answer), correct_answer(tiny-int)
 
 export default class QuestionCreate extends Component {
@@ -12,26 +12,14 @@ export default class QuestionCreate extends Component {
         }
         super();
         this.onChange = this.onChange.bind(this);
-        this.getQuiz = this.getQuiz.bind(this);
         this.checkAll = this.checkAll.bind(this);
-        //this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
-            quiz: [],
             question: "",
             answerCheck: "",
+            questionId: "",
             answers: [{ answer: "", correct_answer: "0" }]
         };
-    }
-    componentWillMount() {
-        // need quiz id instead of 1
-        axios
-            .get("http://localhost:4000/quiz/" + "1", {
-                headers: { authorization: Token }
-            })
-            .then(res => {
-                this.setState({ quiz: res.data });
-            });
-        this.getQuiz();
     }
 
     handleAddAnswer = () => {
@@ -68,42 +56,58 @@ export default class QuestionCreate extends Component {
         this.setState(state);
     };
 
-    getQuiz() {
-        axios
-            .get("http://localhost:4000/quiz/" + "1", {
-                headers: { authorization: Token }
-            })
-            .then(res => {
-                this.setState({ quiz: res.data });
-            });
-        console.log(localStorage);
-        localStorage.removeItem("quizCreated");
-    }
-
     checkAll() {
         console.log(this.state);
     }
 
-    //  handleSubmit = event => {
-    //      event.preventDefault();
-    //      const user_id = get the user id 
-    //      const { category_id, name } = this.state;
-    //      axios
-    //          .post("http://localhost:4000/Question_create", {
-    //              headers: { authorization: Token },
-    //              category_id,
-    //              name,
-    //              user_id
-    //          })
-    //          .then(res => {
-    //             // window.location = "/questioncreate";
-    //          });
-    //  };
+    handleSubmit = event => {
+        event.preventDefault();
+        let submit = 0;
+        if(event.target.name === "submit"){
+            submit = 1;
+        }
+        const { question } = this.state;
+        const quiz_id = localStorage.getItem("quizCreatedId");
+        axios
+            .post("http://localhost:4000/question_create", {
+                headers: { authorization: Token },
+                quiz_id,
+                question
+            })
+            .then(res => {
+                axios
+                    .get("http://localhost:4000/question_create", {
+                        headers: { authorization: Token }
+                    })
+                    .then(res => {
+                        this.setState({ questionId: res.data[0].id });
+                        if (res) {
+                            const { answers, questionId } = this.state;
+                            axios.post("http://localhost:4000/answer_create", {
+                                headers: { authorization: Token },
+                                answers,
+                                questionId
+                            }).then(res => {
+                                if (submit){
+                                    localStorage.removeItem('quizCreatedId');
+                                    localStorage.removeItem('quizCreatedName');                                
+                                    window.location = "/quizlanding";
+                                }
+                                else{
+                                    window.location = "/questioncreate";
+                                }
+                            });
+                        }
+                    });
+            });
+    };
 
     render() {
         return (
             <div className="subject-container">
-                <h1>Add questions to your quiz</h1>
+                <h1>
+                    Add questions to {localStorage.getItem("quizCreatedName")}
+                </h1>
                 <div className="list-container">
                     <table>
                         <tr>
@@ -113,7 +117,7 @@ export default class QuestionCreate extends Component {
                             <td>
                                 <input
                                     type="text"
-                                    name="name"
+                                    name="question"
                                     placeholder="Enter question"
                                     onChange={this.onChange}
                                     size="60"
@@ -156,11 +160,11 @@ export default class QuestionCreate extends Component {
                         </button>
                     </table>
                 </div>
-                <div className="arrow-container">
+                <div className="arrow-container" onClick={this.handleSubmit}>
                     <button>Add another question</button>
                 </div>
                 <div align="center">
-                    <button onClick={this.checkAll}>Submit quiz</button>
+                    <button name="submit" onClick={this.handleSubmit}>Submit quiz</button>
                 </div>
             </div>
         );
