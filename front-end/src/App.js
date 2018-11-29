@@ -5,6 +5,7 @@ import "./NavBar/navbar.scss";
 import './User/profile.scss';
 import './User/activity.scss';
 import { NavLink, Route } from "react-router-dom";
+import { Switch } from "react-router";
 import axios from "axios";
 import Register from "./User/Register";
 import Login from "./User/Login";
@@ -77,7 +78,8 @@ class App extends Component {
                         Logout
                     </NavLink>      
                     </div>  
-                    <div>                   
+                    <div>     
+                    <Switch>                  
                     <Route path="/" exact component={Profile} className="navbar" />
                     <Route path="/subjects" exact component={Subjects} className="navbar"/>
                     <Route path="/category" exact component={Category} className="navbar" />
@@ -85,10 +87,12 @@ class App extends Component {
                     <Route path="/newsubject" exact component={NewSubject} className="navbar" />
                     <Route path="/quizLanding" exact component={QuizLanding} className="navbar" />
                     <Route path="/quizcreate" exact component={QuizCreate}  className="navbar" />
-                    <Route path="/questioncreate" exact component={QuestionCreate} className="navbar" />
+                    <Route path="/questioncreate/:id" component={QuestionCreate} className="navbar" />
                     <Route path="/settings" exact component={Settings} className="navbar" /> 
                     <Route path="/register" exact component={Register} className="navbar"/>
-                    <Route path="/login" exact component={Login} className="navbar"/>           
+                    <Route path="/login" exact component={Login} className="navbar"/>  
+                    <Route component={Profile} />
+                    </Switch>         
                     <SearchBox />
                   </div>
             </div>

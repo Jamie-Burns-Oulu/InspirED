@@ -2,15 +2,12 @@ import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
 
-//question - quiz_id(int), question (text of question), (optional - material_item_id)
-//answer - question_id(int), answer (text of answer), correct_answer(tiny-int)
-
 export default class QuestionCreate extends Component {
-    constructor() {
+    constructor(props) {
         if (!Token) {
             window.location = "/login";
         }
-        super();
+        super(props);
         this.onChange = this.onChange.bind(this);
         this.checkAll = this.checkAll.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -18,39 +15,46 @@ export default class QuestionCreate extends Component {
             question: "",
             answerCheck: "",
             questionId: "",
-            answers: [{ answer: "", correct_answer: "0" }]
+            quizName: "",
+            answers: [{ answer: "" }]
         };
+        this.quiz_id = this.props.match.params.id;
+    }
+
+    componentDidMount() {
+        axios
+            .get("http://localhost:4000/quiz/" + this.quiz_id, {
+                headers: { authorization: Token }
+            })
+            .then(res => {
+                this.setState({ quizName: res.data[0].name });
+            });
     }
 
     handleAddAnswer = () => {
         this.setState({
-            answers: this.state.answers.concat([
-                { answer: "", correct_answer: "0" }
-            ])
+            answers: this.state.answers.concat([{ answer: "" }])
         });
     };
 
     handleAnswerChange = idx => evt => {
-        let correctRadio = document.getElementsByName("answerCheck");
-        for (let i = 0; i < correctRadio.length; i++) {
-            if (correctRadio[i].checked) {
-                this.setState({ answerCheck: correctRadio[i].id });
-            }
-        }
         const newAnswer = this.state.answers.map((answer, sidx) => {
-            let correct = "0";
-            idx == this.state.answerCheck ? (correct = "1") : (correct = "0");
             if (idx !== sidx) return answer;
             return {
                 ...answer,
-                answer: evt.target.value,
-                correct_answer: correct
+                answer: evt.target.value
             };
         });
         this.setState({ answers: newAnswer });
     };
 
     onChange = e => {
+        let correctRadio = document.getElementsByName("answerCheck");
+        for (let i = 0; i < correctRadio.length; i++) {
+            if (correctRadio[i].checked) {
+                this.setState({ answerCheck: correctRadio[i].id });
+            }
+        }
         const state = this.state;
         state[e.target.name] = e.target.value;
         this.setState(state);
@@ -63,11 +67,11 @@ export default class QuestionCreate extends Component {
     handleSubmit = event => {
         event.preventDefault();
         let submit = 0;
-        if(event.target.name === "submit"){
+        if (event.target.name === "submit") {
             submit = 1;
         }
         const { question } = this.state;
-        const quiz_id = localStorage.getItem("quizCreatedId");
+        const quiz_id = this.quiz_id;
         axios
             .post("http://localhost:4000/question_create", {
                 headers: { authorization: Token },
@@ -82,21 +86,26 @@ export default class QuestionCreate extends Component {
                     .then(res => {
                         this.setState({ questionId: res.data[0].id });
                         if (res) {
-                            const { answers, questionId } = this.state;
-                            axios.post("http://localhost:4000/answer_create", {
-                                headers: { authorization: Token },
+                            const {
                                 answers,
-                                questionId
-                            }).then(res => {
-                                if (submit){
-                                    localStorage.removeItem('quizCreatedId');
-                                    localStorage.removeItem('quizCreatedName');                                
-                                    window.location = "/quizlanding";
-                                }
-                                else{
-                                    window.location = "/questioncreate";
-                                }
-                            });
+                                questionId,
+                                answerCheck
+                            } = this.state;
+                            axios
+                                .post("http://localhost:4000/answer_create", {
+                                    headers: { authorization: Token },
+                                    answers,
+                                    questionId,
+                                    answerCheck
+                                })
+                                .then(res => {
+                                    if (submit) {
+                                        window.location = "/quizlanding";
+                                    } else {
+                                        window.location =
+                                            "/questioncreate/" + this.quiz_id;
+                                    }
+                                });
                         }
                     });
             });
@@ -105,9 +114,7 @@ export default class QuestionCreate extends Component {
     render() {
         return (
             <div className="subject-container">
-                <h1>
-                    Add questions to {localStorage.getItem("quizCreatedName")}
-                </h1>
+                <h1>Add questions to {this.state.quizName}</h1>
                 <div className="list-container">
                     <table>
                         <tr>
@@ -148,8 +155,8 @@ export default class QuestionCreate extends Component {
                                         type="radio"
                                         name="answerCheck"
                                         id={idx}
-                                        value={answers.answer}
-                                        onChange={this.handleAnswerChange(idx)}
+                                        value={idx}
+                                        onChange={this.onChange}
                                     />
                                 </td>
                             </tr>
@@ -164,7 +171,9 @@ export default class QuestionCreate extends Component {
                     <button>Add another question</button>
                 </div>
                 <div align="center">
-                    <button name="submit" onClick={this.handleSubmit}>Submit quiz</button>
+                    <button name="submit" onClick={this.handleSubmit}>
+                        Submit quiz
+                    </button>
                 </div>
             </div>
         );

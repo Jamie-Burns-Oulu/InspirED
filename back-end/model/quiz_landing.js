@@ -2,7 +2,7 @@ const db = require("../database");
 const quiz_landing = {
     getAttemptedQuizInstances(user_id, callback) {
         db.query(
-            "SELECT COUNT (*) FROM quiz_instance where result < 100 AND user_id=?",
+            "SELECT * FROM quiz_instance where user_id=?",
             user_id,
             callback
         );
@@ -17,8 +17,7 @@ const quiz_landing = {
     },
 
     getNewQuizzes(user_id, callback) {
-        //Where date clause needed (WHERE date> ''this week?'')
-        db.query("SELECT COUNT (*) FROM quiz", user_id, callback);
+        db.query("SELECT id FROM quiz", user_id, callback);
     }
 };
 

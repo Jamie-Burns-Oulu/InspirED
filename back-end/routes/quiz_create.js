@@ -34,5 +34,22 @@ router.get("/", userAuth, function(req, res, next) {
         }
     });
 });
+router.get("/checkQuizName/:id?", userAuth, function(req, res, next) {
+    jwt.verify(req.token, "group1", (err, authData) => {
+        if (authData) {
+            console.log(req);
+            quiz_create.checkQuizName(req.params.id, function(err, count) {
+               if (err) {
+                    res.json(err);
+                } else {
+                    console.log(count)
+                    res.json(count); //or return count for 1 & 0
+                }
+            });
+        } else {
+            res.json(err);
+        }
+    });
+});
 
 module.exports = router;

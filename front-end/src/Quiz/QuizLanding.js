@@ -10,7 +10,7 @@ export default class Category extends Component {
         super();
         this.get = this.get.bind(this);
         this.state = {
-            new:"",
+            new: "",
             attempted: "",
             completed: ""
         };
@@ -19,59 +19,69 @@ export default class Category extends Component {
         this.get();
     }
     get() {
-        const user_id =  localStorage.getItem('user_id');
-        axios
-            .post("http://localhost:4000/quiz_landing/attempted", {
-                headers: { authorization: Token },
-                user_id
-            })
-            .then(
-                res => {
-                    this.setState({ attempted: res.data[0]["COUNT (*)"] });
-                },
-                axios
-                    .post("http://localhost:4000/quiz_landing/completed", {
-                        headers: { authorization: Token },
-                        user_id
-                    })
-                    .then(
-                        res => {
-                            this.setState({
-                                completed: res.data[0]["COUNT (*)"]
-                            });
-                        },
-                        axios
-                            .post(
-                                "http://localhost:4000/quiz_landing/new",
-                                {
-                                    headers: { authorization: Token },
-                                    user_id
-                                }
-                            )
-                            .then(res => {
-                                this.setState({
-                                    new: res.data[0]["COUNT (*)"]
-                                });
-                            })
-                    )
-            );
+        const user_id = localStorage.getItem("user_id");
+        axios.get("http://localhost:4000/quiz").then(res => {
+            var allQuizzes = [];
+            for (let i in res.data) {
+                allQuizzes.push(res.data[i].id);
+            }
+            axios
+                .post("http://localhost:4000/quiz_landing/attempted", {
+                    headers: { authorization: Token },
+                    user_id
+                })
+                .then(res => {
+                    var complete = 0;
+                    var completed_ids = [];
+                    var idsInstance = [];
+                    for (let i in res.data) {
+                        if (res.data[i].result === 100) {
+                            complete++;
+                            completed_ids.push(res.data[i].quiz_id);
+                        }
+                        idsInstance.push(res.data[i].quiz_id);
+                    }
+                    for (var i in allQuizzes) {
+                        allQuizzes = allQuizzes.filter(
+                            item => item !== idsInstance[i]
+                        );
+                    }
+                    idsInstance = idsInstance.filter(
+                        (x, i, a) => a.indexOf(x) == i
+                    );
+
+                    for (var i in completed_ids) {
+                        idsInstance = idsInstance.filter(
+                            item => item !== completed_ids[i]
+                        );
+                    }
+                    var attempted = idsInstance.length;
+                    var newQuizzes = allQuizzes.length;
+                    this.setState({
+                        completed: complete,
+                        attempted: attempted,
+                        new: newQuizzes
+                    });
+                });
+        });
     }
+
     render() {
         return (
             <div className="subject-container">
-              <h1>{localStorage.getItem('user_name')}'s Quiz Home</h1>
+                <h1>{localStorage.getItem("user_name")}'s Quiz Home</h1>
                 <div className="list-container">
                     <div className="list">
                         <div className="box">
-                        <h4>Try something new!</h4>
+                            <h4>Try something new!</h4>
                             <p>New : {this.state.new}</p>
                         </div>
                         <div className="box">
-                        <h4>You can do better!</h4>
-                            <p>Attempted : {this.state.attempted}</p>
+                            <h4>You can do better!</h4>
+                            <p>To be finished : {this.state.attempted}</p>
                         </div>
                         <div className="box">
-                        <h4>Nailed it!</h4>
+                            <h4>Nailed it!</h4>
                             <p>Completed : {this.state.completed}</p>
                         </div>
                     </div>

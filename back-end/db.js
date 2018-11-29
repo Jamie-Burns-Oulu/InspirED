@@ -108,9 +108,9 @@ function quiz_instance() {
         if (err) throw err;
         var sql = "INSERT into quiz_instance (user_id, quiz_id, result) VALUES ?";
         var values = [
-            ['1', '1', '100'],
-            ['1', '1', '80'],
-            ['1', '1', '75']
+            ['8', '7', '90'],
+            ['8', '7', '80'],
+            ['8', '7', '100']
         ];
         con.query(sql, [values], function(err, result) {
             if (err) throw err;
@@ -124,5 +124,5 @@ function quiz_instance() {
 //add to return from below 
 //subject(), category(), quiz(), question(), answer(), quiz_instance()
 
-return 
+return quiz_instance();
 

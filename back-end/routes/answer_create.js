@@ -8,11 +8,17 @@ router.post("/", userAuth, function(req, res, next) {
     jwt.verify(req.token, "group1", (err, authData) => {
         if (authData) {
             var answers = [];
+            var correct = 0;
             for (i in req.body.answers) {
+                if (req.body.answerCheck === i) {
+                    correct = 1;
+                } else {
+                    correct = 0;
+                }
                 answers.push([
                     req.body.questionId,
                     req.body.answers[i].answer,
-                    req.body.answers[i].correct_answer
+                    correct
                 ]);
             }
             answer_create.addAnswers(answers, function(err, count) {
