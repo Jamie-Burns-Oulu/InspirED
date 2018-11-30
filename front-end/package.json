@@ -6,6 +6,7 @@
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",
     "node-sass": "^4.10.0",
+    "nodemon": "^1.18.7",
     "react": "^16.6.1",
     "react-dom": "^16.6.1",
     "react-promise": "^2.0.3",

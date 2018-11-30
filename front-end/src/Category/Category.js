@@ -4,6 +4,9 @@ import { NavLink, Route } from "react-router-dom";
 import NewCategory from "./NewCategory";
 import Token from '../Auth/token';
 import Material from "../Materials/Material";
+import Loading from "../Styles/Loading";
+import NewMaterial from "../Materials/NewMaterial";
+import MaterialByCategory from "../Materials/MaterialByCategory";
 
 
 export default class Category extends Component {
@@ -13,6 +16,7 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
+        this.openCategory = this.openCategory.bind(this);
         this.state = {
             category: [],
         };
@@ -26,7 +30,19 @@ export default class Category extends Component {
             this.setState({ category: res.data });
         });
     }
+    openCategory(category) {
+        let cat = category;
+
+        // if(category.includes('#')) {
+        //     const i = category.indexOf('#');
+        //     console.log(category[i]);
+        //     // category[i] = ';;hash'
+        // }
+        window.location = `material/${category}`;
+    }
+    
     render() { 
+        if(!this.state.category.length) return <Loading />
         return (
             <div className="subject-container">
                 <h1>Categories</h1>
@@ -37,16 +53,16 @@ export default class Category extends Component {
 
                 <div className="list-container">
                     <div className="list">
-                        {this.state.category.map(cat => (
+                        {this.state.category.map((cat, index) => (
                             <div key={cat.id} className="box">
                                 {cat.name}
                                 <br />
+                                <NavLink to={`/material/${cat.name}`} >
                                 <div className="study">
-                                    <NavLink to="/material" exact >
-                                        Study!
-                                    </NavLink> 
-                                    <Route path="/material" exact />
+                                    Study!
                                 </div>
+                                </NavLink>
+                                <Route path={`/material/${cat.name}`} component={MaterialByCategory} />
                             </div>
                         ))}
                     </div>

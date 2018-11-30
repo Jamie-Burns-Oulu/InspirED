@@ -3,6 +3,7 @@ const router = express.Router();
 const userAuth = require('../midware/userAuth');
 const subject = require('../model/subject');
 const jwt = require('jsonwebtoken');
+const magic = require('../midware/sortData');
 
 router.get('/:id?', userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
@@ -20,10 +21,13 @@ router.get('/:id?', userAuth, function(req, res, next) {
             else {
                 subject.getAllSubjects( (err, rows) => {
                     if(err) {
+                        // console.log(err);
                         res.json(err);
                     }
                     else {
-                        res.json(rows);
+                        // console.log(rows);
+                        const sort = magic(rows);
+                        res.json(sort);
                     }
                 });
             }
@@ -43,6 +47,7 @@ router.post("/", userAuth, function(req, res, next) {
                 if (err) {
                     res.json(err);
                 } else {
+                    console.log(req.body);
                     res.json(req.body); //or return count for 1 & 0
                 }
             }); 

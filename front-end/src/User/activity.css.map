@@ -1,0 +1,10 @@
+{
+    "version": 3,
+    "mappings": "AAEA,AAAA,UAAU,AAAA,SAAS,CAAC;EAChB,KAAK,EAAE,GAAG;EACV,UAAU,EAAE,KAAK;EACjB,MAAM,EAAE,IAAI;EACZ,MAAM,ECNM,GAAG,CAAC,KAAK,CAAC,kBAAe;EDOrC,aAAa,ECNM,IAAI;CDO1B",
+    "sources": [
+        "activity.scss",
+        "../Styles/_variables.scss"
+    ],
+    "names": [],
+    "file": "activity.css"
+}

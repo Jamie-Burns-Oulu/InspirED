@@ -7,6 +7,7 @@ const userAuth = require('../midware/userAuth');
 
 router.get("/:id?", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
+        if(err) console.log(err);
         if(authData){
         if (req.params.id) {
             category.getCategoryById(req.params.id, (err, rows) => {
@@ -27,6 +28,16 @@ router.get("/:id?", userAuth, function(req, res, next) {
         }
     }
 });
+});
+router.get('/category/:name', userAuth, function( req,res,next) {
+    jwt.verify(req.token, 'group1', (err, authData) => {
+        if(authData) {
+            category.getCategoryByName(req.params.name, (err, rows) => {
+                if(err) res.json(err);
+                if(rows) res.json({rows: rows[0]});
+            });
+        }
+    });
 });
 
 

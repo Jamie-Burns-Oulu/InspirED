@@ -1,0 +1,27 @@
+@import '../Styles/variables';
+.material-bycategory {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    .all-material {
+        .items {
+            flex: 1 0 21%;
+            .box {
+                width: $box-width;
+                height: $box-height;
+                min-width: $box-width;
+                min-height: $box-height;
+                border-radius: 25%;
+                background-color: $green;
+                color: white;
+                text-align: center;
+                font-size: $box-variable-big;
+                padding-top: 40px;
+                &.material-parent {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

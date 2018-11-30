@@ -3,6 +3,9 @@ const category = {
     getAllCategories(callback) {
         db.query("SELECT * FROM category", callback);
     },
+    getCategoryByName(name, callback) {
+        db.query('SELECT * FROM category WHERE name = ?', [name], callback);
+    },
     getCategoryById(id, callback) {
         db.query("SELECT * FROM category WHERE id = ?", [id], callback);
     },

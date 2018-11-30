@@ -3,6 +3,7 @@ import Token from '../Auth/token';
 import Activity from './Activity';
 import { NavLink, Route } from "react-router-dom";
 import Settings from './Settings';
+import Loading from '../Styles/Loading';
 
 export default class Profile extends Component {
     constructor(props) {
@@ -10,8 +11,10 @@ export default class Profile extends Component {
         if(!Token) {
           window.location = '/login';
         }
+        // document.getElementById('pic').style.display = 'none';
     }
   render() {
+    if(!this.props.userData.id) return <Loading />
     return (
       <div className="profile container">
         <div className="info">
@@ -28,9 +31,11 @@ export default class Profile extends Component {
           <div className="leaderboard box" id="leaderboard">
           Leaders
           </div>
-          <div className="settings box" id="settings">
+          
             <NavLink to="/settings" exact>
+            <div className="settings box" id="settings">
               <span className="glyphicon glyphicon-cog"></span>
+            </div>
             </NavLink>
             <Route
                 path="/settings"
@@ -38,7 +43,7 @@ export default class Profile extends Component {
                     <Settings {...props} userData={this.state.user} />
                 )}
             />
-          </div>
+          
         </div>
         <Activity /> 
       </div>

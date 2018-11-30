@@ -12,6 +12,7 @@ var user_profile = require('./routes/user_profile');
 var subject = require('./routes/subjects');
 var category = require('./routes/category');
 var material = require('./routes/material');
+var material_item = require('./routes/material_item');
 var quiz_landing = require('./routes/quiz_landing');
 
 var app = express();
@@ -37,7 +38,8 @@ app.use('/user_settings', user_settings);
 app.use('/user_profile', user_profile);
 app.use('/category',category);
 app.use('/materials', material);
-app.use('/quiz_landing',quiz_landing);
+app.use('/study', material_item);
+app.use('/quiz_landing', quiz_landing);
 
 
 // catch 404 and forward to error handler
