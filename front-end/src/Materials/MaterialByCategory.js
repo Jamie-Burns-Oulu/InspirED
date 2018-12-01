@@ -6,6 +6,7 @@ import Token from '../Auth/token';
 import Modal from '../Modal/Modal';
 import NewMaterial from './NewMaterial';
 
+
 export default class MaterialByCategory extends Component {
     constructor(props) {
         super(props);
@@ -55,9 +56,11 @@ export default class MaterialByCategory extends Component {
                 
             axios.get(`http://localhost:4000/materials/${category}`, HEADERS ).then(res => {
                 this.setState({material: res.data});
+                console.log(res.data);
             });
             axios.get(`http://localhost:4000/category/category/${category}`, HEADERS).then( res =>{
                 this.setState({categoryInfo: res.data.rows});
+
             });
         });
     }
@@ -66,7 +69,7 @@ export default class MaterialByCategory extends Component {
         addMaterial = function () {
             return(
                 <div>
-                    <p><button onClick={self.showModal}>add?</button></p>
+                    <p><button className="btn btn-default add" onClick={self.showModal}>add?</button></p>
                     <Modal
                         data={self.generateData()}
                         onClose= {self.showModal}
@@ -74,7 +77,7 @@ export default class MaterialByCategory extends Component {
                     />
                 </div>
             )
-    };
+        };
     if(!this.state.material.length) {
         return (
             <div>
@@ -84,23 +87,26 @@ export default class MaterialByCategory extends Component {
             )
     }
     return (
-      <div className="material-bycategory">
-          {this.state.material.map( mat => (
-              <div>
-                   <div className="all-material">
-                        <div className="items">
-                        <NavLink to={`/study/material/${mat.id}`} >
-                            <div className="box material-parent">
-                                {mat.material_name}
-                            </div>
-                        </NavLink>
-                        <Route path={`/study/material/${mat.id}`} />
+        <div className="container">
+            <h1>All material for {this.state.category}</h1>
+            {addMaterial()}
+            <div className="material-bycategory">
+                {this.state.material.map( mat => (
+                    <div>
+                        <div className="all-material">
+                                <div className="items">
+                                <NavLink to={`/study/material/${mat.id}`} >
+                                    <div className="box material-parent">
+                                        {mat.material_name}
+                                    </div>
+                                </NavLink>
+                                <Route path={`/study/material/${mat.id}`} />
+                                </div>
                         </div>
-                  </div>
-              </div>
-          ))}
-          {addMaterial()}
-      </div>
-    )
-  }
+                    </div>
+                ))}
+            </div>
+        </div>
+        )
+    }
 }

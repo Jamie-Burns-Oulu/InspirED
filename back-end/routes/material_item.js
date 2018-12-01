@@ -14,4 +14,16 @@ router.get('/:name', userAuth, function(req, res, next)  {
         }
     });
 });
+router.post('/', userAuth, function(req, res, next) {
+    jwt.verify(req.token, 'group1', (err, authData) => {
+        if(userAuth) {
+            material.addMaterialItem(req.body, (err, rows) => {
+                if(err) res.json(err);
+                if(rows) {
+                    res.json(rows);
+                }
+            });
+        }
+    });
+});
 module.exports = router;

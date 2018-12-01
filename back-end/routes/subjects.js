@@ -21,11 +21,9 @@ router.get('/:id?', userAuth, function(req, res, next) {
             else {
                 subject.getAllSubjects( (err, rows) => {
                     if(err) {
-                        // console.log(err);
                         res.json(err);
                     }
                     else {
-                        // console.log(rows);
                         const sort = magic(rows);
                         res.json(sort);
                     }

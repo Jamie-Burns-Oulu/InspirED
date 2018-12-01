@@ -26,6 +26,7 @@ export default class Subjects extends Component {
                 subjectid: '',
                 subjectname: '',
             },
+            onload: false,
         };
         this.openModal = (type, subject = {subjectid: '', subjectname: ''} ) => {
             this.setState( {
@@ -56,7 +57,7 @@ export default class Subjects extends Component {
         }
     }
     componentDidMount() {      
-        this.get();
+        this.get(); 
     }
     get() {
         axios
@@ -70,7 +71,6 @@ export default class Subjects extends Component {
                     categoryname: [],
                     subjectname: 'Create new!'
                 }
-                console.log(res.data);
                 this.setState({ subjects: res.data });
             });
     }
@@ -101,6 +101,32 @@ export default class Subjects extends Component {
     render() {
         const subject = this.state.subjects;
         const self = this;
+        const insertCategories = (subject, category) => {
+            if(subject.isempty) {
+                return(<div className="category-box addcategory-box" onClick={ () => { this.openModal('category', subject)}}>
+                            <div ref="nocat" className="no-cat inner" id={subject.subjectname}>{category}</div> 
+                        </div>)
+            }
+            else {
+                if(category === 'Add new!') {
+                    return (
+                            <div className="category-box addcategory-box" onClick={ () => { this.openModal('category', subject)}}>
+                                <div>{category}</div>
+                            </div>
+                    )
+                }
+                return(
+                        <div>
+                            <NavLink to={`/material/${category}`} >
+                                <div className="category-box">
+                                    <div>{category}</div>
+                                </div>
+                            </NavLink>
+                            <Route path={`/material/${category}`} component={MaterialByCategory} exact/>
+                        </div>
+                )
+            }
+        }
         return (
             <div className="subject-container subject-route">
                 <div className="all-material">
@@ -109,31 +135,17 @@ export default class Subjects extends Component {
                             return(
                                 <div key={key} className="collection">
                                     <div className="items">
-                                        <div className="subject-box"id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>
-                                            {subject[key].subjectname} <br />
+                                        <div className="subject-box"id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>                                            
+                                            <div>
+                                                {subject[key].subjectname}
+                                            </div>
                                         </div>
                                         <div className='category-container' ref={key} id={key} onScroll={(e) => {self.scrollhandler(e, key)}}>
-                                            {subject[key].categoryname.map(m => (
-                                                <div key={m}>
-                                                    {(subject[key].isempty ? 
-                                                        (
-                                                        <div className="category-box no-cat" onClick={ () => { self.openModal('category', subject[key])}}>
-                                                            <div ref="nocat" className="no-cat inner" id={key} >No categories :(</div> 
-                                                        </div>
-                                                        ):
-                                                        (
-                                                        <div>
-                                                            <NavLink to={`/material/${m}`} >
-                                                                <div className="category-box">
-                                                                    <div>{m}</div>
-                                                                </div>
-                                                            </NavLink>
-                                                            <Route path={`/material/${m}`} component={MaterialByCategory} exact/>
-                                                        </div>
-                                                        ) 
-                                                    )}
-                                                    </div>
-                                                ))}
+                                            {subject[key].categoryname.map(category => (
+                                                <div key={category}>
+                                                    {insertCategories(subject[key], category)}
+                                                </div>
+                                            ))}
                                         </div>
                                     </div>
                                 </div>

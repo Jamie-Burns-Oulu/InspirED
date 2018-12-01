@@ -2,11 +2,12 @@
 .material-bycategory {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
+    flex-wrap: wrap;
     align-items: center;
     .all-material {
         .items {
             flex: 1 0 21%;
+            margin-left: 50px;
             .box {
                 width: $box-width;
                 height: $box-height;
@@ -17,11 +18,40 @@
                 color: white;
                 text-align: center;
                 font-size: $box-variable-big;
-                padding-top: 40px;
+                display: flex;
+                justify-content: center;
+                align-items: center;
                 &.material-parent {
+                    font-size: 22px;
+                    margin-bottom: 40px;
                     cursor: pointer;
+                    transition: border $transition-length,
+                                background-color $transition-length,
+                                color $transition-length; 
+                    &:hover {
+                        border: 2px solid $green;
+                        background-color: white;
+                        color: $green;
+                    }
                 }
+                
             }
         }
     }
+}
+.materialitem-container {
+    width: 80%;
+    margin: auto;
+    .materialitem-all {
+        width: 100%;
+        border: 1px solid;
+        border-radius: $border-radius-normal;
+        padding: 30px;
+        .materialitem-box {
+            width: 100%;
+        }
+    }
+}
+.add {
+    margin-bottom: 5px;
 }

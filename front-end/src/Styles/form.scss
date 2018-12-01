@@ -27,6 +27,12 @@
             color: white;
         }
     }
+    .textarea {
+        border-radius: $border-radius-normal;
+        border: $border-normal;
+        padding: 10px;
+        width: 100%;
+    }
     
     $opacity: 0.3;
     ::-webkit-input-placeholder {

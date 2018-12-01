@@ -36,10 +36,10 @@ export default class NewMaterial extends Component {
         axios
             .post("http://localhost:4000/materials",{  headers: { authorization: Token }, category_id, name}).then(res => {
                 if(this.state.modal) {
-                    window.location = `/category/${this.state.propsCat.name}`;
+                    window.location = `/material/${this.state.propsCat.name}`;
                 }
                 
-            });
+        });
     }
   render() {
     if(this.state.modal) {

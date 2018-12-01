@@ -42,6 +42,7 @@ router.post("/", userAuth, function(req, res, next) {
                 if (err) {
                     res.json(err);
                 } else {
+                    console.log(count);
                     res.json(count); 
                 }
             }); 

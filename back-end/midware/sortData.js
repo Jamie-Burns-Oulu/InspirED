@@ -20,8 +20,11 @@ module.exports =(rows) => {
         .filter((value, index, self) => self.indexOf(value) === index);
 
         if (cats.categoryname[0] === null) {
-            cats.categoryname[0] = 'No categories yet :(';
+            cats.categoryname[0] = 'Add new!';
             cats.isempty = true;
+        }
+        else {
+            cats.categoryname.push('Add new!')
         }
         cats.subjectid = data[key][0].subjectid;
         responseData[key] = cats;
