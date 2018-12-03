@@ -44,7 +44,7 @@ class App extends Component {
         }
     }
     logout() {
-        localStorage.removeItem('loggedUserToken');
+        localStorage.clear();
         window.location = '/login';
     }
     render() {
@@ -52,7 +52,7 @@ class App extends Component {
             <div className="App">
                 <div className="navigationbar" ref="navBar">
                     <NavLink to="/" >
-                        {/* <img className="smallprofile" id="pic" src={this.state.user.picture}/> */}
+                        <img className="smallprofile" id="pic" src={localStorage.getItem('user_pic')}/> 
                     </NavLink>     
                     <NavLink to="/" className="profile" exact activeClassName="active">
                         <input type="button" value="Home" />
@@ -93,8 +93,11 @@ class App extends Component {
                     <Route path="/study/material/:material" component={ShowMaterial} />   
                     <Route path="/login" exact component={Login} className="navbar"/>  
                     <Route component={Profile} />
-                    </Switch>         
+                    </Switch>        
+                    <div ref="search">
                     <SearchBox />
+                    </div> 
+                  
                   </div>
             </div>
         );
