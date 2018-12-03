@@ -1,7 +1,8 @@
 .searchbox-container {
-    position: absolute;
+    position: fixed;
     top: 5px;
     right: 20px;
+    
     input.searchbox {
         margin-left: 5px;
         width: 0px;
@@ -20,12 +21,4 @@
        }
         
     }
-    
-    // #search-icon:hover {
-    //     cursor: pointer;
-    //     & + input.searchbox {
-    //         visibility: visible;
-    //         width: 200px;
-    //     }
-    // }
 }

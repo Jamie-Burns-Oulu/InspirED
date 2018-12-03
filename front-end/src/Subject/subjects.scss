@@ -1,0 +1,109 @@
+@import '../Styles/variables';
+
+.subject-container.subject-route {
+    width: 70% !important;
+    margin: auto !important;
+    .all-material {
+        margin: 100px auto;
+        span {
+            margin-bottom: 50px;
+        }
+        .items{
+            display: flex;
+            text-align: center;
+        }
+        .category-container {
+            border-radius: 4px;
+            width: 100%;
+            display: flex;
+            flex-direction: row;
+            margin-bottom: 20px;
+            overflow-x: scroll; 
+            transition: box-shadow 1.2s;
+            &.right {
+                box-shadow: -12px 0px 5px -5px grey inset;
+            }
+            &.left {
+                box-shadow: 12px 0px 5px -5px grey inset;
+            }
+            &.both {
+                box-shadow: -12px 0px 5px -5px grey inset, 12px 0px 5px -5px grey inset;
+            }
+        }
+        .subject-box {
+            display: flex;
+            flex-direction: column;
+            align-items: space-between;
+            justify-content: center;
+            width: $box-width;
+            margin-right: 5px;
+            min-width: $box-width;
+            height: $box-height;
+            background-color: $green;
+            color: white;
+            font-size: $box-variable-big;
+            border-radius: 25%;
+            transition: border $transition-length, 
+                        background-color $transition-length, 
+                        border-radius $transition-length, 
+                        color $transition-length, 
+                        font-size $transition-length, 
+                        width $transition-length, 
+                        height $transition-length;
+            &#addnewsubject {
+                background-color: inherit;
+                color: $blue;
+                border: 2px solid;
+                border-color: $blue;
+                &:hover {
+                    cursor: pointer;
+                    border-width: 4px;
+                }
+            }
+            .addcategory span {
+                transition: color $transition-length;
+                &:hover {
+                    cursor: pointer;
+                    color: lightgrey;
+                }
+            }
+        }
+        .category-box {
+            padding-top: 75px;
+            margin-left: 60px;
+            width: $box-width;
+            min-width: $box-width;
+            height: $box-height;
+            border: $border-normal;
+            border-width: 10px;
+            border-color: $green;
+            border-radius: 50%;
+            font-size: $box-variable-small;
+            transition: border 0.2s, background-color 0.2s, border-radius 0.4s, color 0.2s, font-size 0.4s;
+            &:hover {
+                border-color: $green;
+                background-color: $green;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            &.addcategory-box {
+                background-color: $blue;
+                border-color: $blue;
+                color: white;
+                font-size: 24px;
+                transition: border $transition-length,
+                            background-color $transition-length,
+                            color $transition-length;
+                &:hover {
+                    color: $blue;
+                    border: 10px solid $blue;
+                    background-color: white; 
+                }
+            }
+        }
+    }
+}
+::-webkit-scrollbar {
+    display: none;
+}

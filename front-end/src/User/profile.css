@@ -1,0 +1,79 @@
+.container.profile {
+  padding: 20px;
+  width: 90%;
+  margin: auto;
+  margin-top: 30px;
+}
+
+.container.profile .info {
+  width: 150px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.container.profile .info .profilePicture {
+  max-width: 80%;
+  margin: auto;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 0, 0, 0.3);
+  width: 80px;
+  height: 80px;
+}
+
+.container.profile .info .profilePicture.pro {
+  border: 5px solid #ffd105 !important;
+}
+
+.container.profile .info ul {
+  margin-top: 10px;
+  list-style-type: none;
+  -webkit-padding-start: 0px;
+          padding-inline-start: 0px;
+}
+
+.container.profile .info ul li.username {
+  font-size: 25px;
+}
+
+.container.profile .container-settings {
+  position: absolute;
+  left: 20%;
+  top: 100px;
+}
+
+.container.profile .container-settings .box {
+  text-align: center;
+  padding-top: 30px;
+  display: inline-block;
+  margin-right: 80px;
+  width: 100px;
+  height: 100px;
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  font-size: 25px;
+  font-weight: 200;
+  -webkit-transition: border 0.3s;
+  transition: border 0.3s;
+}
+
+.container.profile .container-settings .box #settings {
+  padding-top: 11px;
+}
+
+.container.profile .container-settings .box#stats:hover {
+  border: 1px solid #e40000;
+  cursor: pointer;
+}
+
+.container.profile .container-settings .box#leaderboard:hover {
+  border: 1px solid #e40000;
+  cursor: pointer;
+}
+
+.container.profile .container-settings .box#settings:hover {
+  border: 1px solid #e40000;
+  cursor: pointer;
+}
+/*# sourceMappingURL=profile.css.map */
