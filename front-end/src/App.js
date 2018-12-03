@@ -17,6 +17,7 @@ import NewCategory from "./Category/NewCategory";
 import NewSubject from "./Subject/NewSubject";
 import QuizLanding from "./Quiz/QuizLanding";
 import QuizCreate from "./Quiz/QuizCreate";
+import QuizTake from "./Quiz/QuizTake";
 import QuestionCreate from "./Question/QuestionCreate"
 import Settings from "./User/Settings";
 import Token from "./Auth/token";
@@ -87,6 +88,7 @@ class App extends Component {
                     <Route path="/newsubject" exact component={NewSubject} className="navbar" />
                     <Route path="/quizLanding" exact component={QuizLanding} className="navbar" />
                     <Route path="/quizcreate" exact component={QuizCreate}  className="navbar" />
+                    <Route path="/quiztake/:id" component={QuizTake} className="navbar" />
                     <Route path="/questioncreate/:id" component={QuestionCreate} className="navbar" />
                     <Route path="/settings" exact component={Settings} className="navbar" /> 
                     <Route path="/register" exact component={Register} className="navbar"/>

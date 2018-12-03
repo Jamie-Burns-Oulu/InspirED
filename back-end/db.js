@@ -102,7 +102,7 @@ function answer() {
  }
 
 
-//Quiz_Instance = user_id, quiz_id, result;
+//Quiz_Instance = user_id, quiz_id, result, date;
 function quiz_instance() {
     con.connect(function(err) {
         if (err) throw err;

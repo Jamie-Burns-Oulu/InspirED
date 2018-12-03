@@ -41,16 +41,16 @@ export default class Category extends Component {
                         }
                         idsInstance.push(res.data[i].quiz_id);
                     }
-                    for (var i in allQuizzes) {
+                    for (let i in allQuizzes) {
                         allQuizzes = allQuizzes.filter(
                             item => item !== idsInstance[i]
                         );
                     }
                     idsInstance = idsInstance.filter(
-                        (x, i, a) => a.indexOf(x) == i
+                        (x, i, a) => a.indexOf(x) === i
                     );
 
-                    for (var i in completed_ids) {
+                    for (let i in completed_ids) {
                         idsInstance = idsInstance.filter(
                             item => item !== completed_ids[i]
                         );
