@@ -9,8 +9,6 @@ $subject-box-height: 150px;
         margin-top: 50px;
         div.list {
             display: flex;
-            flex-wrap: wrap;
-            justify-content: space-around;
             div.box {
                 flex: 1 0 21%;
                 margin: 20px;
@@ -33,5 +31,8 @@ $subject-box-height: 150px;
             font-size: 60px;
             font-weight: 100;
         }
+    }
+    .study{
+        cursor: pointer;
     }
 }

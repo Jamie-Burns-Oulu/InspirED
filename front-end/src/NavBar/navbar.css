@@ -2,12 +2,51 @@ div.navigationbar {
   width: 100%;
   height: 50px;
   margin: auto;
+  padding-top: 15px;
   text-align: left;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 div.navigationbar a {
-  padding: 50px 0 0 60px;
-  margin-left: 15px;
+  padding: 50px 0 0 33px;
+}
+
+div.navigationbar a:focus {
+  color: black;
+}
+
+div.navigationbar img.smallprofile {
+  position: absolute;
+  top: 6px;
+  left: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid gold;
+  -webkit-transition: border 0.5s;
+  transition: border 0.5s;
+}
+
+div.navigationbar img.smallprofile:hover {
+  border-color: grey;
+}
+
+div.navigationbar #logoutbtn {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  width: 70px;
+  border-color: red;
+}
+
+div.navigationbar #logoutbtn:hover {
+  background-color: red;
+  color: white;
+}
+
+div.navigationbar #logoutbtn:focus {
+  background-color: white;
+  border-color: red;
+  color: black;
+  outline: none;
 }
 /*# sourceMappingURL=navbar.css.map */

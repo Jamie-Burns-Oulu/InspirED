@@ -3,6 +3,11 @@ import axios from "axios";
 import { NavLink, Route } from "react-router-dom";
 import NewCategory from "./NewCategory";
 import Token from '../Auth/token';
+import Material from "../Materials/Material";
+import Loading from "../Styles/Loading";
+import NewMaterial from "../Materials/NewMaterial";
+import MaterialByCategory from "../Materials/MaterialByCategory";
+
 
 export default class Category extends Component {
     constructor() {
@@ -11,9 +16,11 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
+        this.openCategory = this.openCategory.bind(this);
         this.state = {
-            category: []
+            category: [],
         };
+        this.currentCategory = "";
     }
     componentDidMount() {
         this.get();
@@ -30,7 +37,19 @@ export default class Category extends Component {
             this.setState({ category: res.data });
         });
     }
-    render() {
+    openCategory(category) {
+        let cat = category;
+
+        // if(category.includes('#')) {
+        //     const i = category.indexOf('#');
+        //     console.log(category[i]);
+        //     // category[i] = ';;hash'
+        // }
+        window.location = `material/${category}`;
+    }
+    
+    render() { 
+        if(!this.state.category.length) return <Loading />
         return (
             <div className="subject-container">
                 <h1>Categories</h1>
@@ -40,9 +59,16 @@ export default class Category extends Component {
                 </NavLink>
                 <div className="list-container">
                     <div className="list">
-                        {this.state.category.map(category => (
-                            <div key={category.id} className="box">
-                                {category.name}
+                        {this.state.category.map((cat, index) => (
+                            <div key={cat.id} className="box">
+                                {cat.name}
+                                <br />
+                                <NavLink to={`/material/${cat.name}`} >
+                                <div className="study">
+                                    Study!
+                                </div>
+                                </NavLink>
+                                <Route path={`/material/${cat.name}`} component={MaterialByCategory} />
                             </div>
                         ))}
                     </div>

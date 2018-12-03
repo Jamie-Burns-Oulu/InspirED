@@ -1,0 +1,62 @@
+.all-material {
+  width: 80%;
+  margin: 100px auto;
+  text-align: center;
+}
+
+.all-material .items {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.all-material .category-container {
+  width: 80%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  margin-bottom: 20px;
+  overflow-x: scroll;
+}
+
+.all-material .subject-box {
+  padding-top: 80px;
+  width: 200px;
+  margin-right: 20px;
+  min-width: 200px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  -webkit-transition: border 0.8s, background-color 0.8s, border-radius 0.5s, color 0.5s, font-size 0.5s;
+  transition: border 0.8s, background-color 0.8s, border-radius 0.5s, color 0.5s, font-size 0.5s;
+}
+
+.all-material .category-box {
+  padding-top: 80px;
+  margin-left: 80px;
+  width: 200px;
+  min-width: 200px;
+  height: 200px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 15px;
+  -webkit-transition: border 0.8s, background-color 0.8s, border-radius 0.5s, color 0.5s, font-size 0.5s;
+  transition: border 0.8s, background-color 0.8s, border-radius 0.5s, color 0.5s, font-size 0.5s;
+}
+
+.all-material .category-box:hover {
+  border-color: white;
+  color: white;
+  font-size: 28px;
+  border-radius: 5px;
+  background-color: #8da7df;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+/*# sourceMappingURL=material.css.map */

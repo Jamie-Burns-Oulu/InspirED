@@ -3,17 +3,15 @@ import axios from "axios";
 import Token from '../Auth/token';
 
 class Settings extends Component {
-    constructor() {
-        if(!Token){
-            window.location = "/Login"
-        }
-        super();
+    constructor(props) {
+        super(props);
         this.onChange = this.onChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             subject_id: "",
             name: "",
-            subject: []
+            subject: [],
+            modal: this.props.modal
         };
     }
    
@@ -28,7 +26,9 @@ class Settings extends Component {
         const { name } = this.state; 
         axios
             .post("http://localhost:4000/subjects",{  headers: { authorization: Token }, name}).then(res => {
-                console.log(res);                
+                if(this.props.modal) {
+                    window.location = '/subjects';
+                }
             });
     };
 
@@ -36,7 +36,7 @@ class Settings extends Component {
         return (
             <div className="content">
                 <h2>Create a new subject</h2>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit} className="form">
                     <label>
                         <input
                             type="text"
@@ -47,7 +47,7 @@ class Settings extends Component {
                     </label>
                     <br />
                
-                    <button className="button" type="submit">
+                    <button className="btn btn-default" type="submit">
                         Submit
                     </button>
                 </form>

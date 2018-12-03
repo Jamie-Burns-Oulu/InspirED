@@ -46,6 +46,9 @@ $height: 500px;
             input.submit-btn {
                 border-radius: $border-radius;
                 width: 33%;
+                &:focus {
+                    outline:none;
+                }
             }
             .switch {
                 font-weight: 200;
