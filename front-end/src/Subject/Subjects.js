@@ -135,7 +135,7 @@ export default class Subjects extends Component {
                             return(
                                 <div key={key} className="collection">
                                     <div className="items">
-                                        <div className="subject-box"id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>                                            
+                                        <div className="subject-box" id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>                                            
                                             <div>
                                                 {subject[key].subjectname}
                                             </div>

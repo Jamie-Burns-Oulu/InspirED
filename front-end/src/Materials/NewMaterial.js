@@ -12,7 +12,7 @@ export default class NewMaterial extends Component {
         this.state = {
             modal: this.props.modal,
             propsCat :this.props.category,
-            category : []
+            category : [],
         }
     }
     componentDidMount() {
@@ -35,7 +35,11 @@ export default class NewMaterial extends Component {
         const category_id = this.state.modal ? this.state.propsCat.id : this.state.category;
         axios
             .post("http://localhost:4000/materials",{  headers: { authorization: Token }, category_id, name}).then(res => {
-                if(this.state.modal) {
+                if(res.data.exists === -1) {
+                    const errormsg = this.refs.errormsg;
+                    errormsg.innerHTML = 'This material name exists already!';
+                }
+                else if(this.state.modal) {
                     window.location = `/material/${this.state.propsCat.name}`;
                 }
                 
@@ -49,7 +53,8 @@ export default class NewMaterial extends Component {
           <form onSubmit={this.handleSubmit} className="form" onChange={this.onChange}>
             <input name="name" type="text" placeholder="Material name" onChange={this.onChange}/>
             <br />
-            <input type="submit" className="btn btn-default" value="Save" />
+            <input type="submit" ref="submitbtn" className="btn btn-default" value="Save" />
+            <p className="error" ref="errormsg" id="errormsg"></p>
         </form>
       </div>
         )
@@ -67,6 +72,7 @@ export default class NewMaterial extends Component {
             </select>
             <br />
             <input type="submit" className="btn btn-default" value="Save" />
+        
         </form>
       </div>
     )

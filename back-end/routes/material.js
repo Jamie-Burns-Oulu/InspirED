@@ -38,14 +38,27 @@ router.get("/:name?", userAuth, function(req, res, next) {
 router.post("/", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){   
-            material.addMaterial(req.body, authData.user.id, function(err, count) {
-                if (err) {
-                    res.json(err);
-                } else {
-                    console.log(count);
-                    res.json(count); 
+            material.getAllMaterials((error, rows) => {
+                let exists = false;
+                for(let i = 0; i < rows.length; i++) {
+                    if(rows[i].category_id === req.body.category_id && rows[i].name === req.body.name) {
+                        exists = true;
+                    }
                 }
-            }); 
+                if(!exists) {
+                    material.addMaterial(req.body, authData.user.id, function(err, count) {
+                        if (err) {
+                            res.json(err);
+                        } else {
+                            res.json(count); 
+                        }
+                    }); 
+                }
+                else {
+                    res.json({exists: -1});
+                }
+            });
+            
         } 
         else {
             res.json(err);
