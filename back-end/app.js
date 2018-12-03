@@ -19,6 +19,7 @@ var quiz_create = require('./routes/quiz_create');
 var quiz_take = require('./routes/quiz_take');
 var question_create = require('./routes/question_create');
 var answer_create = require('./routes/answer_create');
+var result = require('./routes/result');
 
 var app = express();
 
@@ -42,12 +43,12 @@ app.use('/login_register', login_register);
 app.use('/user_settings', user_settings);
 app.use('/user_profile', user_profile);
 app.use('/category',category);
-
 app.use('/quiz_create', quiz_create);
 app.use('/quiz_take', quiz_take);
 app.use('/question_create', question_create);
 app.use('/answer_create', answer_create);
 app.use('/quiz', quiz);  
+app.use('/result', result);
 app.use('/materials', material);
 app.use('/study', material_item);
 app.use('/quiz_landing', quiz_landing);

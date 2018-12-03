@@ -9,7 +9,6 @@ export default class QuestionCreate extends Component {
         }
         super(props);
         this.onChange = this.onChange.bind(this);
-        this.checkAll = this.checkAll.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             question: "",
@@ -59,10 +58,6 @@ export default class QuestionCreate extends Component {
         state[e.target.name] = e.target.value;
         this.setState(state);
     };
-
-    checkAll() {
-        console.log(this.state);
-    }
 
     handleSubmit = event => {
         event.preventDefault();

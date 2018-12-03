@@ -108,7 +108,7 @@ export default class Subjects extends Component {
                         </div>)
             }
             else {
-                if(category === 'Add new!') {
+                if(category === 'Add new') {
                     return (
                             <div className="category-box addcategory-box" onClick={ () => { this.openModal('category', subject)}}>
                                 <div>{category}</div>

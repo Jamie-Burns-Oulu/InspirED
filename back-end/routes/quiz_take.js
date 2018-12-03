@@ -54,7 +54,6 @@ router.post("/instance", userAuth, function(req, res, next) {
 });
 router.get("/instance", userAuth, function(req, res, next) {
    jwt.verify(req.token, "group1", (err, authData) => {
-      console.log(authData);
        if (authData) {
          quiz_take.getCreatedQuizInstance(function(err, count) {
               if (err) {
@@ -69,6 +68,21 @@ router.get("/instance", userAuth, function(req, res, next) {
    });
 });
 
+router.post("/answer_given", userAuth, function(req, res, next) {
+    jwt.verify(req.token, "group1", (err, authData) => {
+        if (authData) {
+            if(req.body){
+                quiz_take.addAnswerGiven(req.body, (err, rows) => {
+                    if (err) {
+                        res.json(err);
+                    } else {
+                        res.json(req.body);
+                    }
+                });
+            }
+        }
+    });
+ });
 
 
 

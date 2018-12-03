@@ -13,7 +13,8 @@ import NewSubject from "./Subject/NewSubject";
 import QuizLanding from "./Quiz/QuizLanding";
 import QuizCreate from "./Quiz/QuizCreate";
 import QuizTake from "./Quiz/QuizTake";
-import QuestionCreate from "./Question/QuestionCreate"
+import QuestionCreate from "./Question/QuestionCreate";
+import Result from "./Result/Result";
 import Settings from "./User/Settings";
 import Token from "./Auth/token";
 import MaterialByCategory from "./Materials/MaterialByCategory";
@@ -78,20 +79,21 @@ class App extends Component {
                     </div>  
                     <div>     
                     <Switch>                  
-                    <Route path="/" exact component={Profile} className="navbar" />
-                    <Route path="/subjects" exact component={Subjects} className="navbar"/>
-                    <Route path="/category" exact component={Category} className="navbar" />
-                    <Route path="/newcategory" exact component={NewCategory} className="navbar" />
-                    <Route path="/newsubject" exact component={NewSubject} className="navbar" />
-                    <Route path="/quizLanding" exact component={QuizLanding} className="navbar" />
-                    <Route path="/quizcreate" exact component={QuizCreate}  className="navbar" />
-                    <Route path="/quiztake/:id" component={QuizTake} className="navbar" />
-                    <Route path="/questioncreate/:id" component={QuestionCreate} className="navbar" />
-                    <Route path="/settings" exact component={Settings} className="navbar" /> 
-                    <Route path="/register" exact component={Register} className="navbar"/>
-                    <Route path="/material/:category?"  component={MaterialByCategory} />   
+                    <Route path="/" exact component={Profile} />
+                    <Route path="/subjects" exact component={Subjects} />
+                    <Route path="/category" exact component={Category}  />
+                    <Route path="/newcategory" exact component={NewCategory}  />
+                    <Route path="/newsubject" exact component={NewSubject} />
+                    <Route path="/quizLanding" exact component={QuizLanding}  />
+                    <Route path="/quizcreate" exact component={QuizCreate} />
+                    <Route path="/quiztake/:id" component={QuizTake} />
+                    <Route path="/questioncreate/:id" component={QuestionCreate} />
+                    <Route path="/result/:id" component={Result} />
+                    <Route path="/settings" exact component={Settings} /> 
+                    <Route path="/register" exact component={Register} />
+                    <Route path="/material/:category?" component={MaterialByCategory} />   
                     <Route path="/study/material/:material" component={ShowMaterial} />   
-                    <Route path="/login" exact component={Login} className="navbar"/>  
+                    <Route path="/login" exact component={Login} />  
                     <Route component={Profile} />
                     </Switch>        
                     <div ref="search">
