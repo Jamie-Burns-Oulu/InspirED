@@ -7,16 +7,12 @@ const userAuth = require('../midware/userAuth');
 const sortData = require('../midware/sortData');
 
 
-router.get("/:name?", userAuth, function(req, res, next) {
+router.get("/:id?", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(err) console.log(err);
         if(authData){
-            if (req.params.name) { 
-                let name = req.params.name;
-                if(req.params.name.includes(';;')) {
-                    name = req.params.name.replace(/;;/g, '#');
-                }
-               material.getMaterialByCategoryName(name, (err, rows) => {
+            if (req.params.id) { 
+               material.getMaterialByCategoryId(req.params.id, (err, rows) => {
                 if(err) res.json(err);
                 if(rows){
                     res.json(rows);
