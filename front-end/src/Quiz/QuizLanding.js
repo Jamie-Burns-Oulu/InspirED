@@ -9,6 +9,7 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
+        this.completedQuizzes = this.completedQuizzes.bind(this);
         this.state = {
             new: "",
             attempted: "",
@@ -65,6 +66,10 @@ export default class Category extends Component {
                 });
         });
     }
+    completedQuizzes(){
+        window.location = "/completed"
+    }
+
 
     render() {
         return (
@@ -80,7 +85,7 @@ export default class Category extends Component {
                             <h4>You can do better!</h4>
                             <p>To be finished : {this.state.attempted}</p>
                         </div>
-                        <div className="box">
+                        <div className="box" onClick={this.completedQuizzes}>
                             <h4>Nailed it!</h4>
                             <p>Completed : {this.state.completed}</p>
                         </div>

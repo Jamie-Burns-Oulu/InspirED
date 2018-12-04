@@ -49,8 +49,8 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
             text-align: center;
             padding-top: 30px;
             display: inline-block;
-            margin-right: 80px;
-            width: $box-width;
+            margin-right: 60px;
+            width: 217px;
             height: $box-height;
             border-radius: $box-border-radius;
             border: $border-normal;
@@ -68,4 +68,20 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
             } 
         }
     }
+}
+
+.container.activity.new-quiz {
+    width: 70%;
+    min-height: 0px;
+    margin: auto;
+    border: $border-normal;
+    border-radius: $border-radius-normal;
+    border-color: rgb(255, 46, 220);
+    margin-bottom: 10px;
+    margin-top: -80px;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    cursor: pointer;
 }

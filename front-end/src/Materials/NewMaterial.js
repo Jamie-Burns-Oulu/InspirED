@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import Loading from '../Styles/Loading';
+//import Loading from '../Styles/Loading';
 import Token from '../Auth/token';
 
 export default class NewMaterial extends Component {

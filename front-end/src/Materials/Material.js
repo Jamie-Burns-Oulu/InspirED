@@ -76,11 +76,11 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import Token from '../Auth/token';
-import { NavLink, Route } from "react-router-dom";
-// import Category from '../Quiz_Landing/Quiz_landing';
-import Loading from '../Styles/Loading';
-import NewMaterial from './NewMaterial';
-import MaterialByCategory from './MaterialByCategory';
+// import { NavLink, Route } from "react-router-dom";
+// // import Category from '../Quiz_Landing/Quiz_landing';
+// import Loading from '../Styles/Loading';
+// import NewMaterial from './NewMaterial';
+// import MaterialByCategory from './MaterialByCategory';
 import AllMaterial from './AllMaterial';
 
 export default class Material extends Component {

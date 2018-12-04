@@ -21,11 +21,11 @@ router.post("/Attempted", userAuth, function(req, res, next) {
 });
 });
 
-router.post("/Completed", userAuth, function(req, res, next) {
+router.get("/complete/:id?", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){
         if (req.body) {
-          quiz_landing.getCompletedQuizInstances(req.body.user_id, (err, rows) => {
+          quiz_landing.getCompletedQuizInstances(req.params.id, (err, rows) => {
                 if (err) {
                     res.json(err);
                 } else {

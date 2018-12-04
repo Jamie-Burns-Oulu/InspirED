@@ -3,7 +3,8 @@ import Token from '../Auth/token';
 import Activity from './Activity';
 import { NavLink, Route } from "react-router-dom";
 import Settings from './Settings';
-import Loading from '../Styles/Loading';
+//import Loading from '../Styles/Loading';
+import NewQuizzes from '../Quiz/NewQuizzes';
 
 export default class Profile extends Component {
     constructor() {
@@ -26,10 +27,10 @@ export default class Profile extends Component {
         </div>
         <div className="container-settings">
           <div className="stats box" id="stats">
-          Stats
+          Statistics
           </div>
           <div className="leaderboard box" id="leaderboard">
-          Leaders
+          Leaderboards
           </div>
           
             <NavLink to="/settings" exact>
@@ -42,6 +43,9 @@ export default class Profile extends Component {
                 exact component={Settings}
             />
           
+        </div>
+        <div className="container activity new-quiz">
+          <NewQuizzes />
         </div>
         <Activity /> 
       </div>

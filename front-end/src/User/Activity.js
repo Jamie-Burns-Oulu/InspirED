@@ -24,7 +24,7 @@ export default class Activity extends Component {
             <h1>Your recent activity</h1>
             {this.state.instance.map( quiz => (
                 <div className="activity-item" key={quiz.id}>
-                    <p>You answered quiz: <a href="#">{quiz.name}</a></p>
+                    <p>You answered quiz: <a href={"/result/"+quiz.id}>{quiz.name}</a></p>
                 </div>
             ))}    
             </div>

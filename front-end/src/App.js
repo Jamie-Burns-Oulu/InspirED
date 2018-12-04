@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './index.scss';
-import { NavLink, Route, Switch, Redirect } from "react-router-dom";
+import { NavLink, Route, Switch } from "react-router-dom";
 import axios from "axios";
 import Register from "./User/Register";
 import Login from "./User/Login";
@@ -19,6 +19,7 @@ import Settings from "./User/Settings";
 import Token from "./Auth/token";
 import MaterialByCategory from "./Materials/MaterialByCategory";
 import ShowMaterial from "./Materials/ShowMaterial";
+import Completed from "./Quiz/Completed";
 
 class App extends Component {
     constructor() {
@@ -53,7 +54,7 @@ class App extends Component {
             <div className="App">
                 <div className="navigationbar" ref="navBar">
                     <NavLink to="/" >
-                        <img className="smallprofile" id="pic" src={localStorage.getItem('user_pic')}/> 
+                        <img className="smallprofile" id="pic" alt="profilePic" src={localStorage.getItem('user_pic')}/> 
                     </NavLink>     
                     <NavLink to="/" className="profile" exact activeClassName="active">
                         <input type="button" value="Home" />
@@ -89,6 +90,7 @@ class App extends Component {
                     <Route path="/quiztake/:id" component={QuizTake} />
                     <Route path="/questioncreate/:id" component={QuestionCreate} />
                     <Route path="/result/:id" component={Result} />
+                    <Route path="/completed" component={Completed} />
                     <Route path="/settings" exact component={Settings} /> 
                     <Route path="/register" exact component={Register} />
                     <Route path="/material/:category?" component={MaterialByCategory} />   

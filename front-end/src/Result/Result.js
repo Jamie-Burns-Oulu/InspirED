@@ -44,8 +44,8 @@ class Result extends Component {
                 }
             }
         }
-        var result = Math.round(correct * percent);
-        this.setState({ result: result });
+        var resultPercent = Math.round(correct * percent);
+        this.setState({ result: resultPercent });
         const { result } = this.state;
         const quiz_instance = this.props.match.params.id;
         axios.post("http://localhost:4000/result/", {
