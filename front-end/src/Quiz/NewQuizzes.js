@@ -9,30 +9,32 @@ export default class NewQuizzes extends Component {
             window.location = "/Login";
         }
         this.state = {
-            newQuiz: []
+            newQuiz: 0
         };
     }
     componentDidMount() {
-        const user_id = localStorage.getItem("user_id");
         axios
-            .post("http://localhost:4000/quiz_landing/new", {
-                headers: { authorization: Token },
-                user_id
+            .get("http://localhost:4000/quiz_landing/new", {
+                headers: { authorization: Token }
             })
             .then(res => {
-               var number = 0;
-               for(let i in res.data){
-                  number++
-               }               
-                this.setState({ newQuiz: number});
+                this.setState({ newQuiz: res.data.length });
             });
     }
 
     render() {
         return (
-            <div onClick="#">
-                You have {this.state.newQuiz} new quizzes to try, click
-                here to view them.
+            <div>
+                {this.state.newQuiz ? (
+                    <div onClick="#">
+                        You have {this.state.newQuiz} new quizzes to try! Click
+                        here to view them.
+                    </div>
+                ) : (
+                    <div onClick="#">
+                        You have no new quizzes to try, why not create some?
+                    </div>
+                )}
             </div>
         );
     }

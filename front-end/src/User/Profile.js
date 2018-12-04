@@ -3,7 +3,7 @@ import Token from '../Auth/token';
 import Activity from './Activity';
 import { NavLink, Route } from "react-router-dom";
 import Settings from './Settings';
-//import Loading from '../Styles/Loading';
+import Loading from '../Styles/Loading';
 import NewQuizzes from '../Quiz/NewQuizzes';
 
 export default class Profile extends Component {
@@ -12,10 +12,9 @@ export default class Profile extends Component {
         if(!Token) {
           window.location = '/login';
         }
-        // document.getElementById('pic').style.display = 'none';
     }
   render() {
-    // if(!this.props.userData.id) return <Loading />
+    while(!localStorage.getItem('user_pic')) return <Loading />
     return (
       <div className="profile container">
         <div className="info">

@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './index.scss';
 import { NavLink, Route, Switch } from "react-router-dom";
-import axios from "axios";
 import Register from "./User/Register";
 import Login from "./User/Login";
 import Subjects from "./Subject/Subjects";
@@ -61,13 +60,10 @@ class App extends Component {
                         Register
                     </NavLink>
                     <NavLink to="/subjects" exact activeClassName="active">
-                        <input type="button" value="Subjects" />
+                        <input type="button" value="Start Learning" />
                     </NavLink>                   
                     <NavLink to="/quizLanding" exact activeClassName="active">
-                        <input type="button" value="Quiz Home" />  
-                    </NavLink>
-                    <NavLink to="/quizcreate" exact>
-                        <input type="button" value="Quiz Create" />  
+                        <input type="button" value="My Quiz Home" />  
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
                         <input type="button" value="Logout" />  

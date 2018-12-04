@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
+import Loading from "../Styles/Loading";
 
 class Result extends Component {
     constructor(props) {
@@ -82,6 +83,7 @@ class Result extends Component {
     }
 
     render() {
+        while (!this.state.results.length) return <Loading />;
         return (
             <div className="content">
                 <div className="subject-container">

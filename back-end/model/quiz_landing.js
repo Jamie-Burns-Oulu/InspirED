@@ -2,7 +2,7 @@ const db = require("../database");
 const quiz_landing = {
     getAttemptedQuizInstances(user_id, callback) {
         db.query(
-            "SELECT * FROM quiz_instance where user_id=?",
+            "SELECT DISTINCT quiz_id FROM quiz_instance where result < 100 and user_id = ?;",
             user_id,
             callback
         );

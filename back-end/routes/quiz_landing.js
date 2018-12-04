@@ -4,7 +4,7 @@ const userAuth = require('../midware/userAuth');
 const quiz_landing = require('../model/quiz_landing');
 const jwt = require('jsonwebtoken');
 
-router.post("/Attempted", userAuth, function(req, res, next) {
+router.get("/attempted", userAuth, function(req, res, next) {
    jwt.verify(req.token, 'group1', (err, authData) => {
        if(authData){
        if (req.body) {
@@ -21,11 +21,11 @@ router.post("/Attempted", userAuth, function(req, res, next) {
 });
 });
 
-router.get("/complete/:id?", userAuth, function(req, res, next) {
+router.get("/complete", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){
         if (req.body) {
-          quiz_landing.getCompletedQuizInstances(req.params.id, (err, rows) => {
+          quiz_landing.getCompletedQuizInstances(authData.user.id, (err, rows) => {
                 if (err) {
                     res.json(err);
                 } else {
@@ -38,11 +38,11 @@ router.get("/complete/:id?", userAuth, function(req, res, next) {
  });
  });
 
- router.post("/New", userAuth, function(req, res, next) {
+ router.get("/new", userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(authData){
         if (req.body) {
-          quiz_landing.getNewQuizzes(req.body.user_id, (err, rows) => {
+          quiz_landing.getNewQuizzes(authData.user.id, (err, rows) => {
                 if (err) {
                     res.json(err);
                 } else {

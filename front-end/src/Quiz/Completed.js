@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
 
+
 export default class Completed extends Component {
     constructor() {
         if (!Token) {
@@ -14,9 +15,8 @@ export default class Completed extends Component {
         };
     }
     componentDidMount() {
-        const user_id = localStorage.getItem("user_id");
         axios
-            .get("http://localhost:4000/quiz_landing/complete/" + user_id, {
+            .get("http://localhost:4000/quiz_landing/complete", {
                 headers: { authorization: Token }
             })
             .then(res => {
@@ -35,7 +35,7 @@ export default class Completed extends Component {
                     <div className="list-container">
                         <div className="list">
                             {this.state.completedQuizzes.map(completed => (
-                                <div className="box" onClick={()=>{this.result(completed.quiz_instance_id)}}>{completed.name}</div>
+                                <div className="box" style={{cursor:'pointer'}} onClick={()=>{this.result(completed.quiz_instance_id)}}>{completed.name}</div>
                             ))}
                         </div>
                     </div>
