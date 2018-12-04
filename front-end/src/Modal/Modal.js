@@ -9,6 +9,7 @@ class Modal extends Component {
                 this.onClose(e);
             }
         });
+        console.log('in');
     }
     onClose(e) {
         this.props.onClose && this.props.onClose(e)

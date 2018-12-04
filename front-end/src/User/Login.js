@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 import Token from '../Auth/token';
 import './login_register.scss';
+import Register from "./Register";
 var bcrypt = require("bcryptjs");
 
 class Login extends Component {
@@ -15,7 +16,8 @@ class Login extends Component {
         this.register = this.register.bind(this);
         this.state = {
             username: "",
-            password: ""
+            password: "",
+            register: false,
         };
     }
 
@@ -27,7 +29,17 @@ class Login extends Component {
     register() {
         const self = this;
         const { loginRegisterContainer, header, loginContent, toggle } = this.refs;
-        loginRegisterContainer.classList.add('register');
+        this.setState({register: !this.state.register});
+        console.log(this.state.register);
+        if(this.state.register) {
+            loginRegisterContainer.classList.remove('login');
+            loginRegisterContainer.classList.add('register');
+        }
+        else {
+            loginRegisterContainer.classList.remove('register');
+            loginRegisterContainer.classList.add('login');
+        }
+        
         
     }
     handleSubmit = event => {
@@ -40,16 +52,42 @@ class Login extends Component {
                     bcrypt.compare(password, response.data.count[0].password, function(err, res) {
                     if (res) {   
                         localStorage.setItem('loggedUserToken', response.data.token);
-                        const user = response.data.count[0];
-                        window.location = '/';
+                            axios.get('http://localhost:4000/user_profile/data', {headers: {'authorization' :  response.data.token}}).then(res => {
+                            localStorage.setItem('user_id', res.data[0].id);   
+                            localStorage.setItem('user_name', res.data[0].username);
+                            localStorage.setItem('user_pic', res.data[0].picture);
+                            localStorage.setItem('user_email', res.data[0].email);
+                            window.location = '/';
+                        });
                     }
                     
                 });
                 
             });
     };
-
+    
     render() {
+        if(this.state.register) {
+            return (
+                <div className="container">
+                <div className="login-register-container" ref="loginRegisterContainer">
+                    <div ref="toggle">
+                        <div className="login-register-header">
+                            <h1 ref="header">Register to Group1</h1>
+                        </div>
+                        <div className="content" ref="content">
+                            <div className="login-content" ref="loginContent">
+                                <Register />
+                            </div>
+                            <div className="switch" ref="register">
+                                <p ref="switchText">Already registered? Login <a href="#" onClick={() => {this.register()}}>Here!</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            );
+        }
         return (
             <div className="container">
                 <div className="login-register-container" ref="loginRegisterContainer">
@@ -59,7 +97,7 @@ class Login extends Component {
                         </div>
                         <div className="content" ref="content">
                             <div className="login-content" ref="loginContent">
-                                <form onSubmit={this.handleSubmit}>
+                                <form onSubmit={this.handleSubmit} className="form">
                                     <div className="username-container">
                                         <input
                                             type="text"

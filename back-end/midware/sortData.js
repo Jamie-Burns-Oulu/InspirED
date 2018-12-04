@@ -16,21 +16,24 @@ module.exports =(rows) => {
     Object.keys(data).map( key => {
         const cats = {};
         cats.isempty = false;
-        cats.categoryname = data[key].map(item => item.categoryname)
-        .filter((value, index, self) => self.indexOf(value) === index);
-
-        if (cats.categoryname[0] === null) {
-            cats.categoryname[0] = 'Add new!';
+        cats.category = [];
+        data[key].map(item => {
+            cats.category.push({ name: item.categoryname, id: item.categoryid });
+        })
+        // cats.categoryname = data[key].map(item => item.categoryname)
+        // .filter((value, index, self) => self.indexOf(value) === index );
+        if (cats.category[0].name === null) {
+            cats.category[0] = {name: 'Add new!', id: -1};
             cats.isempty = true;
         }
         else {
-            cats.categoryname.push('Add new!')
+            cats.category.push({name: 'Add new!', id: -1});
         }
         cats.subjectid = data[key][0].subjectid;
         responseData[key] = cats;
         cats.subjectname = key;
+        
     });
-
 
     return responseData;
 }

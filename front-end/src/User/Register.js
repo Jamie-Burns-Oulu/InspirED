@@ -57,9 +57,8 @@ class Register extends Component {
 
     render() {
         return (
-            <div className="content">
-                <h2>Register</h2>
-                <form onSubmit={this.handleSubmit}>
+            <div className="container register-content">
+                <form onSubmit={this.handleSubmit} className="form">
                     <label>
                         <input
                             type="text"
@@ -114,12 +113,24 @@ class Register extends Component {
                         Register Now
                     </button>
                 </form>
-                <img
-                    src={this.state.picture}
-                    alt="profile"
-                    width="200"
-                    height="200"
-                />
+                {this.state.picture && (
+                    <div className="id-card" onClick={() => {window.print()}}>
+                        <h3>ID Card</h3>
+                        <div className="content">
+                        <div id="card-picture">
+                        <img
+                            src={this.state.picture}
+                            className="profilePicture"
+                        />
+                        </div>
+                            <div id="card-content">
+                                <p id="card-username">{this.state.username}</p>
+                                <p id="card-email">{this.state.email}</p>
+                            </div>
+                        </div>
+                    </div>
+                )}
+                
             </div>
         );
     }

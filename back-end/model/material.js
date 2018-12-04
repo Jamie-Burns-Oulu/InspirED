@@ -10,6 +10,9 @@ const material = {
     getAllMaterialItemsByMaterialId(material_id, callback) {
         db.query('SELECT * FROM material_item WHERE material_id=?', [material_id], callback);
     },
+    getMaterialByCategoryId(id, callback) {
+        db.query('SELECT * FROM material WHERE category_id = ?', [id], callback);
+    },
     getMaterialByCategoryName(category_name, callback) {
         db.query('SELECT material.id, material.name AS material_name, material.user_id, material.date, material.category_id, category.id AS category_id, category.name AS category_name, category.subject_id, subject.id AS subject_id, subject.name AS subject_name FROM material INNER JOIN ' + 
         'category ON material.category_id = category.id INNER JOIN subject ON category.subject_id = subject.id  WHERE category.name = ?',[category_name], callback);
