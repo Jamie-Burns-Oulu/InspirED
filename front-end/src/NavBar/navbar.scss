@@ -46,7 +46,7 @@ div.navigationbar {
         border: 2px solid gold;
         transition: border 0.5s;
         &:hover {
-            border-color: grey;
+            border-color: $green;
         }
     }
     #logoutbtn{

@@ -11,101 +11,108 @@ export default class MaterialByCategory extends Component {
     constructor(props) {
         super(props);
         this.get = this.get.bind(this);
-        this.getURL = this.getURL.bind(this);
         this.generateData = this.generateData.bind(this);
         this.state = {
             material: [],
-            category: '',
+            categoryid: this.props.match.params.category,
             categoryInfo: {},
-            displayCategory: '',
             show: false,
         }
         this.showModal = e => {
             this.setState({ show: !this.state.show }); 
+            console.log('äsda');
         }
     }
     componentDidMount() {
-        this.getURL();
         this.get();
     }
     generateData() {
         return  (<NewMaterial modal={true} category={this.state.categoryInfo}/>);
     }
-    getURL() {
-        /**
-         * Made for getting # value to the database
-         * Subsituted with %&%
-         */
-        const { category } = this.props.match.params,
-            windowURL = window.location.href;
-        if(windowURL.includes('#')) {
-            const name = windowURL.split('http://localhost:3000/material/')[1],
-            url =   name.replace(/#/g, ';;');
-
-            this.setState({category: url, displayCategory: name});
-            return;
-        }
-        this.setState({category: category, displayCategory: category});
-    }
     get() {
         const promise = new Promise( resolve => {
             resolve(this.state);
         }).then(ans => {
-            const { category } = this.state,
+            const { categoryid } = this.state,
                     HEADERS = {headers: {authorization: Token}};  
                 
-            axios.get(`http://localhost:4000/materials/${category}`, HEADERS ).then(res => {
+            axios.get(`http://localhost:4000/materials/${categoryid}`, HEADERS ).then(res => {
                 this.setState({material: res.data});
-                console.log(res.data);
+                
+                if(res.data.length) {
+                    this.state.material.push({id: -1, name: 'Add new!'});
+                }
             });
-            axios.get(`http://localhost:4000/category/category/${category}`, HEADERS).then( res =>{
-                this.setState({categoryInfo: res.data.rows});
-
+            axios.get(`http://localhost:4000/category/category/${categoryid}`, HEADERS).then( res =>{
+                if(res.data.rows) {
+                    this.setState({categoryInfo: res.data.rows});
+                    console.log(res.data.rows);
+                }
+                else {
+                    window.location = '/subjects';
+                }
             });
         });
     }
   render() {
     const self = this,
-        addMaterial = function () {
+        fillContent = material => {
+                if(material.id === -2 || material.id === -1) {
+                    return(
+                        <div className="box material-parent" id='addnew' onClick={this.showModal}>
+                            {material.name}
+                        </div>
+                    )
+                }
             return(
                 <div>
-                    <p><button className="btn btn-default add" onClick={self.showModal}>add?</button></p>
-                    <Modal
-                        data={self.generateData()}
-                        onClose= {self.showModal}
-                        show= {self.state.show} 
-                    />
+                    <NavLink to={`/study/material/${material.id}`}>
+                        <div className="box material-parent">
+                            {material.name}
+                        </div>
+                    </NavLink>
+                    <Route path={`/study/material/${material.id}`} />
                 </div>
             )
         };
     if(!this.state.material.length) {
         return (
-            <div>
-                <h1>No material found for {this.state.displayCategory}</h1>
-                {addMaterial()}
+            <div className="container">
+                <h1>No material found.</h1>
+                <div className="material-bycategory">
+                    <div className="all-material">
+                            <div className="items">
+                                {fillContent({id:-2, name:'Add new!'})}
+                            </div>
+                    </div>
+                </div>
+                <Modal
+                    data={self.generateData()}
+                    onClose= {self.showModal}
+                    show= {self.state.show} 
+                />
             </div>
-            )
+        )
     }
     return (
         <div className="container">
-            <h1>All material for {this.state.category}</h1>
-            {addMaterial()}
+            <h1>All material for {this.state.categoryInfo.name}</h1>
             <div className="material-bycategory">
                 {this.state.material.map( mat => (
                     <div>
                         <div className="all-material">
                                 <div className="items">
-                                <NavLink to={`/study/material/${mat.id}`} >
-                                    <div className="box material-parent">
-                                        {mat.material_name}
-                                    </div>
-                                </NavLink>
-                                <Route path={`/study/material/${mat.id}`} />
+                                    {fillContent(mat)}
                                 </div>
                         </div>
                     </div>
                 ))}
             </div>
+            <Modal
+                data={self.generateData()}
+                onClose= {self.showModal}
+                show= {self.state.show} 
+            />
         </div>
         )
     }

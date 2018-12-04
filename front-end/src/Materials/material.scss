@@ -33,6 +33,14 @@
                         background-color: white;
                         color: $green;
                     }
+                    &#addnew {
+                        background-color: $blue;
+                        &:hover {
+                            border: 2px solid $blue;
+                            background-color: white;
+                            color: $blue
+                        }
+                    }
                 }
                 
             }

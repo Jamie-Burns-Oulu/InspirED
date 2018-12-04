@@ -14,8 +14,10 @@ export default class Subjects extends Component {
             window.location = "/login";
         }
         super();
-        // this.setSubject = this.setSubject.bind(this);
         this.get = this.get.bind(this);
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseExit = this.mouseExit.bind(this);
+        this.initCalcForShadow = this.initCalcForShadow.bind(this);
         this.generateForm =this.generateForm.bind(this);
         this.scrollhandler = this.scrollhandler.bind(this);
         this.state = {
@@ -47,6 +49,21 @@ export default class Subjects extends Component {
             }
         });
     }
+    mouseEnter(e, category) {
+        const el = e.target;
+        const material = `material/${category.id}`;
+        const quiz = `quiz/${category.id}`;
+        el.innerHTML = `<div class="categoryhover">
+                            <div><h6 class="headerhover">${category.name}</h6></div>
+                            <div><a href=${material}>Study</a></div>
+                            <div><a href=${quiz}>Quiz</a></div>
+                        </div>`;
+
+    }
+    mouseExit(e, category) {
+        const el = e.target;
+        el.innerHTML = category.name;
+    }
     generateForm() {
         const { type, subjectid, subjectname } = this.state.modalData;
         if(type === 'category') {
@@ -56,8 +73,19 @@ export default class Subjects extends Component {
             return <NewSubject modal={true}/>
         }
     }
+    initCalcForShadow() {
+        const el = document.getElementsByClassName('category-container');
+        for(const item of el) {
+            if(item.scrollWidth > item.clientWidth) {
+                item.classList.add('right');
+            }
+        }
+    }
     componentDidMount() {      
         this.get(); 
+    }
+    componentDidUpdate() {
+        this.initCalcForShadow();
     }
     get() {
         axios
@@ -68,7 +96,7 @@ export default class Subjects extends Component {
                 res.data['Create new!'] = {
                     isempty: false,
                     subjectid: -1,
-                    categoryname: [],
+                    category: [],
                     subjectname: 'Create new!'
                 }
                 this.setState({ subjects: res.data });
@@ -80,6 +108,7 @@ export default class Subjects extends Component {
                 hiddenwidth = element.scrollWidth,
                 visiblewidth = element.clientWidth,
                 howmuchisscrolled = element.scrollLeft;
+                console.log(node);
         setTimeout(() => {
             if (hiddenwidth - howmuchisscrolled === visiblewidth) {
                 node.classList.add('left');
@@ -104,25 +133,22 @@ export default class Subjects extends Component {
         const insertCategories = (subject, category) => {
             if(subject.isempty) {
                 return(<div className="category-box addcategory-box" onClick={ () => { this.openModal('category', subject)}}>
-                            <div ref="nocat" className="no-cat inner" id={subject.subjectname}>{category}</div> 
+                            <div ref="nocat" className="no-cat inner" id={subject.subjectname}>{category.name}</div> 
                         </div>)
             }
             else {
-                if(category === 'Add new!') {
+                if(category.name === 'Add new!') {
                     return (
                             <div className="category-box addcategory-box" onClick={ () => { this.openModal('category', subject)}}>
-                                <div>{category}</div>
+                                <div>{category.name}</div>
                             </div>
                     )
                 }
                 return(
                         <div>
-                            <NavLink to={`/material/${category}`} >
-                                <div className="category-box">
-                                    <div>{category}</div>
+                                <div className="category-box hoverable" onMouseLeave={e => {this.mouseExit(e, category)}} onMouseEnter={ e => {this.mouseEnter(e, category)}} id={`${category.id}`}>
+                                    <div>{category.name}</div>
                                 </div>
-                            </NavLink>
-                            <Route path={`/material/${category}`} component={MaterialByCategory} exact/>
                         </div>
                 )
             }
@@ -140,9 +166,9 @@ export default class Subjects extends Component {
                                                 {subject[key].subjectname}
                                             </div>
                                         </div>
-                                        <div className='category-container' ref={key} id={key} onScroll={(e) => {self.scrollhandler(e, key)}}>
-                                            {subject[key].categoryname.map(category => (
-                                                <div key={category}>
+                                        <div className='category-container' id={key} key={key} onScroll={(e) => {self.scrollhandler(e, key)}}>
+                                            {subject[key].category.map(category => (
+                                                <div>
                                                     {insertCategories(subject[key], category)}
                                                 </div>
                                             ))}

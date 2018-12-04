@@ -31,12 +31,7 @@ class App extends Component {
             logout.style.display = '';
             document.getElementById('login').style.display = 'none';
             document.getElementById('register').style.display = 'none';
-            axios.get('http://localhost:4000/user_profile/data', {headers: {'authorization' : Token}}).then(res => {
-                localStorage.setItem('user_id', res.data[0].id);   
-                localStorage.setItem('user_name', res.data[0].username);
-                localStorage.setItem('user_pic', res.data[0].picture);
-                localStorage.setItem('user_email', res.data[0].email);
-            });
+            
         }            
         else {
             this.refs.navBar.style.display = 'none';
@@ -92,6 +87,7 @@ class App extends Component {
                     <Route path="/material/:category?"  component={MaterialByCategory} />   
                     <Route path="/study/material/:material" component={ShowMaterial} />   
                     <Route path="/login" exact component={Login} className="navbar"/>  
+                    <Route path="/logout"/>  
                     <Route component={Profile} />
                     </Switch>        
                     <div ref="search">

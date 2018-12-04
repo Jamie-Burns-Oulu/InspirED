@@ -16,17 +16,6 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
         border: $border-normal;
         border-radius: $border-radius-normal;
         padding: 10px;
-        .profilePicture {
-            max-width: 80%;
-            margin: auto;
-            border-radius: 50%;
-            border: $pic-noob-border;
-            // object-fit: none;
-            width: 80px;
-            height: 80px;
-            &.pro {
-                border: $pic-pro-border !important;
-            }
         }
         ul {
             margin-top: 10px;
@@ -60,12 +49,32 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
             #settings {
                 padding-top: 11px;
             }
+            a:hover {
+                color: black;
+            }
             @each $item in '#stats' '#leaderboard' '#settings' {
                 &#{$item}:hover {
-                    border: 1px solid rgb(228, 0, 0);
+                    border: 1px solid $green;
                     cursor: pointer;
+                    span {
+                        color: black;
+                        &:focus {
+                            color: black;
+                        }
+                    }
                 }
             } 
         }
+}
+.profilePicture {
+    max-width: 80%;
+    margin: auto;
+    border-radius: 50%;
+    border: $pic-noob-border;
+    // object-fit: none;
+    width: 80px;
+    height: 80px;
+    &.pro {
+        border: $pic-pro-border !important;
     }
 }
