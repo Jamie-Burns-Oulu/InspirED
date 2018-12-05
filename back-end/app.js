@@ -6,7 +6,8 @@ var bodyParser = require('body-parser');
 var cors = require('cors');
 var routes = require('./routes/index');
 var users = require('./routes/users');
-var quiz = require('./routes/quiz')
+var quiz = require('./routes/quiz');
+var showquiz = require('./routes/showquiz');
 var login_register = require('./routes/login_register');
 var user_settings = require('./routes/user_settings');
 var user_profile = require('./routes/user_profile');
@@ -48,6 +49,7 @@ app.use('/quiz_take', quiz_take);
 app.use('/question_create', question_create);
 app.use('/answer_create', answer_create);
 app.use('/quiz', quiz);  
+app.use('/showquiz', showquiz);  
 app.use('/result', result);
 app.use('/materials', material);
 app.use('/study', material_item);

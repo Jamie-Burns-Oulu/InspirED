@@ -6,6 +6,7 @@ import Token from '../Auth/token';
 import MaterialByCategory from "../Materials/MaterialByCategory";
 import NewCategory from "../Category/NewCategory";
 import Modal from "../Modal/Modal";
+import Loading from "../Styles/Loading";
 
 
 export default class Subjects extends Component {

@@ -1,0 +1,9 @@
+@import '../Styles/variables';
+.quizdone {
+    cursor: not-allowed !important;
+    opacity: 0.4;
+    &:hover {
+        background-color: $green !important;
+        color: white !important;
+    }
+}

@@ -1,6 +1,8 @@
 var express = require("express");
 var router = express.Router();
 var quiz = require("../model/quiz");
+const userAuth = require('../midware/userAuth'),
+    jwt = require('jsonwebtoken');
 
 router.get("/:id?", function(req, res, next) {
    if (req.params.id) {

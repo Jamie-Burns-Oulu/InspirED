@@ -19,6 +19,7 @@ import Settings from "./User/Settings";
 import Token from "./Auth/token";
 import MaterialByCategory from "./Materials/MaterialByCategory";
 import ShowMaterial from "./Materials/ShowMaterial";
+import ShowQuiz from "./Quiz/ShowQuiz";
 
 class App extends Component {
     constructor() {
@@ -88,6 +89,7 @@ class App extends Component {
                     <Route path="/register" exact component={Register} />
                     <Route path="/material/:category?" component={MaterialByCategory} />   
                     <Route path="/study/material/:material" component={ShowMaterial} />   
+                    <Route path="/quiz/:id?" exact component={ShowQuiz}/>
                     <Route path="/login" exact component={Login} className="navbar"/>  
                     <Route path="/logout"/>  
                     <Route component={Profile} />
