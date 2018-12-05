@@ -33,14 +33,14 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
         position: absolute;
         left: 20%;
         top: 100px;
-        
+        width: 70%;
         .box {
             text-align: center;
-            padding-top: 30px;
+            padding-top: 20px;
             display: inline-block;
-            margin-right: 80px;
-            width: $box-width;
-            height: $box-height;
+            margin-right: 10%;
+            width: 20%;
+            height: 75px;
             border-radius: $box-border-radius;
             border: $border-normal;
             font-size: 25px;
@@ -77,4 +77,20 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
     &.pro {
         border: $pic-pro-border !important;
     }
+}
+
+.container.activity.new-quiz {
+    width: 70%;
+    min-height: 0px;
+    margin: auto;
+    border: $border-normal;
+    border-radius: $border-radius-normal;
+    border-color: rgb(255, 46, 220);
+    margin-bottom: 20px;
+    margin-top: -105px;
+    padding-left: 25px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-size: 20px;
+    cursor: pointer;
 }

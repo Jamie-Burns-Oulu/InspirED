@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Loading from '../Styles/Loading';
+//import Loading from '../Styles/Loading';
 import { NavLink, Route } from "react-router-dom";
 import axios from 'axios';
 import Token from '../Auth/token';

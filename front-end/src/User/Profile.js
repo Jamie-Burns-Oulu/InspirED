@@ -4,6 +4,7 @@ import Activity from './Activity';
 import { NavLink, Route } from "react-router-dom";
 import Settings from './Settings';
 import Loading from '../Styles/Loading';
+import NewQuizzes from '../Quiz/NewQuizzes';
 
 export default class Profile extends Component {
     constructor() {
@@ -11,10 +12,9 @@ export default class Profile extends Component {
         if(!Token) {
           window.location = '/login';
         }
-        // document.getElementById('pic').style.display = 'none';
     }
   render() {
-    // if(!this.props.userData.id) return <Loading />
+    while(!localStorage.getItem('user_pic')) return <Loading />
     return (
       <div className="profile container">
         <div className="info">
@@ -26,10 +26,10 @@ export default class Profile extends Component {
         </div>
         <div className="container-settings">
           <div className="stats box" id="stats">
-          Stats
+          Statistics
           </div>
           <div className="leaderboard box" id="leaderboard">
-          Leaders
+          Leaderboards
           </div>
           
             <NavLink to="/settings" exact>
@@ -42,6 +42,9 @@ export default class Profile extends Component {
                 exact component={Settings}
             />
           
+        </div>
+        <div className="container activity new-quiz">
+          <NewQuizzes />
         </div>
         <Activity /> 
       </div>

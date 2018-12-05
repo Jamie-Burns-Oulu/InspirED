@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import './index.scss';
-import { NavLink, Route, Switch, Redirect } from "react-router-dom";
-import axios from "axios";
+import { NavLink, Route, Switch } from "react-router-dom";
 import Register from "./User/Register";
 import Login from "./User/Login";
 import Subjects from "./Subject/Subjects";
@@ -20,6 +19,7 @@ import Token from "./Auth/token";
 import MaterialByCategory from "./Materials/MaterialByCategory";
 import ShowMaterial from "./Materials/ShowMaterial";
 import ShowQuiz from "./Quiz/ShowQuiz";
+import Completed from "./Quiz/Completed";
 
 class App extends Component {
     constructor() {
@@ -49,7 +49,7 @@ class App extends Component {
             <div className="App">
                 <div className="navigationbar" ref="navBar">
                     <NavLink to="/" >
-                        <img className="smallprofile" id="pic" src={localStorage.getItem('user_pic')}/> 
+                        <img className="smallprofile" id="pic" alt="profilePic" src={localStorage.getItem('user_pic')}/> 
                     </NavLink>     
                     <NavLink to="/" className="profile" exact activeClassName="active">
                         <input type="button" value="Home" />
@@ -61,13 +61,10 @@ class App extends Component {
                         Register
                     </NavLink>
                     <NavLink to="/subjects" exact activeClassName="active">
-                        <input type="button" value="Subjects" />
+                        <input type="button" value="Start Learning" />
                     </NavLink>                   
                     <NavLink to="/quizLanding" exact activeClassName="active">
-                        <input type="button" value="Quiz Home" />  
-                    </NavLink>
-                    <NavLink to="/quizcreate" exact>
-                        <input type="button" value="Quiz Create" />  
+                        <input type="button" value="My Quiz Home" />  
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
                         <input type="button" value="Logout" />  
@@ -85,6 +82,7 @@ class App extends Component {
                     <Route path="/quiztake/:id" component={QuizTake} />
                     <Route path="/questioncreate/:id" component={QuestionCreate} />
                     <Route path="/result/:id" component={Result} />
+                    <Route path="/completed" component={Completed} />
                     <Route path="/settings" exact component={Settings} /> 
                     <Route path="/register" exact component={Register} />
                     <Route path="/material/:category?" component={MaterialByCategory} />   

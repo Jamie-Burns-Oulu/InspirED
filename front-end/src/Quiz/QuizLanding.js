@@ -9,6 +9,7 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
+        this.completedQuizzes = this.completedQuizzes.bind(this);
         this.state = {
             new: "",
             attempted: "",
@@ -19,51 +20,27 @@ export default class Category extends Component {
         this.get();
     }
     get() {
-        const user_id = localStorage.getItem("user_id");
-        axios.get("http://localhost:4000/quiz").then(res => {
-            var allQuizzes = [];
-            for (let i in res.data) {
-                allQuizzes.push(res.data[i].id);
-            }
-            axios
-                .post("http://localhost:4000/quiz_landing/attempted", {
-                    headers: { authorization: Token },
-                    user_id
-                })
-                .then(res => {
-                    var complete = 0;
-                    var completed_ids = [];
-                    var idsInstance = [];
-                    for (let i in res.data) {
-                        if (res.data[i].result === 100) {
-                            complete++;
-                            completed_ids.push(res.data[i].quiz_id);
-                        }
-                        idsInstance.push(res.data[i].quiz_id);
-                    }
-                    for (let i in allQuizzes) {
-                        allQuizzes = allQuizzes.filter(
-                            item => item !== idsInstance[i]
-                        );
-                    }
-                    idsInstance = idsInstance.filter(
-                        (x, i, a) => a.indexOf(x) === i
-                    );
-
-                    for (let i in completed_ids) {
-                        idsInstance = idsInstance.filter(
-                            item => item !== completed_ids[i]
-                        );
-                    }
-                    var attempted = idsInstance.length;
-                    var newQuizzes = allQuizzes.length;
-                    this.setState({
-                        completed: complete,
-                        attempted: attempted,
-                        new: newQuizzes
+        const HEADERS = { headers: { authorization: Token } };
+        axios
+            .get("http://localhost:4000/quiz_landing/new", HEADERS)
+            .then(res => {
+                this.setState({ new: res.data.length });
+            });
+        axios
+            .get("http://localhost:4000/quiz_landing/complete", HEADERS)
+            .then(res => {
+                this.setState({ completed: res.data.length });
+                axios
+                    .get(
+                        "http://localhost:4000/quiz_landing/attempted", HEADERS)
+                    .then(res => {
+                        let attempted = res.data.length - this.state.completed;
+                        this.setState({ attempted: attempted });
                     });
-                });
-        });
+            });
+    }
+    completedQuizzes() {
+        window.location = "/completed";
     }
 
     render() {
@@ -80,7 +57,11 @@ export default class Category extends Component {
                             <h4>You can do better!</h4>
                             <p>To be finished : {this.state.attempted}</p>
                         </div>
-                        <div className="box">
+                        <div
+                            className="box"
+                            style={{ cursor: "pointer" }}
+                            onClick={this.completedQuizzes}
+                        >
                             <h4>Nailed it!</h4>
                             <p>Completed : {this.state.completed}</p>
                         </div>
