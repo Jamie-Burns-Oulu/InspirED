@@ -3,11 +3,11 @@ import axios from "axios";
 import Token from "../Auth/token";
 
 export default class Quiz_create extends Component {
-    constructor() {
+    constructor(props) {
         if (!Token) {
             window.location = "/login";
         }
-        super();
+        super(props);
         this.onChange = this.onChange.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -15,7 +15,8 @@ export default class Quiz_create extends Component {
             category: [],
             name: "",
             category_id: "",
-            difficulty: ""
+            difficulty: "",
+            modalCatId: this.props.modalCategoryId,
         };
     }
 
@@ -42,7 +43,8 @@ export default class Quiz_create extends Component {
     handleSubmit = event => {
         event.preventDefault();
         const user_id = localStorage.getItem("user_id");
-        const { category_id, name, difficulty } = this.state;
+        const { name, difficulty } = this.state,
+            category_id = this.state.modalCatId === undefined ? this.state.category_id : this.state.modalCatId;
         axios
             .get(
                 "http://localhost:4000/quiz_create/checkQuizName/" +
@@ -86,6 +88,36 @@ export default class Quiz_create extends Component {
     };
 
     render() {
+        const checkModal = () => {
+            const modal = this.state.modalCatId === undefined ? false : true;
+            if(!modal) {
+                return (
+                    <div>
+                        <label>
+                            Category
+                            <select
+                                name="category_id"
+                                onChange={this.onChange}
+                            >
+                                <option value="-" defaultChecked>
+                                    Select category
+                                </option>
+                                {this.state.category.map(category => (
+                                    <option
+                                        key={category.id}
+                                        value={category.id}
+                                        name="category"
+                                    >
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                        <br />
+                    </div>
+                )
+            }
+        }
         return (
             <div className="subject-container">
                 <h1>Create quiz</h1>
@@ -102,27 +134,7 @@ export default class Quiz_create extends Component {
                                         onChange={this.onChange}
                                     />
                                 </label>
-                                <br />
-                                <label>
-                                    Category
-                                    <select
-                                        name="category_id"
-                                        onChange={this.onChange}
-                                    >
-                                        <option value="-" defaultChecked>
-                                            Select category
-                                        </option>
-                                        {this.state.category.map(category => (
-                                            <option
-                                                key={category.id}
-                                                value={category.id}
-                                                name="category"
-                                            >
-                                                {category.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </label>
+                                {checkModal()}
                                 <br />
                                 <label>
                                     Difficulty

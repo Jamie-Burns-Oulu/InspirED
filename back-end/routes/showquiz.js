@@ -13,6 +13,7 @@ router.get('/:id?', userAuth, function(req, res, next)  {
                     if(err) console.log(err);
                     if(rows) {
                         const uniq = uniqueResult(rows);
+                        console.log(uniq);
                         res.json(uniq);
                     }
                 });
@@ -22,6 +23,7 @@ router.get('/:id?', userAuth, function(req, res, next)  {
                     if(err) console.log(err);
                     if(rows) {
                         const uniq = uniqueResult(rows);
+                        console.log(uniq);
                         res.json(uniq);
                     }
                 });

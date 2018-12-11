@@ -1,4 +1,7 @@
 @import '../Styles/variables';
+$easy: rgb(255, 239, 100);
+$middle: rgb(255, 178, 34);
+$hard: red;
 .material-bycategory {
     display: flex;
     flex-direction: row;
@@ -33,6 +36,7 @@
                         background-color: white;
                         color: $green;
                     }
+                    
                     &#addnew {
                         background-color: $blue;
                         &:hover {

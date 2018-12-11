@@ -1,19 +1,77 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Token from '../Auth/token';
-import { timingSafeEqual } from 'crypto';
+import Modal from '../Modal/Modal';
+import Quiz_create from './QuizCreate';
 
 class ShowQuiz extends Component {
     constructor(props){
         super(props);
         this.get = this.get.bind(this);
+        this.onMouseEnter = this.onMouseEnter.bind(this);
+        this.onMouseLeave = this.onMouseLeave.bind(this);
+        this.generateData = this.generateData.bind(this);
         this.state = {
             quiz: [],
             category: '',
+            show: false,
+        }
+        this.showModal = e => {
+            this.setState({ show: !this.state.show }); 
         }
     }
     componentDidMount() {
         this.get();
+    }
+    generateData() {
+        const id = this.props.match.params.id;
+        return <Quiz_create modalCategoryId={id}/>
+    }
+    onMouseEnter(quiz) {
+        const merits = ['🥇','🎖', '🎯', '🏆', '💯', '🔥', '⚡️', '💫'];
+        const el = document.getElementById(quiz.quizid),
+                quizpath = `/quiztake/${quiz.quizid}`,
+                result= `/result/${quiz.instanceid}`;
+        let content = '';
+        console.log(quiz, el);
+        if((quiz.instanceresult < 100 && quiz.instanceresult !== null) && quiz.id !== -1) {
+                content = `<div class="quizhover difficulty-${quiz.difficulty}">
+                                <div><h6 class="headerhover">${quiz.quizname}</h6></div>
+                                <div><a href=${quizpath}>Try again</a></div>
+                                <div><a href=${result}>See result</a></div>
+                                </div>`
+            el.innerHTML = content;
+        }
+        if(quiz.instanceresult === 100) {
+            content = `<div class="quizhover">
+                            
+                            <div><h6 class="headerhover">${quiz.quizname}</h6></div>
+                            <div><a href=${result}>See result</a></div>
+                            <div class="info">Quiz completed fam! ${merits[Math.floor(Math.random() * merits.length)]}</div>
+                            </div>`
+            el.innerHTML = content;
+        }
+        if(quiz.instanceresult === null) {
+            content = `<div class="quizhover">
+                            <div><h6 class="headerhover">${quiz.quizname}</h6></div>
+                            <div><a href=${quizpath}>Just do it! ${merits[4]}</a></div>
+                        </div>`
+            el.innerHTML =  content;
+        }
+    }
+    onMouseLeave(e, quiz) {
+        const el = e.target;
+        if((quiz.instanceresult < 100 && quiz.instanceresult !== null) && quiz.id !== -1) {
+            el.innerHTML = quiz.quizname;
+        }
+        if(quiz.instanceresult === 100) {
+            el.innerHTML = quiz.quizname;
+        }
+        else {
+            el.innerHTML = quiz.quizname;
+        }
+       
+        
     }
     get() {
         const   params = this.props.match.params.id,
@@ -36,7 +94,13 @@ class ShowQuiz extends Component {
                         <div>
                              <div className="all-material">
                                 <div className="items">
-                                    <div className={`box material-parent ${q.instanceresult === 100 ? 'quizdone' : '' }`} id={q.id === -1 ? 'addnew' : ''}> 
+                                    <div 
+                                        className={`box material-parent ${q.instanceresult === 100 ? 'quizdone' : '' }`} 
+                                        onMouseEnter={e => {this.onMouseEnter(q)}} 
+                                        onMouseLeave={e => {this.onMouseLeave(e, q)}}
+                                        id={q.id === -1 ? 'addnew' : q.quizid}
+                                        onClick={() => { if(q.id === -1) this.showModal() }}
+                                    > 
                                         {q.quizname}
                                     </div>
                                 </div>
@@ -44,6 +108,11 @@ class ShowQuiz extends Component {
                         </div>
                     ))}
                 </div>
+                <Modal
+                    data={this.generateData()}
+                    onClose= {this.showModal}
+                    show= {this.state.show} 
+                />
             </div>
         );
     }
