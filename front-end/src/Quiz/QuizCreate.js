@@ -87,64 +87,57 @@ export default class Quiz_create extends Component {
 
     render() {
         return (
-            <div className="subject-container">
+            <div className="container">
                 <h1>Create quiz</h1>
-                <div className="list-container">
-                    <div className="list">
-                        <div className="box">
-                            <form onSubmit={this.handleSubmit}>
-                                <label>
-                                    Quiz name
-                                    <input
-                                        type="text"
-                                        name="name"
-                                        placeholder="Enter quiz name"
-                                        onChange={this.onChange}
-                                    />
-                                </label>
-                                <br />
-                                <label>
-                                    Category
-                                    <select
-                                        name="category_id"
-                                        onChange={this.onChange}
-                                    >
-                                        <option value="-" defaultChecked>
-                                            Select category
-                                        </option>
-                                        {this.state.category.map(category => (
-                                            <option
-                                                key={category.id}
-                                                value={category.id}
-                                                name="category"
-                                            >
-                                                {category.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </label>
-                                <br />
-                                <label>
-                                    Difficulty
-                                    <select
-                                        name="difficulty"
-                                        onChange={this.onChange}
-                                    >
-                                        <option selected value="0">
-                                            Select difficulty
-                                        </option>
-                                        <option value="1">Easy</option>
-                                        <option value="2">Normal</option>
-                                        <option value="3">Difficult</option>
-                                    </select>
-                                </label>
-                                <br />
-                                <button className="button" type="submit">
-                                    Create quiz and add questions
-                                </button>
-                            </form>
+                <div className="quizCreateBox">
+                    <label>
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Enter quiz name"
+                            onChange={this.onChange}
+                        />
+                    </label>
+                    <br/>
+                    <label>
+                        <select name="category_id" onChange={this.onChange}>
+                            <option value="-" defaultChecked>
+                                Select category
+                            </option>
+                            {this.state.category.map(category => (
+                                <option
+                                    key={category.id}
+                                    value={category.id}
+                                    name="category"
+                                >
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
+                    </label>
+                    <br />
+                    <label>
+                        <select name="difficulty" onChange={this.onChange}>
+                            <option selected value="0">
+                                Select difficulty
+                            </option>
+                            <option value="1">Easy</option>
+                            <option value="2">Normal</option>
+                            <option value="3">Hard</option>
+                        </select>
+                    </label>
+                    <br />
+                    {this.state.category_id &&
+                    this.state.difficulty &&
+                    this.state.name ? (
+                        <div className="button" onClick={this.handleSubmit}>
+                            Create quiz and add questions
                         </div>
-                    </div>
+                    ) : (
+                        <div>
+                            <i>please complete all fields</i>
+                        </div>
+                    )}
                 </div>
             </div>
         );

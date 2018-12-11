@@ -73,14 +73,14 @@ class Login extends Component {
                 <div className="login-register-container" ref="loginRegisterContainer">
                     <div ref="toggle">
                         <div className="login-register-header">
-                            <h1 ref="header">Register to Group1</h1>
+                            <h1 ref="header">Register to InspirED</h1>
                         </div>
                         <div className="content" ref="content">
                             <div className="login-content" ref="loginContent">
                                 <Register />
                             </div>
                             <div className="switch" ref="register">
-                                <p ref="switchText">Already registered? Login <a href="#" onClick={() => {this.register()}}>Here!</a></p>
+                                <p ref="switchText">Already registered? Login <a href="#" onClick={() => {this.register()}}>here</a></p>
                             </div>
                         </div>
                     </div>
@@ -93,7 +93,7 @@ class Login extends Component {
                 <div className="login-register-container" ref="loginRegisterContainer">
                     <div ref="toggle">
                         <div className="login-register-header">
-                            <h1 ref="header">Login to Group1</h1>
+                            <h1 ref="header">Login to InspirED</h1>
                         </div>
                         <div className="content" ref="content">
                             <div className="login-content" ref="loginContent">
@@ -119,12 +119,12 @@ class Login extends Component {
                                     </div>
                                     <br />
                                     <div className="submit-container">
-                                        <input className="submit-btn btn btn-default" type="submit"  value="Login!"></input>
+                                        <input className="submit-btn btn btn-default" type="submit" value="Login"></input>
                                     </div>
                                 </form>
                             </div>
                             <div className="switch" ref="register">
-                                <p ref="switchText">Not a member yet? Register <a href="#" onClick={() => {this.register()}}>Here!</a></p>
+                                <p ref="switchText">Not a member yet? Register <a href="#" onClick={() => {this.register()}}>here</a></p>
                             </div>
                         </div>
                     </div>

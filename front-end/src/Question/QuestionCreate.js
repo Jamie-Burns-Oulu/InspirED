@@ -108,67 +108,61 @@ export default class QuestionCreate extends Component {
 
     render() {
         return (
-            <div className="subject-container">
-                <h1>Add questions to {this.state.quizName}</h1>
-                <div className="list-container">
-                    <table>
-                        <tr>
-                            <th>Question</th>
-                        </tr>
-                        <tr>
-                            <td>
+            <div>
+                <h2>Add questions to {this.state.quizName}</h2>
+                <div className="questionCreateBox">
+                    <input
+                        type="text"
+                        name="question"
+                        placeholder="Question"
+                        onChange={this.onChange}
+                    />
+                    {this.state.question && this.state.answerCheck ? (
+                    <div
+                        className="addQuestionButton"
+                        onClick={this.handleSubmit}
+                    >
+                        Add another question
+                    </div>)
+                    :(<div/>)}
+                    <div className="questionCreateCorrect">Correct?</div>
+                    <div className="questionCreateAnswer">
+                        {this.state.answers.map((answers, idx) => (
+                            <div className="questionCreateAnswerInside">
                                 <input
                                     type="text"
-                                    name="question"
-                                    placeholder="Enter question"
-                                    onChange={this.onChange}
-                                    size="60"
+                                    name="answer"
+                                    placeholder={`Answer ${idx + 1}`}
+                                    value={answers.answer}
+                                    onChange={this.handleAnswerChange(idx)}
                                 />
-                            </td>
-                        </tr>
-                    </table>
-                    <table>
-                        <tr>
-                            <th>Answer</th>
-                            <th> Correct?</th>
-                        </tr>
-                        {this.state.answers.map((answers, idx) => (
-                            <tr key={idx}>
-                                <td>
-                                    <input
-                                        type="text"
-                                        name="answer"
-                                        placeholder={`Enter answer ${idx + 1}`}
-                                        value={answers.answer}
-                                        onChange={this.handleAnswerChange(idx)}
-                                        size="60"
-                                    />
-                                </td>
-                                <br />
-                                <td>
-                                    <input
-                                        type="radio"
-                                        name="answerCheck"
-                                        id={idx}
-                                        value={idx}
-                                        onChange={this.onChange}
-                                    />
-                                </td>
-                            </tr>
+                                <input
+                                    type="radio"
+                                    name="answerCheck"
+                                    id={idx}
+                                    value={idx}
+                                    onChange={this.onChange}
+                                />
+                            </div>
                         ))}
-                        <br />
-                        <button type="button" onClick={this.handleAddAnswer}>
-                            Add another answer
-                        </button>
-                    </table>
-                </div>
-                <div className="arrow-container" onClick={this.handleSubmit}>
-                    <button>Add another question</button>
-                </div>
-                <div align="center">
-                    <button name="submit" onClick={this.handleSubmit}>
-                        Submit quiz
-                    </button>
+                    </div>
+                    <br />
+                    <div
+                        className="addAnswerButton"
+                        onClick={this.handleAddAnswer}
+                    >
+                        Add another answer
+                    </div>
+                    {this.state.question && this.state.answerCheck ? (
+                        <div
+                            className="addAnswerButton"
+                            onClick={this.handleSubmit}
+                        >
+                            Submit quiz
+                        </div>
+                    ) : (
+                        <div className="completeQuestion">Please complete question</div>
+                    )}
                 </div>
             </div>
         );

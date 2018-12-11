@@ -14,7 +14,9 @@ class Register extends Component {
             confirm: "",
             email: "",
             admin: 0,
-            picture: ""        
+            picture: "",
+            nonMatch: false,
+            nonUnique: false
         };
     }
 
@@ -22,37 +24,49 @@ class Register extends Component {
         const state = this.state;
         state[e.target.name] = e.target.value;
         this.setState(state);
+        this.setState({ nonMatch: false });
+        this.setState({ nonUnique: false });
     };
 
     handleSubmit = event => {
         event.preventDefault();
-        const { id, username, pass, confirm, email, admin, picture } = this.state;
-        if (confirm !== pass){
-            alert("Passwords do not match");
-        } else{
-        bcrypt.genSalt(10, function(err, salt) {
-            bcrypt.hash(pass, salt, function(err, hash) {
-                let password = hash;        
-                axios
-                    .post("http://localhost:4000/login_register/register", {
-                        id,
-                        username,
-                        password,
-                        email,
-                        admin,
-                        picture
-                    })
-                    .then(res => {                    
-                        if (res.data.code === "ER_DUP_ENTRY") {
-                            alert("Not unique");
-                        }
-                       window.location = "/Login"
-                    });
-               
+        const {
+            id,
+            username,
+            pass,
+            confirm,
+            email,
+            admin,
+            picture
+        } = this.state;
+        var self = this;
+        if (confirm !== pass) {
+            this.setState({ nonMatch: true });
+        } else {
+            bcrypt.genSalt(10, function(err, salt) {
+                bcrypt.hash(pass, salt, function(err, hash) {
+                    let password = hash;
+                    axios
+                        .post("http://localhost:4000/login_register/register", {
+                            id,
+                            username,
+                            password,
+                            email,
+                            admin,
+                            picture
+                        })
+                        .then(res => {
+                            if (res) {
+                                if (res.data.code === "ER_DUP_ENTRY") {
+                                    self.setState({ nonUnique: true });
+                                } else {
+                                    window.location = "/Login";
+                                }
+                            }
+                        });
+                });
             });
-        });
-    };
-       
+        }
     };
 
     render() {
@@ -114,15 +128,20 @@ class Register extends Component {
                     </button>
                 </form>
                 {this.state.picture && (
-                    <div className="id-card" onClick={() => {window.print()}}>
+                    <div
+                        className="id-card"
+                        onClick={() => {
+                            window.print();
+                        }}
+                    >
                         <h3>ID Card</h3>
                         <div className="content">
-                        <div id="card-picture">
-                        <img
-                            src={this.state.picture}
-                            className="profilePicture"
-                        />
-                        </div>
+                            <div id="card-picture">
+                                <img
+                                    src={this.state.picture}
+                                    className="profilePicture"
+                                />
+                            </div>
                             <div id="card-content">
                                 <p id="card-username">{this.state.username}</p>
                                 <p id="card-email">{this.state.email}</p>
@@ -130,7 +149,16 @@ class Register extends Component {
                         </div>
                     </div>
                 )}
-                
+                {this.state.nonMatch ? (
+                    <p style={{ color: "red" }}>passwords do not match</p>
+                ) : (
+                    <div />
+                )}
+                {this.state.nonUnique ? (
+                    <p style={{ color: "red" }}>username is already in use</p>
+                ) : (
+                    <div />
+                )}
             </div>
         );
     }

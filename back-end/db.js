@@ -110,7 +110,7 @@ function quiz_instance() {
         var values = [
             ['8', '7', '90'],
             ['8', '7', '80'],
-            ['8', '7', '100']
+            ['8', '5', '100']
         ];
         con.query(sql, [values], function(err, result) {
             if (err) throw err;
