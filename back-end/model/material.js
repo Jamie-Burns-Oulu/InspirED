@@ -10,9 +10,14 @@ const material = {
     getAllMaterialItemsByMaterialId(material_id, callback) {
         // db.query('SELECT * FROM material_item WHERE material_id=?', [material_id], callback);
         db.query(
+            // `SELECT material_item.id, material_item.content, quiz.id AS quizid, quiz.material_id 
+            // AS quizmaterialid, quiz.name AS quizname, quiz.difficulty AS quizdifficulty FROM material_item 
+            // LEFT JOIN quiz ON material_item.material_id = quiz.material_id WHERE material_item.material_id=?`, 
             `SELECT material_item.id, material_item.content, quiz.id AS quizid, quiz.material_id 
-            AS quizmaterialid, quiz.name AS quizname, quiz.difficulty AS quizdifficulty FROM material_item 
-            LEFT JOIN quiz ON material_item.material_id = quiz.material_id WHERE material_item.material_id=?`, 
+            AS quizmaterialid, quiz.name AS quizname, quiz.difficulty AS quizdifficulty, material.name 
+            AS materialname, user.id AS userid, user.username AS username FROM material_item 
+            LEFT JOIN quiz ON material_item.material_id = quiz.material_id INNER JOIN material ON 
+            material_item.material_id = material.id INNER JOIN user ON material.user_id = user.id WHERE material_item.material_id=?`,
             [material_id], callback);
     },
     getMaterialByCategoryId(id, callback) {

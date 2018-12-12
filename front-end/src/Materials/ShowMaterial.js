@@ -22,7 +22,15 @@ export default class ShowMaterial extends Component {
         this.get();
     }
     generateData() {
-        return  (<NewMaterialItem modal={true} materialid={this.props.match.params.material} category={this.state.categoryInfo}/>);
+        const name = this.state.content.length ? this.state.content[0].materialname : '';
+        return  (
+                    <NewMaterialItem 
+                        modal={true} 
+                        materialid={this.props.match.params.material} 
+                        materialname={name}
+                        category={this.state.categoryInfo}
+                    />
+        );
     }
     onChange = e => {
         const state = this.state;
@@ -35,14 +43,26 @@ export default class ShowMaterial extends Component {
         
         axios.get(`http://localhost:4000/study/${material}`, HEADERS).then( res => {
             this.setState({content: res.data.rows, quizzes: res.data.quiz});
-            console.log(this.state);
         });
     }
     render() {
-        while(!this.state.content.length) return <Loading />
+        // while(!this.state.content.length) return <Loading />
+        const materialname = this.state.content.length ? this.state.content[0].materialname : 'No material found.'
+        const quizzes = e => {
+            if(this.state.content[0].quizid)
+                return(
+                    <div className="materialitem-quizzes">
+                        <h1>These quizzes are related</h1>
+                        {this.state.quizzes.map( quiz => (
+                            <p><a href={`/quiztake/${quiz.quizid}`}>{quiz.quizname}</a></p>
+                            ))  
+                        }
+                    </div>
+                )
+        }
         return (
             <div className="materialitem-container">
-            <h1>All material items</h1>
+            <h1>{materialname}</h1>
             <button className="btn btn-default add" onClick={this.showModal}>Add new!</button>
                 <div className="materialitem-all">
                     {this.state.content.map(item => (
@@ -51,13 +71,8 @@ export default class ShowMaterial extends Component {
                         </div>
                     ))}
                 </div>
-                <div className="materialitem-quizzes">
-                <h1>These quizzes are related</h1>
-                    {this.state.quizzes.map( quiz => (
-                        <p><a href={`/quiztake/${quiz.quizid}`}>{quiz.quizname}</a></p>
-                        ))  
-                    }
-                </div>
+                {this.state.content.length > 0 && quizzes()}
+                
                 <Modal 
                     data={this.generateData()}
                     onClose= {this.showModal}

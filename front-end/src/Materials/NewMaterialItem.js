@@ -10,6 +10,7 @@ export default class NewMaterialItem extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             materialid: this.props.materialid,
+            materialname: this.props.materialname,
         };
     }
     onChange = e => {
@@ -28,7 +29,7 @@ export default class NewMaterialItem extends Component {
     render() {
         return (
             <div className="container">
-                <h1>Create new material item</h1>
+                <h1>New material <em style={{fontWeight: 'inherit'}}>{this.state.materialname}</em></h1>
                 <form onSubmit={this.handleSubmit} className="form" onChange={this.onChange}>
                     <textarea name="content" className="textarea" type="text" placeholder="content" maxLength="255" onChange={this.onChange}/>
                     <br />
