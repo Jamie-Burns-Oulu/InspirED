@@ -8,7 +8,12 @@ const material = {
         db.query('SELECT * FROM material', callback);
     },
     getAllMaterialItemsByMaterialId(material_id, callback) {
-        db.query('SELECT * FROM material_item WHERE material_id=?', [material_id], callback);
+        // db.query('SELECT * FROM material_item WHERE material_id=?', [material_id], callback);
+        db.query(
+            `SELECT material_item.id, material_item.content, quiz.id AS quizid, quiz.material_id 
+            AS quizmaterialid, quiz.name AS quizname, quiz.difficulty AS quizdifficulty FROM material_item 
+            LEFT JOIN quiz ON material_item.material_id = quiz.material_id WHERE material_item.material_id=?`, 
+            [material_id], callback);
     },
     getMaterialByCategoryId(id, callback) {
         db.query('SELECT * FROM material WHERE category_id = ?', [id], callback);

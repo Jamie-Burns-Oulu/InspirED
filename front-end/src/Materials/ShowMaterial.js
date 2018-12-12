@@ -11,7 +11,8 @@ export default class ShowMaterial extends Component {
         this.get = this.get.bind(this);
         this.state = {
             content: [],
-            show: false
+            show: false,
+            quizzes: [],
         }
         this.showModal = e => {
             this.setState({ show: !this.state.show }); 
@@ -33,10 +34,12 @@ export default class ShowMaterial extends Component {
             HEADERS = {headers: {authorization: Token}};
         
         axios.get(`http://localhost:4000/study/${material}`, HEADERS).then( res => {
-            this.setState({content: res.data});
+            this.setState({content: res.data.rows, quizzes: res.data.quiz});
+            console.log(this.state);
         });
     }
     render() {
+        while(!this.state.content.length) return <Loading />
         return (
             <div className="materialitem-container">
             <h1>All material items</h1>
@@ -47,6 +50,13 @@ export default class ShowMaterial extends Component {
                             {item.content}
                         </div>
                     ))}
+                </div>
+                <div className="materialitem-quizzes">
+                <h1>These quizzes are related</h1>
+                    {this.state.quizzes.map( quiz => (
+                        <p><a href={`/quiztake/${quiz.quizid}`}>{quiz.quizname}</a></p>
+                        ))  
+                    }
                 </div>
                 <Modal 
                     data={this.generateData()}

@@ -123,30 +123,10 @@ export default class Quiz_create extends Component {
                             </select>
                         </label>
                         <br />
-                        <label >
-                            Select Material
-                            <select
-                                name="material_id"
-                                onChange={this.onChange}
-                            >
-                            <option value="-" defaultChecked>
-                                    Select material
-                                </option>
-                                {this.state.material.map(material => (
-                                    <option
-                                        key={material.id}
-                                        value={material.id}
-                                        name="material"
-                                    >
-                                        {material.name}
-                                    </option>
-                                ))}
-                            </select>
-                        </label>
-                        <br />
                     </div>
                 )
             }
+            return(<div></div>);
         }
         return (
             <div className="container">
@@ -166,6 +146,27 @@ export default class Quiz_create extends Component {
                                     />
                                 </label>
                                 {checkModal()}
+                                <label >
+                                    Select Material
+                                    <select
+                                        name="material_id"
+                                        onChange={this.onChange}
+                                    >
+                                    <option value="-" defaultChecked>
+                                            Select material
+                                        </option>
+                                        {this.state.material.map(material => (
+                                            <option
+                                                key={material.id}
+                                                value={material.id}
+                                                name="material"
+                                            >
+                                                {material.name}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </label>
+                                <br />
                                 <label>
                                     Difficulty
                                     <select
