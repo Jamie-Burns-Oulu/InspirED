@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-//import Loading from '../Styles/Loading';
+import Loading from '../Styles/Loading';
 import { NavLink, Route } from "react-router-dom";
 import axios from 'axios';
 import Token from '../Auth/token';
@@ -17,10 +17,10 @@ export default class MaterialByCategory extends Component {
             categoryid: this.props.match.params.category,
             categoryInfo: {},
             show: false,
+            data: false
         }
         this.showModal = e => {
             this.setState({ show: !this.state.show }); 
-            console.log('äsda');
         }
     }
     componentDidMount() {
@@ -37,7 +37,7 @@ export default class MaterialByCategory extends Component {
                     HEADERS = {headers: {authorization: Token}};  
                 
             axios.get(`http://localhost:4000/materials/${categoryid}`, HEADERS ).then(res => {
-                this.setState({material: res.data});
+                this.setState({material: res.data, data: true});
                 
                 if(res.data.length) {
                     this.state.material.push({id: -1, name: 'Add new!'});
@@ -94,6 +94,7 @@ export default class MaterialByCategory extends Component {
             </div>
         )
     }
+    while(!this.state.data) return <Loading />
     return (
         <div className="container">
             <h1>All material for {this.state.categoryInfo.name}</h1>

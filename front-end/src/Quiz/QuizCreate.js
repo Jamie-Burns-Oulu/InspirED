@@ -1,21 +1,24 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
+import Modal from "../Modal/Modal";
 
 export default class Quiz_create extends Component {
-    constructor() {
+    constructor(props) {
         if (!Token) {
             window.location = "/login";
         }
-        super();
+        super(props);
         this.onChange = this.onChange.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             category: [],
+            material: [],
             name: "",
             category_id: "",
-            difficulty: ""
+            difficulty: "",
+            modalCatId: this.props.modalCategoryId,
         };
     }
 
@@ -35,14 +38,22 @@ export default class Quiz_create extends Component {
 
     onChange = e => {
         const state = this.state;
+        const HEADERS = {headers: {authorization: Token}};
         state[e.target.name] = e.target.value;
         this.setState(state);
+        if(e.target.name === 'category_id') {
+            axios.get(`http://localhost:4000/materials/${this.state.category_id}`, HEADERS).then( res => {
+                this.setState({material: res.data});
+            });
+        }
+        
     };
 
     handleSubmit = event => {
         event.preventDefault();
         const user_id = localStorage.getItem("user_id");
-        const { category_id, name, difficulty } = this.state;
+        const { name, difficulty, material_id } = this.state,
+            category_id = this.state.modalCatId === undefined ? this.state.category_id : this.state.modalCatId;
         axios
             .get(
                 "http://localhost:4000/quiz_create/checkQuizName/" +
@@ -59,8 +70,7 @@ export default class Quiz_create extends Component {
                     }
                 }
                 if (nameCheck) {
-                    //What should this actually do?
-                    alert("This quiz name is in use");
+                    document.getElementById('quiznametaken').innerHTML = 'This quiz name is in use.'
                     nameCheck = 0;
                 } else {
                     axios
@@ -69,6 +79,7 @@ export default class Quiz_create extends Component {
                             category_id,
                             name,
                             user_id,
+                            material_id,
                             difficulty
                         })
                         .then(res => {
@@ -77,8 +88,8 @@ export default class Quiz_create extends Component {
                                     headers: { authorization: Token }
                                 })
                                 .then(res => {
-                                    window.location =
-                                        "/questioncreate/" + res.data[0].id;
+                                    this.setState({newQuizid: res.data[0].id});
+                                    window.location = `/questioncreate/${res.data[0].id}`;
                                 });
                         });
                 }
@@ -86,58 +97,111 @@ export default class Quiz_create extends Component {
     };
 
     render() {
+        const checkModal = () => {
+            const modal = this.state.modalCatId === undefined ? false : true;
+            if(!modal) {
+                return (
+                    <div>
+                        <label>
+                            Category
+                            <select
+                                name="category_id"
+                                onChange={this.onChange}
+                            >
+                                <option value="-" defaultChecked>
+                                    Select category
+                                </option>
+                                {this.state.category.map(category => (
+                                    <option
+                                        key={category.id}
+                                        value={category.id}
+                                        name="category"
+                                    >
+                                        {category.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                        <br />
+                        <label >
+                            Select Material
+                            <select
+                                name="material_id"
+                                onChange={this.onChange}
+                            >
+                            <option value="-" defaultChecked>
+                                    Select material
+                                </option>
+                                {this.state.material.map(material => (
+                                    <option
+                                        key={material.id}
+                                        value={material.id}
+                                        name="material"
+                                    >
+                                        {material.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                        <br />
+                    </div>
+                )
+            }
+        }
         return (
             <div className="container">
                 <h1>Create quiz</h1>
-                <div className="quizCreateBox">
-                    <label>
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Enter quiz name"
-                            onChange={this.onChange}
-                        />
-                    </label>
-                    <br/>
-                    <label>
-                        <select name="category_id" onChange={this.onChange}>
-                            <option value="-" defaultChecked>
-                                Select category
-                            </option>
-                            {this.state.category.map(category => (
-                                <option
-                                    key={category.id}
-                                    value={category.id}
-                                    name="category"
-                                >
-                                    {category.name}
-                                </option>
-                            ))}
-                        </select>
-                    </label>
-                    <br />
-                    <label>
-                        <select name="difficulty" onChange={this.onChange}>
-                            <option selected value="0">
-                                Select difficulty
-                            </option>
-                            <option value="1">Easy</option>
-                            <option value="2">Normal</option>
-                            <option value="3">Hard</option>
-                        </select>
-                    </label>
-                    <br />
-                    {this.state.category_id &&
-                    this.state.difficulty &&
-                    this.state.name ? (
-                        <div className="button" onClick={this.handleSubmit}>
-                            Create quiz and add questions
+                <div className="list-container">
+                    <div className="list">
+                        <div className="box">
+                            <form onSubmit={this.handleSubmit}>
+                                <label>
+                                    Quiz name
+                                    <input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Enter quiz name"
+                                        onChange={this.onChange}
+                                        required
+                                    />
+                                </label>
+                                {checkModal()}
+                                <label>
+                                    Difficulty
+                                    <select
+                                        name="difficulty"
+                                        onChange={this.onChange}
+                                    >
+                                        <option selected value="0">
+                                            Select difficulty
+                                        </option>
+                                        <option value="1">Easy</option>
+                                        <option value="2">Normal</option>
+                                        <option value="3">Difficult</option>
+                                    </select>
+                                </label>
+                                <br />
+                                <button className="button"  type="submit">
+                                    Create quiz and add questions
+                                </button>
+                            </form>
                         </div>
-                    ) : (
-                        <div>
-                            <i>please complete all fields</i>
-                        </div>
-                    )}
+                        {this.state.category_id &&
+                        this.state.difficulty &&
+                        this.state.name ? (
+                            <div className="button" onClick={this.handleSubmit}>
+                                Create quiz and add questions
+
+                            </div>
+                        ) : (
+                            <div>
+                                <i>please complete all fields</i>
+                            </div>
+                        )}
+                        <p className="error" id="quiznametaken"></p>
+
+                </div>
+                
                 </div>
             </div>
         );

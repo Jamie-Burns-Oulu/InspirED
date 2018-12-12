@@ -10,9 +10,10 @@ const quiz_create = {
     },
 
     addQuiz(info, callback) {
+        console.log(info);
         return db.query(
-            "insert into quiz (category_id, user_id, name, difficulty, date) values(?,?,?,?, NOW())",
-            [info.category_id, info.user_id, info.name, info.difficulty],
+            "insert into quiz (category_id, user_id, name, material_id, difficulty, date) values(?,?,?,?,?, NOW())",
+            [info.category_id, info.user_id, info.name, info.material_id, info.difficulty],
             callback
         );
     },

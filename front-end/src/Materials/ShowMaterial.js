@@ -3,6 +3,7 @@ import axios from 'axios';
 import Token from '../Auth/token';
 import Modal from '../Modal/Modal';
 import NewMaterialItem from './NewMaterialItem';
+import Loading from '../Styles/Loading';
 
 export default class ShowMaterial extends Component {
     constructor(props) {

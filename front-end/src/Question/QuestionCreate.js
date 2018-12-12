@@ -17,7 +17,7 @@ export default class QuestionCreate extends Component {
             quizName: "",
             answers: [{ answer: "" }]
         };
-        this.quiz_id = this.props.match.params.id;
+        this.quiz_id = this.props.quizId ? this.props.quizId : (this.props.match && this.props.match.params.id);
     }
 
     componentDidMount() {
@@ -62,7 +62,7 @@ export default class QuestionCreate extends Component {
     handleSubmit = event => {
         event.preventDefault();
         let submit = 0;
-        if (event.target.name === "submit") {
+        if (event.target.id === "submitwholequiz") {
             submit = 1;
         }
         const { question } = this.state;
@@ -95,15 +95,15 @@ export default class QuestionCreate extends Component {
                                 })
                                 .then(res => {
                                     if (submit) {
-                                        window.location = "/quizlanding";
+                                        window.location = '/quiz';
                                     } else {
-                                        window.location =
-                                            "/questioncreate/" + this.quiz_id;
+                                        window.location = `/questioncreate/${this.quiz_id}`;
                                     }
                                 });
                         }
                     });
             });
+        
     };
 
     render() {
@@ -157,6 +157,7 @@ export default class QuestionCreate extends Component {
                         <div
                             className="addAnswerButton"
                             onClick={this.handleSubmit}
+                            id='submitwholequiz'
                         >
                             Submit quiz
                         </div>

@@ -6,11 +6,14 @@ const userAuth = require("../midware/userAuth");
 
 router.post("/", userAuth, function(req, res, next) {
     jwt.verify(req.token, "group1", (err, authData) => {
+        console.log(req.body);
         if (authData) {
             quiz_create.addQuiz(req.body, function(err, count) {
                if (err) {
+                   console.log(err);
                     res.json(err);
                 } else {
+                    console.log('all okay');
                     res.json(req.body); //or return count for 1 & 0
                 }
             });

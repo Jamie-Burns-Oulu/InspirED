@@ -1,10 +1,10 @@
 module.exports = rows => {
     const results = [];
-    let checker = -1;
+    let checker = [];
     for(let i = 0; i < rows.length; i++) {
-        if(rows[i].quizid === checker) continue;
+        if(checker.includes(rows[i].quizid)) continue;
         results.push(rows[i]);
-        checker = rows[i].quizid;
+        checker.push(rows[i].quizid);
     }
     return results;
 }
