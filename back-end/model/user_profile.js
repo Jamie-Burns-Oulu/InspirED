@@ -6,7 +6,7 @@ const user_profile = {
     },
     getInstanceAndQuizByUserId(id, callback) {
         return db.query(
-            "SELECT * FROM quiz_instance INNER JOIN quiz ON quiz_instance.quiz_id=quiz.id WHERE " +
+            "SELECT quiz_instance.id, quiz_instance.user_id, quiz_instance.result, quiz_instance.date, quiz.id as quizid, quiz.name as quizname, quiz.material_id as quizmaterialid, quiz.user_id as quizuserid, quiz.date as quizdate, quiz.difficulty as quizdifficulty FROM quiz_instance INNER JOIN quiz ON quiz_instance.quiz_id=quiz.id WHERE " +
             "quiz_instance.user_id = ? and quiz_instance.date >= addDate(Now(),-7) and " +
             "quiz_instance.date <= Now();", 
             [id], callback

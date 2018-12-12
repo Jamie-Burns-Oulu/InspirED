@@ -23,9 +23,11 @@ div.navigationbar {
         }
         
         input{
-            border: none;
+            border: 1px solid white;
+            border-radius: $border-radius-normal;
             background: white;
             min-width: 90px;
+            transition: border $transition-length, background $transition-length, color $transition-length;
             &:focus {
                 outline: none;
             }
@@ -50,19 +52,15 @@ div.navigationbar {
             border-color: $green;
         }
     }
-    #logoutbtn{
-        &:hover {
-            border: $border-normal;
-            border-radius: $border-radius-normal;
-            border-color: red;
-            // background-color: red;
-            color: black;
-        
-        }
+    #logout {
+        // box-sizing: border-box;
+        position: absolute;
+        top: 0px;
+        padding-top: 15px;
+        right: 20px;
         
     }
     .active {
-        
         input {
             border: $border-normal;
             border-radius: $border-radius-normal;

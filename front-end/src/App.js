@@ -97,11 +97,7 @@ class App extends Component {
                     <Route path="/login" exact component={Login} className="navbar"/>  
                     <Route path="/logout"/>  
                     <Route component={Profile} />
-                    </Switch>        
-                    <div ref="search">
-                    <SearchBox />
-                    </div> 
-                  
+                    </Switch>   
                   </div>
             </div>
         );
