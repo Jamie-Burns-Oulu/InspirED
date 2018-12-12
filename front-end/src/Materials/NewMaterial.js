@@ -40,7 +40,7 @@ export default class NewMaterial extends Component {
                     errormsg.innerHTML = 'This material name exists already!';
                 }
                 else if(this.state.modal) {
-                    window.location = `/material/${this.state.propsCat.name}`;
+                    window.location = `/material/${this.state.propsCat.id}`;
                 }
                 
         });

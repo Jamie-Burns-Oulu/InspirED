@@ -87,7 +87,13 @@ class Result extends Component {
         return (
             <div className="content">
                 <div className="subject-container">
-                    <h1>Quiz result {this.state.result}%</h1>
+                <div className="results-heading">
+                    <h1>{this.state.answer_given[0].quizname} -  {this.state.result}%</h1>
+                    {this.state.result < 100 && 
+                    <h2><a href={`/study/material/${this.state.answer_given[0].quizmaterialid}`}>Need help?</a></h2>
+                    }
+                    
+                </div>
                     <div className="list-container">
                         <div className="list">
                             {this.state.result >= 0 &&

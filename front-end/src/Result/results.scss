@@ -1,0 +1,14 @@
+@import '../Styles/variables';
+.results-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    h2 a {
+        font-size: 25px;
+        color: $blue !important;
+        &:hover {
+            color: $green !important;
+        }
+    }
+}

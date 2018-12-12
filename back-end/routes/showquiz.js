@@ -12,7 +12,7 @@ router.get('/:id?', userAuth, function(req, res, next)  {
                 quiz.getQuizzesByCategoryId(req.params.id, (err, rows) => {
                     if(err) console.log(err);
                     if(rows) {
-                        const uniq = uniqueResult(rows);
+                        const uniq = uniqueResult(rows, 'quizid');
                         console.log(uniq);
                         res.json(uniq);
                     }
@@ -22,7 +22,7 @@ router.get('/:id?', userAuth, function(req, res, next)  {
                 quiz.getAllQuiz( (err, rows) => {
                     if(err) console.log(err);
                     if(rows) {
-                        const uniq = uniqueResult(rows);
+                        const uniq = uniqueResult(rows, 'quizid');
                         console.log(uniq);
                         res.json(uniq);
                     }
