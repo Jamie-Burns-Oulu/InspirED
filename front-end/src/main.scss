@@ -1,3 +1,4 @@
+@import './Styles/variables';
 * {
     body {
         margin-top: 80px;
@@ -22,6 +23,10 @@
     }
     .error {
         color: red;
+    }
+    .hidden {
+        visibility: hidden;
+        transition: visibility $transition-length;
     }
     
 }
