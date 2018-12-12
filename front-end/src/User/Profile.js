@@ -16,6 +16,9 @@ export default class Profile extends Component {
     stats() {
         window.location = "leaderboard";
     }
+    settings(){
+        window.location = "settings";
+    }
     render() {
         while (!localStorage.getItem("user_pic")) return <Loading />;
         return (
@@ -37,10 +40,7 @@ export default class Profile extends Component {
                 </div>
                 <div className="container-settings">
                     <div className="stats box" id="stats">
-                        {/* Statistics
-                        <div className="container activity new-quiz"> */}
-                    <NewQuizzes />
-                {/* </div> */}
+                        <NewQuizzes />
                     </div>
                     <div
                         className="leaderboard box"
@@ -49,17 +49,21 @@ export default class Profile extends Component {
                             this.stats();
                         }}
                     >
-                        Leaderboards
+                        Leaderboard
                     </div>
-
-                    <NavLink to="/settings" exact>
-                        <div className="settings box" id="settings">
-                            <span className="glyphicon glyphicon-cog" />
-                        </div>
-                    </NavLink>
-                    <Route path="/settings" exact component={Settings} />
+                    <div
+                        className="settings box"
+                        id="settings"
+                        onClick={() => {
+                            this.settings();
+                        }}
+                    >
+                        <span className="glyphicon glyphicon-cog" />
+                    </div>
                 </div>
-                <Activity />
+                <div className="activity-container">
+                    <Activity />
+                </div>
             </div>
         );
     }

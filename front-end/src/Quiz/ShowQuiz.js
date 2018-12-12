@@ -95,9 +95,11 @@ class ShowQuiz extends Component {
             this.setState({quiz: res.data});
         });
     }
+    
     render() {
         return (
             <div className="container">
+            <h1>All quizzes for {this.state.quiz.quizname}</h1>
                 <div className="material-bycategory">
                     {this.state.quiz.map( q => (
                         <div>

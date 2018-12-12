@@ -1,4 +1,4 @@
-@import '../Styles/variables';
+@import "../Styles/variables";
 
 $box-width: 100px;
 $box-height: 100px;
@@ -16,55 +16,55 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
         border: $border-normal;
         border-radius: $border-radius-normal;
         padding: 10px;
+    }
+    ul {
+        margin-top: 10px;
+        list-style-type: none;
+        padding-inline-start: 0px;
+        li {
+            &.username {
+                font-size: 25px;
+            }
         }
-        ul {
-            margin-top: 10px;
-            list-style-type: none;
-            padding-inline-start: 0px;
-            li {
-                &.username {
-                    font-size: 25px;
+    }
+}
+
+.container-settings {
+    position: absolute;
+    left: 20%;
+    top: 100px;
+    width: 70%;
+    .box {
+        text-align: center;
+        padding-top: 20px;
+        display: inline-block;
+        margin-right: 10%;
+        width: 20%;
+        height: 75px;
+        border-radius: $box-border-radius;
+        border: $border-normal;
+        font-size: 25px;
+        font-weight: 200;
+        transition: border 0.3s;
+        #settings {
+            padding-top: 11px;
+        }
+        a:hover {
+            color: black;
+        }
+        @each $item in "#stats" "#leaderboard" "#settings" {
+            &#{$item}:hover {
+                border: 1px solid $green;
+                cursor: pointer;
+                span {
+                    color: black;
+                    &:focus {
+                        color: black;
+                    }
                 }
             }
         }
     }
-    
-    .container-settings {
-        position: absolute;
-        left: 20%;
-        top: 100px;
-        width: 70%;
-        .box {
-            text-align: center;
-            padding-top: 20px;
-            display: inline-block;
-            margin-right: 10%;
-            width: 20%;
-            height: 75px;
-            border-radius: $box-border-radius;
-            border: $border-normal;
-            font-size: 25px;
-            font-weight: 200;
-            transition: border 0.3s;
-            #settings {
-                padding-top: 11px;
-            }
-            a:hover {
-                color: black;
-            }
-            @each $item in '#stats' '#leaderboard' '#settings' {
-                &#{$item}:hover {
-                    border: 1px solid $green;
-                    cursor: pointer;
-                    span {
-                        color: black;
-                        &:focus {
-                            color: black;
-                        }
-                    }
-                }
-            } 
-        }
 }
 .profilePicture {
     max-width: 80%;
@@ -93,4 +93,11 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
     padding-bottom: 15px;
     font-size: 20px;
     cursor: pointer;
+}
+
+.activity-container {
+    position: absolute;
+    left: 5%;
+    top: 200px;
+    width: 100%;
 }

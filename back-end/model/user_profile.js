@@ -6,8 +6,15 @@ const user_profile = {
     },
     getInstanceAndQuizByUserId(id, callback) {
         return db.query(
-            "SELECT * FROM quiz_instance INNER JOIN quiz ON " +
-            "quiz_instance.id=quiz.id WHERE quiz_instance.user_id=?", 
+            "SELECT * FROM quiz_instance INNER JOIN quiz ON quiz_instance.quiz_id=quiz.id WHERE " +
+            "quiz_instance.user_id = ? and quiz_instance.date >= addDate(Now(),-7) and " +
+            "quiz_instance.date <= Now();", 
+            [id], callback
+        );
+    },
+    getCreatedQuizzesByUserId(id, callback) {
+        return db.query(
+            "select * from quiz where user_id = ? and Date >= addDate(Now(),-7) and Date <= Now();", 
             [id], callback
         );
     }

@@ -1,5 +1,10 @@
 @import "../Styles/variables";
-.content {
+.rt-content {
+    width: 70%;
+    margin: auto;
+    border-radius: $border-radius-normal;
+    border: $border-normal;
+    //border-color: $green;
     .ReactTable {
         .rt-table {
             .rt-resizable-header-content {
@@ -7,18 +12,18 @@
                 font-size: 18px ;
                 font-weight: bold;
             }
-               // .rt-tr.-padRow.-even{
-               //    background: $green;
-               // }
-               // .rt-tr.-padRow.-odd{
-               //    background: $blue;
-               // }
-               // .rt-tr.-even {
-               //    background: $green;
-               // }
-               // .rt-tr.-odd{
-               //    background: $blue;
-               // }
+            //    .rt-tr.-padRow.-even{
+            //       background: $green;
+            //    }
+            //    .rt-tr.-padRow.-odd{
+            //       background: $blue;
+            //    }
+            //    .rt-tr.-even {
+            //       background: $green;
+            //    }
+            //    .rt-tr.-odd{
+            //       background: $blue;
+            //    }
         }
     }
 }
