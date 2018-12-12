@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import Token from "../Auth/token";
+import Modal from "../Modal/Modal";
 
 export default class Quiz_create extends Component {
     constructor(props) {
@@ -13,6 +14,7 @@ export default class Quiz_create extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             category: [],
+            material: [],
             name: "",
             category_id: "",
             difficulty: "",
@@ -36,14 +38,21 @@ export default class Quiz_create extends Component {
 
     onChange = e => {
         const state = this.state;
+        const HEADERS = {headers: {authorization: Token}};
         state[e.target.name] = e.target.value;
         this.setState(state);
+        if(e.target.name === 'category_id') {
+            axios.get(`http://localhost:4000/materials/${this.state.category_id}`, HEADERS).then( res => {
+                this.setState({material: res.data});
+            });
+        }
+        
     };
 
     handleSubmit = event => {
         event.preventDefault();
         const user_id = localStorage.getItem("user_id");
-        const { name, difficulty } = this.state,
+        const { name, difficulty, material_id } = this.state,
             category_id = this.state.modalCatId === undefined ? this.state.category_id : this.state.modalCatId;
         axios
             .get(
@@ -61,8 +70,7 @@ export default class Quiz_create extends Component {
                     }
                 }
                 if (nameCheck) {
-                    //What should this actually do?
-                    alert("This quiz name is in use");
+                    document.getElementById('quiznametaken').innerHTML = 'This quiz name is in use.'
                     nameCheck = 0;
                 } else {
                     axios
@@ -71,6 +79,7 @@ export default class Quiz_create extends Component {
                             category_id,
                             name,
                             user_id,
+                            material_id,
                             difficulty
                         })
                         .then(res => {
@@ -79,8 +88,8 @@ export default class Quiz_create extends Component {
                                     headers: { authorization: Token }
                                 })
                                 .then(res => {
-                                    window.location =
-                                        "/questioncreate/" + res.data[0].id;
+                                    this.setState({newQuizid: res.data[0].id});
+                                    window.location = `/questioncreate/${res.data[0].id}`;
                                 });
                         });
                 }
@@ -114,12 +123,33 @@ export default class Quiz_create extends Component {
                             </select>
                         </label>
                         <br />
+                        <label >
+                            Select Material
+                            <select
+                                name="material_id"
+                                onChange={this.onChange}
+                            >
+                            <option value="-" defaultChecked>
+                                    Select material
+                                </option>
+                                {this.state.material.map(material => (
+                                    <option
+                                        key={material.id}
+                                        value={material.id}
+                                        name="material"
+                                    >
+                                        {material.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </label>
+                        <br />
                     </div>
                 )
             }
         }
         return (
-            <div className="subject-container">
+            <div className="container">
                 <h1>Create quiz</h1>
                 <div className="list-container">
                     <div className="list">
@@ -132,10 +162,10 @@ export default class Quiz_create extends Component {
                                         name="name"
                                         placeholder="Enter quiz name"
                                         onChange={this.onChange}
+                                        required
                                     />
                                 </label>
                                 {checkModal()}
-                                <br />
                                 <label>
                                     Difficulty
                                     <select
@@ -151,12 +181,27 @@ export default class Quiz_create extends Component {
                                     </select>
                                 </label>
                                 <br />
-                                <button className="button" type="submit">
+                                <button className="button"  type="submit">
                                     Create quiz and add questions
                                 </button>
                             </form>
                         </div>
-                    </div>
+                        {this.state.category_id &&
+                        this.state.difficulty &&
+                        this.state.name ? (
+                            <div className="button" onClick={this.handleSubmit}>
+                                Create quiz and add questions
+
+                            </div>
+                        ) : (
+                            <div>
+                                <i>please complete all fields</i>
+                            </div>
+                        )}
+                        <p className="error" id="quiznametaken"></p>
+
+                </div>
+                
                 </div>
             </div>
         );

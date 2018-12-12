@@ -1,0 +1,98 @@
+@import "../Styles/variables";
+
+h2 {
+    padding-left: 10px;
+}
+
+.questionCreateBox {
+    input[type="text"] {
+        width: 70% !important;
+        outline: none;
+        padding: 7px;
+        font-size: 150%;
+        margin: 9px auto;
+        border: 1px solid rgba(0, 0, 0, 0.3) !important;
+        border-radius: 15px !important;
+        background: whitesmoke;
+        text-align: center;
+    }
+    .addAnswerButton {
+        width: 30%;
+        border-radius: $border-radius-normal;
+        border: none;
+        cursor: pointer;
+        background: $blue;
+        color: white;
+        margin: 5px auto;
+        height: 30px;
+        padding-top: 5px;
+        transition: background $transition-length;
+        &:hover {
+            background: $green;
+            color: white;
+        }
+    }
+   
+    .questionCreateAnswerInside {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        text-align: center;
+        input[type="text"] {
+            width: 50% !important;
+            outline: none;
+            border: 1px solid rgba(0, 0, 0, 0.3) !important;
+            border-radius: 15px !important;
+            background: whitesmoke;
+            text-align: center;
+        }
+        input[type="radio"] {
+         width: 3%;
+         outline: none;
+         margin: 9px auto;
+     }
+
+    }
+
+    .questionCreateCorrect {
+        position: relative;
+        left: 30%;
+    }
+
+    .addQuestionButton {
+        position: absolute;
+        right: 50px;
+        top: 45%;
+        width: 10%;
+        border-radius: $border-radius-normal;
+        border: none;
+        cursor: pointer;
+        background: $green;
+        color: white;
+        margin: 5px auto;
+        height: 30px;
+        padding-top: 5px;
+        transition: background $transition-length;
+        &:hover {
+            background: $green;
+            color: black;
+        }
+    }
+
+    .completeQuestion {
+        font-style: italic;
+        padding: 5px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    justify-content: center;
+    margin: 9px auto;
+    min-height: 340px !important;
+    border-radius: $border-radius-normal;
+    border: $border-normal;
+    border-color: $blue;
+    text-align: center;
+    width: 70%;
+}

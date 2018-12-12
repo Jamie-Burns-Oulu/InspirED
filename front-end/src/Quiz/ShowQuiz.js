@@ -3,6 +3,7 @@ import axios from 'axios';
 import Token from '../Auth/token';
 import Modal from '../Modal/Modal';
 import Quiz_create from './QuizCreate';
+import QuestionCreate from '../Question/QuestionCreate';
 
 class ShowQuiz extends Component {
     constructor(props){
@@ -15,17 +16,27 @@ class ShowQuiz extends Component {
             quiz: [],
             category: '',
             show: false,
+            createQuestion: false,
+            quizDone: false,
+            currentNewQuiz: []
         }
-        this.showModal = e => {
-            this.setState({ show: !this.state.show }); 
+        this.showModal = e => this.setState({ show: !this.state.show });
+
+        this.quizDone = id => {
+            this.setState({quizDone: true});
+            this.state.currentNewQuiz.push(id);
         }
+        this.getId = () => this.state.currentNewQuiz[0];
+        // this.update = () => this.state.currentNewQuizId;
     }
     componentDidMount() {
         this.get();
     }
     generateData() {
-        const id = this.props.match.params.id;
-        return <Quiz_create modalCategoryId={id}/>
+        const   id = this.props.match.params.id,
+                quizid = this.state.quizid,
+                data = this.state.createQuestion ? <QuestionCreate quizid={quizid} /> : <Quiz_create quizDone={this.quizDone} modalCategoryId={id}/>
+        return data;
     }
     onMouseEnter(quiz) {
         const merits = ['🥇','🎖', '🎯', '🏆', '💯', '🔥', '⚡️', '💫'];
@@ -33,7 +44,6 @@ class ShowQuiz extends Component {
                 quizpath = `/quiztake/${quiz.quizid}`,
                 result= `/result/${quiz.instanceid}`;
         let content = '';
-        console.log(quiz, el);
         if((quiz.instanceresult < 100 && quiz.instanceresult !== null) && quiz.id !== -1) {
                 content = `<div class="quizhover difficulty-${quiz.difficulty}">
                                 <div><h6 class="headerhover">${quiz.quizname}</h6></div>
@@ -82,7 +92,6 @@ class ShowQuiz extends Component {
 
         axios.get(PATH, HEADERS).then( res => {
             res.data.push({id: -1, quizname: 'Add new'});
-            console.log(res);
             this.setState({quiz: res.data});
         });
     }
@@ -112,6 +121,10 @@ class ShowQuiz extends Component {
                     data={this.generateData()}
                     onClose= {this.showModal}
                     show= {this.state.show} 
+                    updateData={this.update}
+                    quizId={this.state.currentNewQuiz}
+                    getId={this.getId}
+                    typeQuiz={true}
                 />
             </div>
         );

@@ -25,7 +25,12 @@ export default class NewQuizzes extends Component {
     render() {
         return (
             <div>
-                {this.state.newQuiz ? (
+                {this.state.newQuiz === 1 ? (
+                    <div onClick="#">
+                        You have {this.state.newQuiz} new quiz to try! Click
+                        here to view them.
+                    </div>
+                ) : this.state.newQuiz > 1 ? (
                     <div onClick="#">
                         You have {this.state.newQuiz} new quizzes to try! Click
                         here to view them.
