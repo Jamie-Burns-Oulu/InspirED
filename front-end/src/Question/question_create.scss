@@ -1,98 +1,212 @@
 @import "../Styles/variables";
 
-h2 {
-    padding-left: 10px;
+.createquiz {
+    // transition: display $transition-length;
+    h2 {
+        padding-left: 0px !important;
+    }
+    #submitwholequiz {
+        //  margin: 15px auto;  
+         width: 100px;
+         text-align: center;
+    }
+    #completemsg {
+        padding-left: 10px;
+    }
+    .questionCreateBox {
+        width: 100%; 
+        border: $border-normal;
+        padding: 25px;
+        border-radius: $border-radius-normal;
+        .content {
+            width: 60%;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .questionCreateAnswerInside {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            input.possanswer {
+                width: 75%;
+            }
+        }
+        .questionCreateCorrect {
+            position: relative;
+            left: 95%;
+        }
+        .addAnswerButton {
+            width: 30%;
+            text-align: center;
+            border-radius: $border-radius-normal;
+            border: 1px solid $blue;
+            cursor: pointer;
+            background: $blue;
+            color: white;
+            margin: 5px;
+            height: 30px;
+            padding-top: 5px;
+            transition: background $transition-length;
+           
+            &:hover {
+                background-color: white;
+                color: $green;
+                border-color: $green;
+            }
+        }
+        // & .question, .questionCreateAnswer {
+        //     width: 50%;
+        //     margin: auto;
+            
+            input[type=text] {
+                text-align: center;
+                width: 95%;
+                padding: 7px;
+                border: $border-normal;
+                border-radius: $border-radius-normal;
+                &:focus {
+                    border: 1px solid $blue;
+                    outline: none;
+                }
+            // }
+         }
+    }
 }
 
-.questionCreateBox {
-    input[type="text"] {
-        width: 70% !important;
-        outline: none;
-        padding: 7px;
-        font-size: 150%;
-        margin: 9px auto;
-        border: 1px solid rgba(0, 0, 0, 0.3) !important;
-        border-radius: 15px !important;
-        background: whitesmoke;
-        text-align: center;
-    }
+// h2 {
+//     padding-left: 10px;
+// }
+// .questionCreateBox {
+//     input[type="text"] {
+//         width: 70% !important;
+//         outline: none;
+//         padding: 7px;
+//         font-size: 150%;
+//         margin: 9px auto;
+//         border: 1px solid rgba(0, 0, 0, 0.3) !important;
+//         border-radius: 15px !important;
+//         background: whitesmoke;
+//         text-align: center;
+//     }
     .addAnswerButton {
         width: 30%;
         border-radius: $border-radius-normal;
-        border: none;
+        border: 1px solid $green;
         cursor: pointer;
         background: $blue;
         color: white;
-        margin: 5px auto;
+        // margin: 5px auto;
         height: 30px;
         padding-top: 5px;
         transition: background $transition-length;
         &:hover {
-            background: $green;
-            color: white;
+            background: white;
+            color: $green;
         }
     }
    
-    .questionCreateAnswerInside {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        text-align: center;
-        input[type="text"] {
-            width: 50% !important;
-            outline: none;
-            border: 1px solid rgba(0, 0, 0, 0.3) !important;
-            border-radius: 15px !important;
-            background: whitesmoke;
-            text-align: center;
-        }
-        input[type="radio"] {
-         width: 3%;
-         outline: none;
-         margin: 9px auto;
-     }
+//     .questionCreateAnswerInside {
+//         display: flex;
+//         flex-direction: row;
+//         justify-content: center;
+//         text-align: center;
+//         input[type="text"] {
+//             width: 50% !important;
+//             outline: none;
+//             border: 1px solid rgba(0, 0, 0, 0.3) !important;
+//             border-radius: 15px !important;
+//             background: whitesmoke;
+//             text-align: center;
+//         }
+//         input[type="radio"] {
+//          width: 3%;
+//          outline: none;
+//          margin: 9px auto;
+//      }
 
-    }
+//     }
 
-    .questionCreateCorrect {
-        position: relative;
-        left: 30%;
-    }
+//     .questionCreateCorrect {
+//         position: relative;
+//         left: 30%;
+//     }
 
     .addQuestionButton {
-        position: absolute;
-        right: 50px;
-        top: 45%;
+        // position: absolute;
+        padding: 5px 5px;
+        // right: 10px;
+        // top: 30%;
         width: 10%;
         border-radius: $border-radius-normal;
         border: none;
         cursor: pointer;
         background: $green;
         color: white;
-        margin: 5px auto;
+        // margin: 15px;
         height: 30px;
-        padding-top: 5px;
+        // padding-top: 5px;
         transition: background $transition-length;
         &:hover {
             background: $green;
             color: black;
         }
     }
-
-    .completeQuestion {
-        font-style: italic;
-        padding: 5px;
+    .green {
+        background-color: $green;
+        border: 1px solid $green;
+        text-align: center;
+         &:hover {
+             background-color: white;
+             border: 1px solid $green;
+             color: $green;
+         }    
     }
 
-    display: flex;
-    flex-direction: column;
-    align-items: space-between;
+//     .completeQuestion {
+//         font-style: italic;
+//         padding: 5px;
+//     }
+
+//     display: flex;
+//     flex-direction: column;
+//     align-items: space-between;
+//     justify-content: center;
+//     margin: 9px auto;
+//     min-height: 340px !important;
+//     border-radius: $border-radius-normal;
+//     border: $border-normal;
+//     border-color: $blue;
+//     text-align: center;
+//     width: 70%;
+// }
+.submit-addq {
+    margin-top: 20px;
+    display:flex;
     justify-content: center;
-    margin: 9px auto;
-    min-height: 340px !important;
-    border-radius: $border-radius-normal;
-    border: $border-normal;
-    border-color: $blue;
-    text-align: center;
-    width: 70%;
+    flex-direction: row;
+    div {
+        text-align: center;
+        &.newQ {
+            background-color: white;
+            border: 1px solid $green;
+            color: $green;
+            margin-left:40px;
+            &:hover {
+                background-color: $green;
+                color: white;
+            }
+        }
+        & .hidden {
+            visibility: hidden;
+            transition: visibility $transition-length;
+        }
+        & .show {
+            visibility: visible !important;
+            transition: visibility $transition-length;
+        }
+    }
 }

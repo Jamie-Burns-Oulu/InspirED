@@ -54,9 +54,17 @@ export default class QuestionCreate extends Component {
                 this.setState({ answerCheck: correctRadio[i].id });
             }
         }
+        
         const state = this.state;
         state[e.target.name] = e.target.value;
         this.setState(state);
+        if(this.state.question && this.state.answerCheck) {
+            this.refs.submit.classList.remove('hidden')
+            this.refs.submit.classList.add('show');
+            this.refs.newQ.classList.remove('hidden')
+            this.refs.newQ.classList.add('show');
+            this.refs.msg.classList.add('hidden');
+        }
     };
 
     handleSubmit = event => {
@@ -108,23 +116,18 @@ export default class QuestionCreate extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container createquiz">
                 <h2>Add questions to {this.state.quizName}</h2>
                 <div className="questionCreateBox">
-                    <input
-                        type="text"
-                        name="question"
-                        placeholder="Question"
-                        onChange={this.onChange}
-                    />
-                    {this.state.question && this.state.answerCheck ? (
-                    <div
-                        className="addQuestionButton"
-                        onClick={this.handleSubmit}
-                    >
-                        Add another question
-                    </div>)
-                    :(<div/>)}
+                    <div className="content"> 
+                        <input
+                            type="text"
+                            name="question"
+                            placeholder="Question"
+                            onChange={this.onChange}
+                        />
+                    {/* {this.state.question && this.state.answerCheck ? ( */}
+                    {/* // :(<div/>)} */}
                     <div className="questionCreateCorrect">Correct?</div>
                     <div className="questionCreateAnswer">
                         {this.state.answers.map((answers, idx) => (
@@ -132,6 +135,7 @@ export default class QuestionCreate extends Component {
                                 <input
                                     type="text"
                                     name="answer"
+                                    className="possanswer"
                                     placeholder={`Answer ${idx + 1}`}
                                     value={answers.answer}
                                     onChange={this.handleAnswerChange(idx)}
@@ -139,6 +143,7 @@ export default class QuestionCreate extends Component {
                                 <input
                                     type="radio"
                                     name="answerCheck"
+                                    className="radio"
                                     id={idx}
                                     value={idx}
                                     onChange={this.onChange}
@@ -153,17 +158,29 @@ export default class QuestionCreate extends Component {
                     >
                         Add another answer
                     </div>
-                    {this.state.question && this.state.answerCheck ? (
-                        <div
-                            className="addAnswerButton"
-                            onClick={this.handleSubmit}
-                            id='submitwholequiz'
-                        >
-                            Submit quiz
-                        </div>
-                    ) : (
-                        <div className="completeQuestion">Please complete question</div>
-                    )}
+                    {/* {this.state.question && this.state.answerCheck ? ( */}
+                    {/* ) : ( */}
+                        <div className="completeQuestion" ref="msg" id="completemsg">Please complete question</div>
+                    {/* )} */}
+                </div>
+                </div>
+                <div className="submit-addq">
+                <div
+                    className="addAnswerButton green hidden"
+                    onClick={this.handleSubmit}
+                    id='submitwholequiz'
+                    ref="submit"
+                >
+                    Submit quiz
+                </div>
+                    <div
+                    className="addQuestionButton green newQ hidden"
+                    ref="newQ"
+                    id="newQ"
+                    onClick={this.handleSubmit}
+                    >
+                        New question
+                    </div>
                 </div>
             </div>
         );

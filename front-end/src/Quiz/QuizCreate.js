@@ -12,6 +12,7 @@ export default class Quiz_create extends Component {
         this.onChange = this.onChange.bind(this);
         this.getSubjects = this.getSubjects.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getMaterial = this.getMaterial.bind(this);
         this.state = {
             category: [],
             material: [],
@@ -24,6 +25,10 @@ export default class Quiz_create extends Component {
 
     componentDidMount() {
         this.getSubjects();
+        if(this.state.modalCatId !== undefined) {
+            this.state.category_id = this.state.modalCatId;
+            this.getMaterial();
+        }
     }
 
     getSubjects() {
@@ -33,21 +38,26 @@ export default class Quiz_create extends Component {
             })
             .then(res => {
                 this.setState({ category: res.data });
+                
             });
     }
 
     onChange = e => {
         const state = this.state;
-        const HEADERS = {headers: {authorization: Token}};
+                     
         state[e.target.name] = e.target.value;
         this.setState(state);
         if(e.target.name === 'category_id') {
-            axios.get(`http://localhost:4000/materials/${this.state.category_id}`, HEADERS).then( res => {
-                this.setState({material: res.data});
-            });
+            this.getMaterial();
         }
         
     };
+    getMaterial() {
+        const HEADERS = {headers: {authorization: Token}};
+        axios.get(`http://localhost:4000/materials/${this.state.category_id}`, HEADERS).then( res => {
+            this.setState({material: res.data});
+        });
+    }
 
     handleSubmit = event => {
         event.preventDefault();
