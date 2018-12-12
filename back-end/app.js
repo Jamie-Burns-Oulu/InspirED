@@ -21,6 +21,7 @@ var quiz_take = require('./routes/quiz_take');
 var question_create = require('./routes/question_create');
 var answer_create = require('./routes/answer_create');
 var result = require('./routes/result');
+var stats = require('./routes/stats');
 
 var app = express();
 
@@ -54,6 +55,7 @@ app.use('/result', result);
 app.use('/materials', material);
 app.use('/study', material_item);
 app.use('/quiz_landing', quiz_landing);
+app.use('/stats', stats);
 
 
 // catch 404 and forward to error handler

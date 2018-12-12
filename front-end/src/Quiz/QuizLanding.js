@@ -9,7 +9,7 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
-        this.completedQuizzes = this.completedQuizzes.bind(this);
+        //this.completedQuizzes = this.completedQuizzes.bind(this);
         this.state = {
             new: "",
             attempted: "",
@@ -32,15 +32,23 @@ export default class Category extends Component {
                 this.setState({ completed: res.data.length });
                 axios
                     .get(
-                        "http://localhost:4000/quiz_landing/attempted", HEADERS)
+                        "http://localhost:4000/quiz_landing/attempted",
+                        HEADERS
+                    )
                     .then(res => {
-                        let attempted = res.data.length - this.state.completed;
-                        this.setState({ attempted: attempted });
+                        console.log(res);
+                        this.setState({ attempted: res.data.length });
                     });
             });
     }
     completedQuizzes() {
         window.location = "/completed";
+    }
+    attemptedQuizzes() {
+        window.location = "/attempted";
+    }
+    newQuizzes() {
+        window.location = "/new";
     }
 
     render() {
@@ -49,11 +57,17 @@ export default class Category extends Component {
                 <h1>{localStorage.getItem("user_name")}'s Quiz Home</h1>
                 <div className="list-container">
                     <div className="list">
-                        <div className="box">
+                        <div className="box"
+                        style={{ cursor: "pointer" }}
+                        onClick={this.newQuizzes}>
                             <h4>Try something new!</h4>
                             <p>New : {this.state.new}</p>
                         </div>
-                        <div className="box">
+                        <div
+                            className="box"
+                            style={{ cursor: "pointer" }}
+                            onClick={this.attemptedQuizzes}
+                        >
                             <h4>You can do better!</h4>
                             <p>To be finished : {this.state.attempted}</p>
                         </div>

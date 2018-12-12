@@ -1,0 +1,28 @@
+@import "../Styles/variables";
+.content {
+    .ReactTable {
+        .rt-table {
+            .rt-resizable-header-content {
+                text-align: left;
+                font-size: 18px ;
+                font-weight: bold;
+            }
+               // .rt-tr.-padRow.-even{
+               //    background: $green;
+               // }
+               // .rt-tr.-padRow.-odd{
+               //    background: $blue;
+               // }
+               // .rt-tr.-even {
+               //    background: $green;
+               // }
+               // .rt-tr.-odd{
+               //    background: $blue;
+               // }
+        }
+    }
+}
+
+h2{
+   padding-left: 15px;
+}

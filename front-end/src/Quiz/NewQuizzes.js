@@ -21,23 +21,27 @@ export default class NewQuizzes extends Component {
                 this.setState({ newQuiz: res.data.length });
             });
     }
+    newQuizzes() {
+        window.location = "/new";
+    }
+    create() {
+        window.location = "/subjects";
+    }
 
     render() {
         return (
             <div>
                 {this.state.newQuiz === 1 ? (
-                    <div onClick="#">
-                        You have {this.state.newQuiz} new quiz to try! Click
-                        here to view them.
+                    <div onClick={this.newQuizzes}>
+                     {this.state.newQuiz} New quiz
                     </div>
                 ) : this.state.newQuiz > 1 ? (
-                    <div onClick="#">
-                        You have {this.state.newQuiz} new quizzes to try! Click
-                        here to view them.
+                    <div onClick={this.newQuizzes}>
+                        {this.state.newQuiz} New quizzes
                     </div>
                 ) : (
-                    <div onClick="#">
-                        You have no new quizzes to try, why not create some?
+                    <div onClick={this.create}>
+                       Learn
                     </div>
                 )}
             </div>
