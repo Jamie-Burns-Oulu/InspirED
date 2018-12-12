@@ -20,6 +20,9 @@ import MaterialByCategory from "./Materials/MaterialByCategory";
 import ShowMaterial from "./Materials/ShowMaterial";
 import ShowQuiz from "./Quiz/ShowQuiz";
 import Completed from "./Quiz/Completed";
+import Attempted from "./Quiz/Attempted";
+import New from "./Quiz/New";
+import Leaderboard from "./Stats/Leaderboard";
 
 class App extends Component {
     constructor() {
@@ -83,8 +86,11 @@ class App extends Component {
                     <Route path="/questioncreate/:id" component={QuestionCreate} />
                     <Route path="/result/:id" component={Result} />
                     <Route path="/completed" component={Completed} />
+                    <Route path="/attempted" component={Attempted} />
+                    <Route path="/new" component={New} />
                     <Route path="/settings" exact component={Settings} /> 
                     <Route path="/register" exact component={Register} />
+                    <Route path="/leaderboard" exact component={Leaderboard} />
                     <Route path="/material/:category?" component={MaterialByCategory} />   
                     <Route path="/study/material/:material" component={ShowMaterial} />   
                     <Route path="/quiz/:id?" exact component={ShowQuiz}/>
