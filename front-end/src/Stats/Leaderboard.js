@@ -28,7 +28,7 @@ export default class Leaderboard extends Component {
         const { tableData } = this.state;
 
         return (
-            <div className="content">
+            <div className="rt-content">
                 <h2>Leaderboard</h2>
                 <ReactTable
                     data={tableData}
