@@ -8,6 +8,8 @@ export default class Completed extends Component {
             window.location = "/Login";
         }
         super();
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseExit = this.mouseExit.bind(this);
         this.state = {
             newQuizzes: []
         };
@@ -19,43 +21,45 @@ export default class Completed extends Component {
             })
             .then(res => {
                 this.setState({ newQuizzes: res.data });
-                console.log(res.data);
             });
     }
-
-    take(id) {
-        window.location = "quiztake/" + id;
+    mouseEnter(e, newQuizzes) {
+        const el = e.target;
+        const quiztake = `quiztake/${newQuizzes.quiz_id}`;
+        el.innerHTML = `<div class="acn-box-hover">
+                        <i>${newQuizzes.subject_name}, ${
+                            newQuizzes.category_name}</i>
+                        <div><h3>${newQuizzes.quiz_name}</h3></div>
+                        <div><a href=${quiztake}>Just do it!</a></div>
+                        </div>`;
     }
+    mouseExit(e, newQuizzes) {
+        const el = e.target;
+        el.innerHTML = `<h3>${newQuizzes.quiz_name}</h3>`;
+    }    
 
     render() {
         return (
             <div className="content">
-                <div className="subject-container">
+                <div className="acn-container">
                     <h1>New Quizzes</h1>
-                    <div className="list-container">
-                        <div className="list">
+                    <div className="acn-inner-container">
                             {this.state.newQuizzes.map(newQuizzes => (
                                 <div
-                                    className="box"
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                        this.take(newQuizzes.quiz_id);
+                                    className="acn-box"
+                                    onMouseEnter={e => {
+                                        this.mouseEnter(e, newQuizzes);
                                     }}
-                                >
-                                    <p>
-                                        <i>
-                                            {newQuizzes.subject_name},{" "}
-                                            {newQuizzes.category_name}
-                                        </i>
-                                    </p>
+                                    onMouseLeave={e => {
+                                        this.mouseExit(e, newQuizzes);
+                                    }}
+                                >                    
                                     <h3>{newQuizzes.quiz_name}</h3>
-                                    <p>Just do it!</p>
                                 </div>
                             ))}
                         </div>
                     </div>
                 </div>
-            </div>
         );
     }
 }

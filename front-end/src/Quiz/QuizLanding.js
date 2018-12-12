@@ -9,7 +9,6 @@ export default class Category extends Component {
         }
         super();
         this.get = this.get.bind(this);
-        //this.completedQuizzes = this.completedQuizzes.bind(this);
         this.state = {
             new: "",
             attempted: "",
@@ -36,7 +35,6 @@ export default class Category extends Component {
                         HEADERS
                     )
                     .then(res => {
-                        console.log(res);
                         this.setState({ attempted: res.data.length });
                     });
             });
@@ -57,26 +55,26 @@ export default class Category extends Component {
                 <h1>{localStorage.getItem("user_name")}'s Quiz Home</h1>
                 <div className="list-container">
                     <div className="list">
-                        <div className="box"
+                        <div className="ql-box"
                         style={{ cursor: "pointer" }}
                         onClick={this.newQuizzes}>
-                            <h4>Try something new!</h4>
+                            <h3>Try something new!</h3>
                             <p>New : {this.state.new}</p>
                         </div>
                         <div
-                            className="box"
+                            className="ql-box"
                             style={{ cursor: "pointer" }}
                             onClick={this.attemptedQuizzes}
                         >
-                            <h4>You can do better!</h4>
+                            <h3>You can do better!</h3>
                             <p>To be finished : {this.state.attempted}</p>
                         </div>
                         <div
-                            className="box"
+                            className="ql-box"
                             style={{ cursor: "pointer" }}
                             onClick={this.completedQuizzes}
                         >
-                            <h4>Nailed it!</h4>
+                            <h3>Nailed it!</h3>
                             <p>Completed : {this.state.completed}</p>
                         </div>
                     </div>

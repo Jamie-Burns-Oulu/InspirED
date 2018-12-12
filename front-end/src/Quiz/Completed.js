@@ -8,7 +8,8 @@ export default class Completed extends Component {
             window.location = "/Login";
         }
         super();
-        this.result = this.result.bind(this);
+        this.mouseEnter = this.mouseEnter.bind(this);
+        this.mouseExit = this.mouseExit.bind(this);
         this.state = {
             completedQuizzes: []
         };
@@ -20,34 +21,40 @@ export default class Completed extends Component {
             })
             .then(res => {
                 this.setState({ completedQuizzes: res.data });
-                console.log(res.data)
             });
     }
-    result(id) {
-        window.location = "result/" + id;
+    mouseEnter(e, completed) {
+        const el = e.target;
+        const result = `result/${completed.quiz_instance_id}`;
+        el.innerHTML = `<div class="acn-box-hover">
+                        <div><h3>${completed.name}</h3></div>
+                        <div><a href=${result}>Result</a></div>
+                        </div>`;
+    }
+    mouseExit(e, completed) {
+        const el = e.target;
+        el.innerHTML = `<h4>${completed.name}</h4>`;
     }
 
     render() {
         return (
             <div className="content">
-                <div className="subject-container">
+                <div className="acn-container">
                     <h1>Completed Quizzes</h1>
-                    <div className="list-container">
-                        <div className="list">
+                    <div className="acn-inner-container">
                             {this.state.completedQuizzes.map(completed => (
                                 <div
-                                    className="box"
-                                    style={{ cursor: "pointer" }}
-                                    onClick={() => {
-                                        this.result(completed.quiz_instance_id);
+                                    className="acn-box"
+                                    onMouseEnter={e => {
+                                        this.mouseEnter(e, completed);
                                     }}
-                                >
-                                
+                                    onMouseLeave={e => {
+                                        this.mouseExit(e, completed);
+                                    }}                                  
+                                >                              
                                     <h4>{completed.name}</h4>
-                                    <div>View result</div>
                                 </div>
                             ))}
-                        </div>
                     </div>
                 </div>
             </div>

@@ -26,7 +26,7 @@ class Settings extends Component {
 
     handleSubmit = event => {
         event.preventDefault();
-        const username = localStorage.getItem('user_name');
+        const username = localStorage.getItem("user_name");
         const { picture, email, pass } = this.state;
         if (picture) {
             axios
@@ -37,7 +37,7 @@ class Settings extends Component {
                 })
                 .then(res => {
                     //What to do, route back to profile?
-                    localStorage.setItem('user_picture', picture);
+                    localStorage.setItem("user_picture", picture);
                     console.log("Picture updated");
                 });
         } else if (email) {
@@ -49,9 +49,8 @@ class Settings extends Component {
                 })
                 .then(res => {
                     //What to do, route back to profile?
-                    localStorage.setItem('user_email', email);
+                    localStorage.setItem("user_email", email);
                     console.log("Email updated");
-                    
                 });
         } else if (pass) {
             bcrypt.genSalt(10, function(err, salt) {
@@ -67,7 +66,6 @@ class Settings extends Component {
                         .then(res => {
                             //What to do, route back to profile?
                             console.log("Password updated");
-
                         });
                 });
             });
@@ -77,11 +75,10 @@ class Settings extends Component {
     render() {
         return (
             <div className="subject-container">
-                <h1>{localStorage.getItem('user_name')}'s Settings</h1>
+                <h1>{localStorage.getItem("user_name")}'s Settings</h1>
                 <div className="list-container">
                     <div className="list">
-                        <div className="box">
-                            <h4>Update Picture</h4>
+                        <div className="settings-box">
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     <input
@@ -97,8 +94,7 @@ class Settings extends Component {
                                 </button>
                             </form>
                         </div>
-                        <div className="box">
-                            <h4>Update Email</h4>
+                        <div className="settings-box">
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     <input
@@ -114,8 +110,7 @@ class Settings extends Component {
                                 </button>
                             </form>
                         </div>
-                        <div className="box">
-                            <h4>Update Password</h4>
+                        <div className="settings-box">
                             <form onSubmit={this.handleSubmit}>
                                 <label>
                                     <input
