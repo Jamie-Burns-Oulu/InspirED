@@ -14,7 +14,10 @@ class Settings extends Component {
         this.state = {
             picture: "",
             email: "",
-            pass: ""
+            pass: "",
+            p: "",
+            em: "",
+            pa: ""
         };
     }
 
@@ -36,9 +39,13 @@ class Settings extends Component {
                     picture
                 })
                 .then(res => {
-                    //What to do, route back to profile?
                     localStorage.setItem("user_pic", picture);
-                    console.log("Picture updated");
+                    this.setState({ p: "picture updated", em:"", pa:"" });
+                    setTimeout(function() {
+                            window.location = window.location;
+                        }.bind(this),
+                        400
+                    );
                 });
         } else if (email) {
             axios
@@ -48,9 +55,14 @@ class Settings extends Component {
                     email
                 })
                 .then(res => {
-                    //What to do, route back to profile?
                     localStorage.setItem("user_email", email);
-                    console.log("Email updated");
+                    this.setState({ em: "email updated", p:"", pa:"" });
+                    setTimeout(function() {
+                        window.location = window.location;
+                    }.bind(this),
+                    400
+                );
+                   
                 });
         } else if (pass) {
             bcrypt.genSalt(10, function(err, salt) {
@@ -64,8 +76,12 @@ class Settings extends Component {
                             password
                         })
                         .then(res => {
-                            //What to do, route back to profile?
-                            console.log("Password updated");
+                            this.setState({ pa: "password updated", p:"", em:"" });
+                            setTimeout(function() {
+                                window.location = window.location;
+                            }.bind(this),
+                            400
+                        );
                         });
                 });
             });
@@ -92,6 +108,7 @@ class Settings extends Component {
                                 <button className="button" type="submit">
                                     Update Picture
                                 </button>
+                                <div className="updated">{this.state.p}</div>
                             </form>
                         </div>
                         <div className="settings-box">
@@ -108,6 +125,7 @@ class Settings extends Component {
                                 <button className="button" type="submit">
                                     Update Email
                                 </button>
+                                <div className="updated">{this.state.em}</div>
                             </form>
                         </div>
                         <div className="settings-box">
@@ -124,6 +142,7 @@ class Settings extends Component {
                                 <button className="button" type="submit">
                                     Update Password
                                 </button>
+                                <div className="updated">{this.state.pa}</div>
                             </form>
                             {this.state.picture.length ? (
                                 <div className="settings-id-card">
