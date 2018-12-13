@@ -29,7 +29,9 @@
         margin-top: 7% !important;
         border-radius: $border-radius-normal !important;
         border: $border-normal !important;
-        border-color: $green !important;
+        background-color: $blue !important;
+        border-color: white !important;
+        color: white !important;
         font-size: 16px !important;
         transition: background-color 0.1s, border 0.1s !important;
         &:hover {
@@ -60,8 +62,11 @@
                 width: 70px;
                 height: 70px;
             }
-    
         }
     }
-    
+    .updated {
+        font-style: italic;
+        color: $green;
+        padding-top: 15px;
+    }
 }
