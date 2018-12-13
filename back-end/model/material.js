@@ -15,9 +15,10 @@ const material = {
             // LEFT JOIN quiz ON material_item.material_id = quiz.material_id WHERE material_item.material_id=?`, 
             `SELECT material_item.id, material_item.content, quiz.id AS quizid, quiz.material_id 
             AS quizmaterialid, quiz.name AS quizname, quiz.difficulty AS quizdifficulty, material.name 
-            AS materialname, user.id AS userid, user.username AS username FROM material_item 
+            AS materialname, user.id AS userid, user.username AS username, quiz_instance.id AS instanceid, quiz_instance.result AS instanceresult FROM material_item 
             LEFT JOIN quiz ON material_item.material_id = quiz.material_id INNER JOIN material ON 
-            material_item.material_id = material.id INNER JOIN user ON material.user_id = user.id WHERE material_item.material_id=?`,
+            material_item.material_id = material.id LEFT JOIN user ON material.user_id = user.id LEFT JOIN 
+            quiz_instance ON quiz.id = quiz_instance.quiz_id WHERE material_item.material_id=?`,
             [material_id], callback);
     },
     getMaterialByCategoryId(id, callback) {
@@ -35,6 +36,9 @@ const material = {
     },
     addMaterialItem(material, callback) {
         db.query('INSERT INTO material_item (material_id, content) VALUES(?,?)', [material.materialid, material.content], callback);
+    },
+    updateItem(item, callback) {
+        db.query('UPDATE material_item SET content = ? WHERE id = ?', [item.txt, item.id], callback);
     }
 };
 module.exports = material;

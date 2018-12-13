@@ -29,3 +29,7 @@ p {
     visibility: hidden;
     transition: visibility $transition-length;
 }
+*:focus {
+    outline: none;
+}
+

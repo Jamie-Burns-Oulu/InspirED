@@ -67,6 +67,7 @@ export default class QuizTake extends Component {
                     )
                     .then(res => {
                         this.setState({ questions: res.data });
+                        console.log(res.data);
                         this.getAnswers();
                     });
             });
@@ -96,7 +97,7 @@ export default class QuizTake extends Component {
         var {quiz_instance} = this.state
         var next = 0 || this.state.questionNumber + 1;
         if (this.state.questions.length === next) {
-            alert("Complete");
+            // alert("Complete");
             window.location = "/result/"+ quiz_instance;
         }
         let answerGiven = document.getElementsByName("answerGiven");
@@ -131,39 +132,53 @@ export default class QuizTake extends Component {
     };
 
     render() {
+        const addButton = () => {
+            const text = this.state.questionNumber === this.state.questions.length -1 ? {cls: 'submit', text: 'Submit'} : {cls: '', text:'Next'};
+            return(<button onClick={this.nextQuestion} className={`btn btn-default ${text.cls}`}>{text.text}</button>)
+        }
         return (
-            <div className="subject-container">
-                <div className="list-container">
+            <div className="quiztake-container">
+                <div className="inner-container">
                     <div className="list">
                         {this.state.questions.length > 0 && (
                             <div className="box">
-                                {this.state.questions
-                                    ? this.state.questions[
-                                          this.state.questionNumber
-                                      ].question
-                                    : "null"}
+                                <h1>
+                                    {this.state.questions
+                                        ? this.state.questions[
+                                                this.state.questionNumber
+                                            ].question
+                                        : "null"}
+                                </h1>
                                 <br />
-                                {this.state.answers.map(answer => (
-                                    <span>
-                                        {answer.answer}
-                                        <input
-                                            type="radio"
-                                            id={answer.id}
-                                            name="answerGiven"
-                                            onChange={this.onChange}
-                                        />
-                                        <br />
-                                    </span>
-                                ))}
+                                <div className="content">
+                                    <div className="ans">
+                                        {this.state.answers.map(answer => (
+                                            <div className="rows">
+                                                <div className="answerheading">
+                                                    <label for={answer.id}>{answer.answer}</label>
+                                                </div>
+                                                <div>
+                                                    <input
+                                                        type="radio"
+                                                        id={answer.id}
+                                                        name="answerGiven"
+                                                        className="answergiven"
+                                                        onChange={this.onChange}
+                                                    />
+                                                </div>
+                                                <br />
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
                             </div>
                         )}
-                        <div
-                            className="arrow-container"
-                            onClick={this.nextQuestion}
-                        >
-                            <button>Next</button>
-                        </div>
                     </div>
+                </div>
+                <div
+                    className="arrow-container"
+                >
+                {addButton()}
                 </div>
             </div>
         );

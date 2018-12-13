@@ -1,0 +1,80 @@
+@import '../Styles/variables';
+.quiztake-container {
+    width: 70%;
+    margin:auto;
+    .inner-container {
+        padding: 15px;
+        border: $border-normal;
+        border-radius: $border-radius-normal;
+        .list {
+            width: 90%;
+            margin: auto;
+        }
+    }
+    .content {
+        max-width: 70%;
+    }
+    .ans {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        .rows {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+                .answerheading {
+                    width: 400px;
+                    display: flex;
+                    flex-wrap: wrap;
+                    label {
+                        font-size: 23px;
+                        font-weight: inherit;
+                        &:hover {
+                            cursor: pointer;
+                            color: $green;
+                        }
+                    }
+                    
+                }
+                
+        }
+    }
+}
+.answergiven:hover {
+    cursor: pointer;
+}
+.arrow-container {
+    text-align: right;
+    margin-top: 20px;
+    button {
+        width: 100px;
+        border-radius: $border-radius-normal;
+        background-color: $blue;
+        border: 1px solid $blue;
+        color: white;
+        &.submit {
+            background-color: $green !important;
+            border: 1px solid $green !important;
+            &:hover{
+                background-color: white !important;
+                color: $green !important;
+                border-color: $green !important;
+            }
+            &:focus {
+                outline: none;
+                color: white;
+            }
+        }
+        &:hover {
+            background-color: white;
+            color: $blue;
+            border-color: $blue;
+        }
+        &:focus {
+            outline: none;
+            color: white;
+        }
+    }
+}

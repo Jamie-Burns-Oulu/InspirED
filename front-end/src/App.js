@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import './index.scss';
-import { NavLink, Route, Switch } from "react-router-dom";
+import { NavLink, Route, Switch, } from "react-router-dom";
 import Register from "./User/Register";
 import Login from "./User/Login";
 import Subjects from "./Subject/Subjects";
@@ -40,7 +40,6 @@ class App extends Component {
         }            
         else {
             this.refs.navBar.style.display = 'none';
-            this.refs.search.style.display = 'none';
         }
     }
     logout() {
