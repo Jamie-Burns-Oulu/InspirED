@@ -36,6 +36,7 @@ export default class Category extends Component {
                     )
                     .then(res => {
                         this.setState({ attempted: res.data.length });
+                        console.log(res);
                     });
             });
     }

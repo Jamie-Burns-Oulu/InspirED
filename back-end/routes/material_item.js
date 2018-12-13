@@ -35,7 +35,6 @@ router.post('/', userAuth, function(req, res, next) {
 router.put('/', userAuth, function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, authData) => {
         if(userAuth) {
-            console.log(req.body);
             material.updateItem(req.body.current, (err, rows) => {
                 if(err) console.log(err);
                 if(rows) res.json(rows);

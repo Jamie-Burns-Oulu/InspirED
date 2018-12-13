@@ -136,5 +136,8 @@ $hard: red;
             color: $blue;
             cursor: pointer;
         }
+        &:not(:first-child) {
+            margin-left: 40px;
+        }
     }
 }
