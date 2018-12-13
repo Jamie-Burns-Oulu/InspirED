@@ -8,8 +8,13 @@
         width: 100%;
         display: flex;
         flex-wrap: wrap;
+        justify-content: space-between;
     }
     .acn-box {
+        h3 {
+            font-weight: 100;
+        }
+        // position: static;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -24,11 +29,7 @@
         border-color: $green;
         border-radius: 50%;
         font-size: $box-variable-small;
-        transition: border $transition-length,
-            background-color $transition-length,
-            border-radius $transition-length, color $transition-length,
-            font-size $transition-length, margin $transition-length,
-            font-weight $transition-length;
+        transition: all $transition-length;
         &:hover {
             border-color: $green;
             background-color: $green;
@@ -60,14 +61,25 @@
     }
 }
 .ql-box {
-   padding:4%;
-   text-align: center;
-    margin-left: 60px;
-    width: 350px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
     min-width: 300px;
-    height: 250px;
+    height: 300px;
     border: $border-normal;
-    border-width: 10px;
+    border-width: 5px;
     border-color: $green;
-    border-radius: 15px;
+    border-radius: 25%;
+    transition: all $transition-length; 
+    h3 {
+        transition: margin $transition-length;
+    }
+    &:not(:first-child) {
+        margin-left: 60px;
+    }
+    &:hover {
+    }
 }

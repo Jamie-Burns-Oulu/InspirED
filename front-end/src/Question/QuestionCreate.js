@@ -103,7 +103,7 @@ export default class QuestionCreate extends Component {
                                 })
                                 .then(res => {
                                     if (submit) {
-                                        window.location = '/quiz';
+                                        window.location = '/';
                                     } else {
                                         window.location = `/questioncreate/${this.quiz_id}`;
                                     }

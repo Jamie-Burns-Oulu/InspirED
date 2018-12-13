@@ -3,6 +3,7 @@ const router = express.Router();
 const userAuth = require("../midware/userAuth");
 const quiz_landing = require("../model/quiz_landing");
 const jwt = require("jsonwebtoken");
+const uniqueResult = require('../midware/uniqueResult');
 
 router.get("/attempted", userAuth, function(req, res, next) {
     jwt.verify(req.token, "group1", (err, authData) => {
@@ -13,8 +14,12 @@ router.get("/attempted", userAuth, function(req, res, next) {
                     (err, rows) => {
                         if (err) {
                             res.json(err);
+                            console.log(err);
+                            
                         } else {
-                            res.json(rows);
+                            const uniq = uniqueResult(rows, 'quiz_id');
+                            console.log(uniq);
+                            res.json(uniq);
                         }
                     }
                 );

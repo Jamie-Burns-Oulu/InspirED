@@ -40,16 +40,23 @@ export default class ShowMaterial extends Component {
             }
         });
         this.mouseEnter = (e, quiz) => {
-            console.log(quiz);
             const   el = e.target,
                     quiztake = `quiztake/${quiz.quizid}`,
-                    result = `result/${quiz.id}` ,
-                    input = quiz.instanceresult < 100 ? 
-                                    `<a href="/${quiztake}">Complete quiz!</a><br /><a href="/${result}">See result!</a>`: 
-                                    `<a href="/${result}">See result!</a>`;
+                    result = `result/${quiz.instanceid}`,
+                    instanceresult = quiz.instanceresult;
+            let input = '';
+            if(instanceresult < 100 && instanceresult !== null) {
+                input = `<a href="/${quiztake}">Complete quiz!</a><br /><a href="/${result}">See result!</a>`;
+            }   
+            if(instanceresult === 100) {
+                input = `<a href="/${result}">See result!</a>`;
+            }
+            if(instanceresult == null) {
+                input = `<a href="/${quiztake}">Complete quiz!</a>`;
+            }      
 
             el.innerHTML = `<div class="acn-box-hover">
-                            <div>${quiz.quizname}</div>
+                            <div id="hover-quizname">${quiz.quizname}</div>
                             <br />
                             <div>${input}</div>
                             </div>`;
@@ -119,6 +126,7 @@ export default class ShowMaterial extends Component {
         axios.get(`http://localhost:4000/study/${material}`, HEADERS).then( res => {
             console.log(res);
             this.setState({content: res.data.rows, quizzes: res.data.quiz});
+            console.log(res);
             this.checkUser();
         });
     }

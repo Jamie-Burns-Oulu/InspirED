@@ -19,19 +19,25 @@ router.post("/login", function(req, res, next) {
         if (err) {
             res.json(err);
         } else {
-            const loggedUser = {
-                username: count[0].username,
-                id: count[0].id,
-                email: count[0].email,
-                picture: count[0].picture,
-                admin: count[0].admin
-            };
-            jwt.sign({user: loggedUser }, 'group1', (err, token) => {
-                res.json({
-                    count,
-                    token
+            
+            if(count.length) {
+                const loggedUser = {
+                    username: count[0].username,
+                    id: count[0].id,
+                    email: count[0].email,
+                    picture: count[0].picture,
+                    admin: count[0].admin
+                };
+                jwt.sign({user: loggedUser }, 'group1', (err, token) => {
+                    res.json({
+                        count,
+                        token
+                    });
                 });
-            });
+            }
+            else {
+                res.json({msg: 1});
+            }
             
         }
     });

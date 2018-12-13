@@ -30,13 +30,13 @@ export default class NewQuizzes extends Component {
 
     render() {
         return (
-            <div>
+            <div onClick={this.newQuizzes} className="newquizzes">
                 {this.state.newQuiz === 1 ? (
-                    <div onClick={this.newQuizzes}>
+                    <div >
                      {this.state.newQuiz} New quiz
                     </div>
                 ) : this.state.newQuiz > 1 ? (
-                    <div onClick={this.newQuizzes}>
+                    <div>
                         {this.state.newQuiz} New quizzes
                     </div>
                 ) : (

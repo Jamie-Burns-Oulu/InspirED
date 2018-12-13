@@ -30,7 +30,6 @@ class Login extends Component {
         const self = this;
         const { loginRegisterContainer, header, loginContent, toggle } = this.refs;
         this.setState({register: !this.state.register});
-        console.log(this.state.register);
         if(this.state.register) {
             loginRegisterContainer.classList.remove('login');
             loginRegisterContainer.classList.add('register');
@@ -49,19 +48,27 @@ class Login extends Component {
         axios
             .post("http://localhost:4000/login_register/login/", {username: username})
             .then(response => {
-                    bcrypt.compare(password, response.data.count[0].password, function(err, res) {
-                    if (res) {   
-                        localStorage.setItem('loggedUserToken', response.data.token);
-                            axios.get('http://localhost:4000/user_profile/data', {headers: {'authorization' :  response.data.token}}).then(res => {
-                            localStorage.setItem('user_id', res.data[0].id);   
-                            localStorage.setItem('user_name', res.data[0].username);
-                            localStorage.setItem('user_pic', res.data[0].picture);
-                            localStorage.setItem('user_email', res.data[0].email);
-                            window.location = '/';
+                const el = document.getElementById('wrngpass');
+                    if(response.data.msg !== 1) {
+                        bcrypt.compare(password, response.data.count[0].password, function(err, res) {
+                            if (res) {   
+                                localStorage.setItem('loggedUserToken', response.data.token);
+                                    axios.get('http://localhost:4000/user_profile/data', {headers: {'authorization' :  response.data.token}}).then(res => {
+                                    localStorage.setItem('user_id', res.data[0].id);   
+                                    localStorage.setItem('user_name', res.data[0].username);
+                                    localStorage.setItem('user_pic', res.data[0].picture);
+                                    localStorage.setItem('user_email', res.data[0].email);
+                                    window.location = '/';
+                                });
+                            }
+                            else {
+                                el.innerHTML = 'Wrong password, try again.';
+                            }
                         });
                     }
-                    
-                });
+                    else {
+                        el.innerHTML = 'Username does not exist.';
+                    }
                 
             });
     };
@@ -122,6 +129,8 @@ class Login extends Component {
                                         <input className="submit-btn btn btn-default" type="submit" value="Login"></input>
                                     </div>
                                 </form>
+                                <br />
+                                <p className="error" id="wrngpass"></p>
                             </div>
                             <div className="switch" ref="register">
                                 <p ref="switchText">Not a member yet? Register <a href="#" onClick={() => {this.register()}}>here</a></p>

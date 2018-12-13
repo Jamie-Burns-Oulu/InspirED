@@ -2,10 +2,15 @@ const db = require("../database");
 const quiz_landing = {
     getAttemptedQuizInstances(user_id, callback) {
         db.query(
-            "SELECT DISTINCT quiz_instance.quiz_id, quiz_instance.id, quiz.name, category.name as category_name, subject.name as subject_name FROM quiz_instance " +
-                "INNER JOIN quiz ON quiz_instance.quiz_id = quiz.id inner join category on quiz.category_id = category.id " +
-                "inner join subject on category.subject_id = subject.id where quiz_id not in" +
-                "(SELECT quiz_id FROM quiz_instance where user_id=? and result=100) and quiz_instance.user_id = ? and result < 100",
+            // "SELECT DISTINCT quiz_instance.quiz_id as quiz_id, quiz_instance.id, quiz.name, category.name as category_name, subject.name as subject_name FROM quiz_instance " +
+            //     "INNER JOIN quiz ON quiz_instance.quiz_id = quiz.id inner join category on quiz.category_id = category.id " +
+            //   "INNER JOIN quiz ON quiz_instance.quiz_id = quiz.id inner join category on quiz.category_id = category.id " +
+            //     "inner join subject on category.subject_id = subject.id where quiz_id not in" +
+            //     "(SELECT quiz_id FROM quiz_instance where user_id=? and result=100) and quiz_instance.user_id = ? and result < 100 SORT BY quiz_instance.result desc",
+            `SELECT  quiz_instance.quiz_id as quiz_id, quiz_instance.result as instanceresult, quiz_instance.id, quiz.name, category.name as category_name, subject.name as subject_name FROM quiz_instance  
+            INNER JOIN quiz ON quiz_instance.quiz_id = quiz.id inner join category on quiz.category_id = category.id  
+            Inner join subject on category.subject_id = subject.id  where quiz_id not in 
+            (SELECT quiz_id FROM quiz_instance where user_id=? and result=100) and quiz_instance.user_id = ? and result < 100 ORDER BY quiz_instance.result desc `,
             [user_id, user_id],
             callback
         );

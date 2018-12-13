@@ -45,7 +45,7 @@ export default class Subjects extends Component {
             this.setState({ show: !this.state.show }); 
         }
         window.addEventListener('click', e => {
-            if(e.target.id === 'addnewsubject') {
+            if(e.target.classList.value.includes('newsub')) {
                 this.openModal('subject');
             }
         });
@@ -142,8 +142,8 @@ export default class Subjects extends Component {
                             return(
                                 <div key={key} className="collection">
                                     <div className="items">
-                                        <div className="subject-box" id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>                                            
-                                            <div>
+                                        <div className={`subject-box ${subject[key].subjectid === -1 ? 'newsub' : ''}`} id={subject[key].subjectid === -1 ? 'addnewsubject' : ''}>                                            
+                                            <div className={subject[key].subjectid === -1 ? ' newsub ' : ''}>
                                                 {subject[key].subjectname}
                                             </div>
                                         </div>

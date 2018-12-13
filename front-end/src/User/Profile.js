@@ -23,9 +23,10 @@ export default class Profile extends Component {
         while (!localStorage.getItem("user_pic")) return <Loading />;
         return (
             <div className="profile container">
+                <div className="container-settings">
                 <div className="info">
                     <img
-                        className="profilePicture pro"
+                        className="profilePicture p-pic pro"
                         src={localStorage.getItem("user_pic")}
                         alt="profile"
                     />
@@ -38,7 +39,6 @@ export default class Profile extends Component {
                         </li>
                     </ul>
                 </div>
-                <div className="container-settings">
                     <div className="stats box" id="stats">
                         <NewQuizzes />
                     </div>

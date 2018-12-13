@@ -120,6 +120,7 @@ $hard: red;
     overflow-x: scroll;
     .quiz {
         width: 150px;
+        min-width: 150px;
         height: 150px;
         border-radius: 25%;
         border: 1px solid $blue;
@@ -139,5 +140,8 @@ $hard: red;
         &:not(:first-child) {
             margin-left: 40px;
         }
+    }
+    #hover-quizname {
+        font-size: 13px;
     }
 }

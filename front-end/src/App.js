@@ -23,6 +23,7 @@ import Completed from "./Quiz/Completed";
 import Attempted from "./Quiz/Attempted";
 import New from "./Quiz/New";
 import Leaderboard from "./Stats/Leaderboard";
+import Axios from "axios";
 
 class App extends Component {
     constructor() {
@@ -32,6 +33,7 @@ class App extends Component {
     componentDidMount() {
        const logout = document.getElementById('logout')
         logout.style.display = 'none';
+
         if(Token) {
             logout.style.display = '';
             document.getElementById('login').style.display = 'none';
@@ -51,7 +53,7 @@ class App extends Component {
             <div className="App">
                 <div className="navigationbar" ref="navBar">
                     <NavLink to="/" >
-                        <img className="smallprofile" id="pic" alt="profilePic" src={localStorage.getItem('user_pic')}/> 
+                        <img className="smallprofile p-pic pro" ref="profilepic" id="pic" alt="profilePic" src={localStorage.getItem('user_pic')}/> 
                     </NavLink>     
                     <NavLink to="/" className="profile" exact activeClassName="active">
                         <input type="button" value="Home" />
@@ -65,7 +67,7 @@ class App extends Component {
                     <NavLink to="/subjects" exact activeClassName="active">
                         <input type="button" value="Start Learning" />
                     </NavLink>                   
-                    <NavLink to="/quizLanding" exact activeClassName="active">
+                    <NavLink to="/quizlanding" exact activeClassName="active">
                         <input type="button" value="My Quiz Home" />  
                     </NavLink>
                     <NavLink to="/logout" onClick={() => {this.logout()}} exact id="logout">
@@ -79,7 +81,7 @@ class App extends Component {
                     <Route path="/category" exact component={Category}  />
                     <Route path="/newcategory" exact component={NewCategory}  />
                     <Route path="/newsubject" exact component={NewSubject} />
-                    <Route path="/quizLanding" exact component={QuizLanding}  />
+                    <Route path="/quizlanding" exact component={QuizLanding}  />
                     <Route path="/quizcreate" exact component={QuizCreate} />
                     <Route path="/quiztake/:id" component={QuizTake} />
                     <Route path="/questioncreate/:id" component={QuestionCreate} />

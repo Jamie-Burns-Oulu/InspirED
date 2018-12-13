@@ -112,8 +112,6 @@ export default class Quiz_create extends Component {
             if(!modal) {
                 return (
                     <div>
-                        <label>
-                            Category
                             <select
                                 name="category_id"
                                 onChange={this.onChange}
@@ -131,7 +129,6 @@ export default class Quiz_create extends Component {
                                     </option>
                                 ))}
                             </select>
-                        </label>
                         <br />
                     </div>
                 )
@@ -144,9 +141,7 @@ export default class Quiz_create extends Component {
                 <div className="list-container">
                     <div className="list">
                         <div className="box">
-                            <form onSubmit={this.handleSubmit}>
-                                <label>
-                                    Quiz name
+                            <form onSubmit={this.handleSubmit} className="createform">
                                     <input
                                         type="text"
                                         name="name"
@@ -154,10 +149,7 @@ export default class Quiz_create extends Component {
                                         onChange={this.onChange}
                                         required
                                     />
-                                </label>
                                 {checkModal()}
-                                <label >
-                                    Select Material
                                     <select
                                         name="material_id"
                                         onChange={this.onChange}
@@ -175,10 +167,7 @@ export default class Quiz_create extends Component {
                                             </option>
                                         ))}
                                     </select>
-                                </label>
                                 <br />
-                                <label>
-                                    Difficulty
                                     <select
                                         name="difficulty"
                                         onChange={this.onChange}
@@ -190,25 +179,24 @@ export default class Quiz_create extends Component {
                                         <option value="2">Normal</option>
                                         <option value="3">Difficult</option>
                                     </select>
-                                </label>
                                 <br />
-                                <button className="button"  type="submit">
+                                <button className="button" type="submit" onClick={this.handleSubmit}>
                                     Create quiz and add questions
                                 </button>
                             </form>
                         </div>
-                        {this.state.category_id &&
+                        {/* {this.state.category_id &&
                         this.state.difficulty &&
-                        this.state.name ? (
-                            <div className="button" onClick={this.handleSubmit}>
+                        this.state.name ? (  */}
+                            {/* <div className="button" onClick={this.handleSubmit}>
                                 Create quiz and add questions
 
-                            </div>
-                        ) : (
+                            </div> */}
+                        {/* ) : (
                             <div>
                                 <i>please complete all fields</i>
                             </div>
-                        )}
+                        )} */}
                         <p className="error" id="quiznametaken"></p>
 
                 </div>

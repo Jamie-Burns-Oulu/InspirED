@@ -32,4 +32,11 @@ p {
 *:focus {
     outline: none;
 }
+.p-pic {
+    border: 1px solid lightgrey;
+    &.pro {
+        border: 2px solid gold;
+    }
+}   
+
 

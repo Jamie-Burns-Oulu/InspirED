@@ -57,13 +57,13 @@ export default class MaterialByCategory extends Component {
   render() {
     const self = this,
         fillContent = material => {
-                if(material.id === -2 || material.id === -1) {
-                    return(
-                        <div className="box material-parent" id='addnew' onClick={this.showModal}>
-                            {material.name}
-                        </div>
-                    )
-                }
+            if(material.id === -2 || material.id === -1) {
+                return(
+                    <div className="box material-parent" id='addnew' onClick={this.showModal}>
+                        {material.name}
+                    </div>
+                )
+            }
             return(
                 <div>
                     <NavLink to={`/study/material/${material.id}`}>

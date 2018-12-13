@@ -19,10 +19,20 @@ export default class Activity extends Component {
             const   el = e.target,
                     quiztake = `quiztake/${instance.quizid}`,
                     result = `result/${instance.id}` ,
-                    input = instance.result < 100 ? 
-                                    `<a href=${quiztake}>Complete quiz!</a><br /><a href=${result}>See result!</a>`: 
-                                    `<a href=${result}>See result!</a>`;
+                    instanceresult = instance.result;
 
+            let input = '';
+            if(instanceresult < 100 && instanceresult !== null) {
+                input = `<a href="/${quiztake}">Complete quiz!</a><br /><a href="/${result}">See result!</a>`;
+            }   
+            if(instanceresult === 100) {
+                input = `<a href="/${result}">See result!</a>`;
+            }
+            if(instanceresult == null) {
+                input = `<a href="/${quiztake}">Complete quiz!</a>`;
+            }   
+            
+            
             el.innerHTML = `<div class="acn-box-hover">
                             <div>${instance.quizname}</div>
                             <br />

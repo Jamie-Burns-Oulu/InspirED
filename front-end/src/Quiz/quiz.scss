@@ -26,3 +26,32 @@
         color: black;
     }
 }
+.createform {
+    input[type=text] {
+        border: $border-normal;
+        border-radius: $border-radius-normal;
+        padding: 5px 12px;
+        // padding-left: 15px;
+        width: 350px;
+        &:focus {
+            border-color: $green;
+        }
+    }
+    input, select {
+        transition: all $transition-length;
+        margin-bottom: 10px;
+    }
+    button[type=submit] {
+        // margin-top: 7px;
+        border-radius: $border-radius-normal;
+        background-color: $green;
+        color: white;
+        border: 1px solid $green;
+        transition: all $transition-length;
+        height: 30px;
+        &:hover {
+            color: $green;
+            background-color: white;
+        }
+    }
+}

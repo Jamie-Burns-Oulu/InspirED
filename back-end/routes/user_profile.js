@@ -2,15 +2,18 @@ var express = require("express");
 var router = express.Router();
 var user_profile = require("../model/user_profile");
 const userAuth = require("../midware/userAuth");
+const uniqueResult = require('../midware/uniqueResult');
 const jwt = require("jsonwebtoken");
 
 router.get("/i",  userAuth ,function(req, res, next) {
     jwt.verify(req.token, 'group1', (err, data) => {
         if(data) {
             user_profile.getInstanceAndQuizByUserId(data.user.id, (err, rows) => {
-                if(err) res.json(err); 
+                if(err) console.log(err); 
                 if(rows) {
-                    res.json(rows);
+                    const uniq = uniqueResult(rows, 'quizid');
+                    // console.log(uniq);
+                    res.json(uniq);
                 }
             });
         }

@@ -103,9 +103,11 @@ class ShowQuiz extends Component {
     }
     
     render() {
+        const   { subname, catname } = this.state,
+                heading = (subname === undefined && catname === undefined) ? 'No quizzes found.' : `All quizzes for ${subname}, ${catname}`;
         return (
             <div className="container">
-            <h1>All quizzes for {this.state.subname}, {this.state.catname}</h1>
+            <h1>{heading}</h1>
                 <div className="material-bycategory">
                     {this.state.quiz.map( q => (
                         <div>
