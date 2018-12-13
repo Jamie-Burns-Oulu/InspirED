@@ -55,6 +55,7 @@ class Settings extends Component {
                     email
                 })
                 .then(res => {
+                  const self = this;
                     localStorage.setItem("user_email", email);
                     this.setState({ em: "email updated", p:"", pa:"" });
                     setTimeout(function() {
@@ -62,9 +63,10 @@ class Settings extends Component {
                     }.bind(this),
                     400
                 );
-                   
+
                 });
         } else if (pass) {
+          const self = this;
             bcrypt.genSalt(10, function(err, salt) {
                 bcrypt.hash(pass, salt, function(err, hash) {
                     let password = hash;
@@ -76,7 +78,7 @@ class Settings extends Component {
                             password
                         })
                         .then(res => {
-                            this.setState({ pa: "password updated", p:"", em:"" });
+                            self.setState({ pa: "password updated", p:"", em:"" });
                             setTimeout(function() {
                                 window.location = window.location;
                             }.bind(this),
