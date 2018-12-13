@@ -5,8 +5,8 @@
     padding: 4%;
     text-align: center;
     margin-left: 60px;
-    width: 350px;
-    min-width: 300px;
+    width: 250px;
+    min-width: 250px;
     height: 250px;
     border: $border-normal;
     border-width: 10px;
@@ -17,6 +17,7 @@
     input[type="text"] {
         outline: none;
         padding: 7px;
+        text-align: center;
         margin: 9px auto;
         width: 100% !important;
         border: 1px solid rgba(0, 0, 0, 0.3) !important;
@@ -40,4 +41,27 @@
             outline: none !important;
         }
     }
+    .settings-id-card {
+        position: absolute;
+        left: 15px;
+        top: 30%;
+        width: 250px;
+        height: 200px;
+        #card-content {
+            padding-left: 70px;
+            text-align: left;
+            margin-top: -70px;
+        }
+        #card-picture {
+            position: relative;
+            top: -10px;
+            right: 130px;
+            img {
+                width: 70px;
+                height: 70px;
+            }
+    
+        }
+    }
+    
 }

@@ -78,7 +78,7 @@ export default class MaterialByCategory extends Component {
     if(!this.state.material.length) {
         return (
             <div className="container">
-                <h1>No material found.</h1>
+                <h1>No material found for {this.state.categoryInfo.name}</h1>
                 <div className="material-bycategory">
                     <div className="all-material">
                             <div className="items">

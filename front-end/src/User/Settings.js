@@ -37,7 +37,7 @@ class Settings extends Component {
                 })
                 .then(res => {
                     //What to do, route back to profile?
-                    localStorage.setItem("user_picture", picture);
+                    localStorage.setItem("user_pic", picture);
                     console.log("Picture updated");
                 });
         } else if (email) {
@@ -125,6 +125,16 @@ class Settings extends Component {
                                     Update Password
                                 </button>
                             </form>
+                            {this.state.picture.length ? (
+                                <div className="settings-id-card">
+                                    <img
+                                        src={this.state.picture}
+                                        className="profilePicture"
+                                    />
+                                </div>
+                            ) : (
+                                <div />
+                            )}
                         </div>
                     </div>
                 </div>
