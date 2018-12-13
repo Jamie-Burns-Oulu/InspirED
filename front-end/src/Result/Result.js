@@ -87,15 +87,26 @@ class Result extends Component {
         return (
             <div className="content">
                 <div className="subject-container">
-                <div className="results-heading">
-                    <h1>{this.state.answer_given[0].quizname} -  {this.state.result}%</h1>
-                    {this.state.result < 100 && 
-                    <h2><a href={`/study/material/${this.state.answer_given[0].quizmaterialid}`}>Need help?</a></h2>
-                    }
-                    
-                </div>
+                    <div className="results-heading">
+                        <h1>
+                            {this.state.answer_given[0].quizname} -{" "}
+                            {this.state.result}%
+                        </h1>
+                        {this.state.result < 100 && (
+                            <h2>
+                                <a
+                                    href={`/study/material/${
+                                        this.state.answer_given[0]
+                                            .quizmaterialid
+                                    }`}
+                                >
+                                    Need help?
+                                </a>
+                            </h2>
+                        )}
+                    </div>
                     <div className="list-container">
-                        <div className="list">
+                        <div className="result-container">
                             {this.state.result >= 0 &&
                                 this.state.results.map(
                                     result => (
@@ -103,7 +114,7 @@ class Result extends Component {
                                             this.state.style,
                                         (
                                             <div
-                                                className="box"
+                                                className="result-box"
                                                 style={{
                                                     borderColor: result.correct_answer
                                                         ? "#65d173"
@@ -112,10 +123,9 @@ class Result extends Component {
                                                 key={result.question}
                                                 value={result.correct_answer}
                                             >
-                                                {result.question}
-                                                <br />
-                                                {result.answer}
-                                                <br />
+                                                <h3>{result.question}</h3>
+
+                                                <h4>{result.answer}</h4>
                                             </div>
                                         )
                                     )

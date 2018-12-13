@@ -139,3 +139,18 @@
 ::-webkit-scrollbar {
     display: none;
 }
+
+.headers{ 
+    display: flex;
+    flex-direction: row;
+    padding-left: 2%;
+    margin-bottom: -8%;
+    font-weight: 100 !important;
+    font-size: 34px;
+
+}
+
+.category-header{  
+   padding-left: 10%;
+   font-weight: 100;
+}

@@ -15,6 +15,8 @@ class ShowQuiz extends Component {
         this.state = {
             quiz: [],
             category: '',
+            catname:"",
+            subname:"",
             show: false,
             createQuestion: false,
             quizDone: false,
@@ -80,7 +82,7 @@ class ShowQuiz extends Component {
         else {
             el.innerHTML = quiz.quizname;
         }
-       
+        if(this.state.quiz.length){console.log(this.state.quiz)}
         
     }
     get() {
@@ -93,13 +95,17 @@ class ShowQuiz extends Component {
         axios.get(PATH, HEADERS).then( res => {
             res.data.push({id: -1, quizname: 'Add new'});
             this.setState({quiz: res.data});
+            this.setState({catname: res.data[0].catname, subname:res.data[0].subname});
+            
         });
+        
+        
     }
     
     render() {
         return (
             <div className="container">
-            <h1>All quizzes for {this.state.quiz.quizname}</h1>
+            <h1>All quizzes for {this.state.subname}, {this.state.catname}</h1>
                 <div className="material-bycategory">
                     {this.state.quiz.map( q => (
                         <div>

@@ -156,8 +156,13 @@ export default class Subjects extends Component {
         }
         return (
             <div className="subject-container subject-route">
+            <div className="headers">
+             <div>Subjects</div>
+               <div className="category-header">Categories</div>
+               </div>
                 <div className="all-material">
                     <div className="list">
+                 
                         {Object.keys(subject).map(function(key) {
                             return(
                                 <div key={key} className="collection">
