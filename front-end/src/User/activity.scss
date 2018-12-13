@@ -1,10 +1,74 @@
 @import "../Styles/variables";
 
 .container.activity {
-    width: 70%;
+    width: 72%;
     min-height: 100px;
     margin: auto;
+    margin-bottom: 50px;
     border: $border-normal;
     border-radius: $border-radius-normal;
+}
+.ownquiz-container {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    border-radius: 5px;
+    min-height: 150px;
+    .ownquiz-item {
+        display: flex;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        min-width: 150px;
+        height: 150px;
+        border: $border-normal;
+        border-color: $blue;
+        background-color: $blue;
+        color: white;
+        font-size: 18px;
+        border-radius: 25%;
+        margin-left: 40px;
+
+    }
+}
+.att-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    min-height: 250px;
+    margin-bottom: 40px;
+    .activity-item {
+        width: 250px;
+        height:250px;
+        margin: 10px 40px; 
+        background-color: $green;
+        border: $border-normal;
+        border-color: $green;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 25%;
+        text-align: center;
+        color: white;
+        font-size: 25px;
+        transition: all $transition-length;
+        &:hover {
+            background-color: white;
+            border-color: $green;
+            color: $green;
+            cursor: pointer;
+        }
+    }
+}
+.infobox {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 50px;
+    .searchbox-container {
+        margin-left: 40px;
+        margin-bottom: 10px;
+    }
 }
 

@@ -13,7 +13,7 @@ router.get("/:id?", userAuth, function(req, res, next) {
         if(authData){
             if (req.params.id) { 
                material.getMaterialByCategoryId(req.params.id, (err, rows) => {
-                if(err) res.json(err);
+                if(err) console.log(err);
                 if(rows){
                     res.json(rows);
                 } 
@@ -63,24 +63,3 @@ router.post("/", userAuth, function(req, res, next) {
 });
 
 module.exports = router;
-// let data = {};
-// for(let i = 0; i < rows.length; i++) {
-    
-//     if (data[rows[i].subject_name] === undefined) {
-//         data[rows[i].subject_name] = [];
-//         data[rows[i].subject_name].push(rows[i]);
-//     }
-//     else {
-//         data[rows[i].subject_name].push(rows[i]);
-//     }
-// }
-// const responseData = {};
-// Object.keys(data).map( key => {
-//     const cats = {}
-//     cats.category_name = data[key].map(item => item.category_name)
-//     .filter((value, index, self) => self.indexOf(value) === index);
-//     responseData[key] = cats;
-//     cats.subject_name = key;
-// });
-// console.log(rows);
-// res.json(responseData);

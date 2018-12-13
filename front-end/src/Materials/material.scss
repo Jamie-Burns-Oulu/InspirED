@@ -59,11 +59,82 @@ $hard: red;
         border: 1px solid;
         border-radius: $border-radius-normal;
         padding: 30px;
+        
         .materialitem-box {
-            width: 100%;
+            width: 70%;
+            display: flex;
+            flex-wrap: wrap;
         }
     }
 }
 .add {
     margin-bottom: 5px;
+}
+
+.item-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    .update-button {
+        visibility: hidden;
+        
+        button {
+            border-radius: $border-radius-normal;
+            background-color: $blue;
+            border-color: $blue;
+            width: 100px;
+            color: white;
+            &:hover {
+                background-color: white;
+                color: $blue; 
+            }
+        }
+    } 
+}
+.materialitem-box {
+    // height: 30px;
+    margin-bottom: 10px;
+}
+.materialitem-box:focus {
+    border-bottom: 1px solid $blue;
+    padding: 2px;
+    box-sizing: border-box;
+    // border-radius: $border-radius-normal;
+    outline: none;
+}
+.addnewitem {
+    border-radius: $border-radius-normal;
+    border: 1px solid $green;
+    background-color: $green;
+    color: white;
+    &:hover {
+        color: $green;
+        border-color: $green;
+        background-color: white;
+    }
+}
+.relatedquizzes {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    .quiz {
+        width: 150px;
+        height: 150px;
+        border-radius: 25%;
+        border: 1px solid $blue;
+        background-color: $blue;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        font-size: 20px; 
+        &:hover {
+            background-color: white;
+            border-color: $blue;
+            color: $blue;
+            cursor: pointer;
+        }
+    }
 }

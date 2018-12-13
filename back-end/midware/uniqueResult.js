@@ -6,5 +6,6 @@ module.exports = (rows, property) => {
         results.push(rows[i]);
         checker.push(rows[i][property]);
     }
+    console.log(results);
     return results;
 }

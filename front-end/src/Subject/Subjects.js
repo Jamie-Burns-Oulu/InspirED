@@ -7,6 +7,7 @@ import MaterialByCategory from "../Materials/MaterialByCategory";
 import NewCategory from "../Category/NewCategory";
 import Modal from "../Modal/Modal";
 import Loading from "../Styles/Loading";
+import CountScrolling from '../CountScrolling';
 
 
 export default class Subjects extends Component {
@@ -20,7 +21,6 @@ export default class Subjects extends Component {
         this.mouseExit = this.mouseExit.bind(this);
         this.initCalcForShadow = this.initCalcForShadow.bind(this);
         this.generateForm =this.generateForm.bind(this);
-        this.scrollhandler = this.scrollhandler.bind(this);
         this.state = {
             subjects: [],
             show: false,
@@ -103,31 +103,6 @@ export default class Subjects extends Component {
                 this.setState({ subjects: res.data });
             });
     }
-    scrollhandler(e, key) {
-        const element = e.target,
-                node = document.getElementById(key),
-                hiddenwidth = element.scrollWidth,
-                visiblewidth = element.clientWidth,
-                howmuchisscrolled = element.scrollLeft;
-                console.log(node);
-        setTimeout(() => {
-            if (hiddenwidth - howmuchisscrolled === visiblewidth) {
-                node.classList.add('left');
-                node.classList.remove('right');
-                node.classList.remove('both');
-            }
-            if(howmuchisscrolled === 0) {
-                node.classList.add('right');
-                node.classList.remove('left');
-                node.classList.remove('both');
-            }
-            if(howmuchisscrolled > 0 && (hiddenwidth - howmuchisscrolled !== visiblewidth))  {
-                node.classList.add('both');
-                node.classList.remove('left');
-                node.classList.remove('right');
-            } 
-        }, 600);
-    }
     render() {
         const subject = this.state.subjects;
         const self = this;
@@ -172,7 +147,7 @@ export default class Subjects extends Component {
                                                 {subject[key].subjectname}
                                             </div>
                                         </div>
-                                        <div className='category-container' id={key} key={key} onScroll={(e) => {self.scrollhandler(e, key)}}>
+                                        <div className='category-container' id={key} key={key} onScroll={ e => CountScrolling(e, key) }>
                                             {subject[key].category.map(category => (
                                                 <div>
                                                     {insertCategories(subject[key], category)}

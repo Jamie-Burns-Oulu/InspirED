@@ -1,22 +1,26 @@
 .searchbox-container {
-    position: fixed;
-    top: 5px;
-    right: 20px;
     
     input.searchbox {
         margin-left: 5px;
         width: 0px;
+        
         visibility: hidden;
         border-radius: 15px;
         border: 1px solid rgba(0,0,0,0.2);
         transition: width 0.2s;
         padding: 5px;
-        
+
        &.open {
-        visibility: visible;
-        width: 350px;
+            visibility: visible;
+            width: 250px;
+            height:30px;
         &:focus {
             outline: none;
+        }
+        &.close {
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
         }
        }
         
