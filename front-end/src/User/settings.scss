@@ -9,7 +9,7 @@
     min-width: 250px;
     height: 250px;
     border: $border-normal;
-    border-width: 10px;
+    border-width: 3px;
     border-color: $green;
     border-radius: 15px;
 
@@ -27,6 +27,7 @@
     button[type="submit"] {
         min-width: 100px !important;
         margin-top: 7% !important;
+        padding: 2px 15px;
         border-radius: $border-radius-normal !important;
         border: $border-normal !important;
         background-color: $blue !important;
@@ -36,7 +37,7 @@
         transition: background-color 0.1s, border 0.1s !important;
         &:hover {
             background-color: $green !important;
-            border-color: white !important;
+            border-color: $green !important;
             color: white !important;
         }
         &:focus {

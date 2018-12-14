@@ -56,6 +56,9 @@ $pic-noob-border: 2px solid rgba(0, 0, 0, 0.3);
         #settings {
             padding-top: 11px;
         }
+        &:hover {
+            border-width: 3px !important;
+        }
         a:hover {
             color: black;
         }
