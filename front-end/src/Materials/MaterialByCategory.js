@@ -37,10 +37,13 @@ export default class MaterialByCategory extends Component {
                     HEADERS = {headers: {authorization: Token}};  
                 
             axios.get(`http://localhost:4000/materials/${categoryid}`, HEADERS ).then(res => {
+                console.log('res', res.data);
                 this.setState({material: res.data, data: true});
                 
                 if(res.data.length) {
                     this.state.material.push({id: -1, name: 'Add new!'});
+                    this.setState(this.state);
+                    
                 }
             });
             axios.get(`http://localhost:4000/category/category/${categoryid}`, HEADERS).then( res =>{

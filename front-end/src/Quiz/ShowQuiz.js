@@ -96,7 +96,7 @@ class ShowQuiz extends Component {
             res.data.push({id: -1, quizname: 'Add new'});
             this.setState({quiz: res.data});
             this.setState({catname: res.data[0].catname, subname:res.data[0].subname});
-            
+            this.setState(this.state);
         });
         
         
