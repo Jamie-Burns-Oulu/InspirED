@@ -44,6 +44,7 @@ export default class ShowMaterial extends Component {
                     quiztake = `quiztake/${quiz.quizid}`,
                     result = `result/${quiz.instanceid}`,
                     instanceresult = quiz.instanceresult;
+                    console.log(result);
             let input = '';
             if(instanceresult < 100 && instanceresult !== null) {
                 input = `<a href="/${quiztake}">Complete quiz!</a><br /><a href="/${result}">See result!</a>`;

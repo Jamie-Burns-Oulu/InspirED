@@ -54,8 +54,8 @@
            
             &:hover {
                 background-color: white;
-                color: $green;
-                border-color: $green;
+                color: $blue;
+                border-color: $blue;
             }
         }
         // & .question, .questionCreateAnswer {
@@ -142,17 +142,18 @@
         // top: 30%;
         width: 10%;
         border-radius: $border-radius-normal;
-        border: none;
+        border: 1px solid $blue;
         cursor: pointer;
-        background: $green;
+        background: $blue;
         color: white;
         // margin: 15px;
         height: 30px;
         // padding-top: 5px;
         transition: background $transition-length;
         &:hover {
-            background: $green;
-            color: black;
+            background: white;
+            color: $blue;
+            border-color: $blue;
         }
     }
     .green {

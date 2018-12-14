@@ -33,7 +33,14 @@ class Result extends Component {
         for (let i in answer_given) {
             for (let j in answers) {
                 if (answers[j].id === answer_given[i].answer_id) {
-                    let q = questions[answer_given[i].question_id - 1].question;
+                    // let q = questions[answer_given[i].question_id - 1].question;
+                    let q = '';
+                    for(let k = 0; k < questions.length; k++) {
+                        if(answer_given[i].question_id === questions[k].id) {
+                            q = questions[k].question;
+                            break;
+                        }
+                    }
                     let a = answers[j].answer;
                     let c = answers[j].correct_answer;
                     this.setState(({ results }) => ({
@@ -76,6 +83,7 @@ class Result extends Component {
                                 HEADERS
                             )
                             .then(res => {
+                                console.log(res);
                                 this.setState({ questions: res.data });
                             });
                     });
