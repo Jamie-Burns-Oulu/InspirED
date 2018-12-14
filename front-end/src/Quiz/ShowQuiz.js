@@ -104,7 +104,7 @@ class ShowQuiz extends Component {
     
     render() {
         const   { subname, catname } = this.state,
-                heading = (subname === undefined && catname === undefined) ? 'No quizzes found.' : `All quizzes for ${subname}, ${catname}`;
+                heading = (subname === undefined && catname === undefined) ? 'No quizzes found' : `All quizzes for ${subname}, ${catname}`;
         return (
             <div className="container">
             <h1>{heading}</h1>
